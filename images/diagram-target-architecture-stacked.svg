@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img"
+     viewBox="-8 -8 356 500" width="356" height="500">
+  <style>
+    .dgm-box       { fill: rgba(255,255,255,0.05); stroke: #ffffff; stroke-width: 1.25; }
+    .dgm-enclosure { fill: rgba(255,255,255,0.03); stroke: rgba(255,255,255,0.45); stroke-width: 1.25; stroke-dasharray: 5 4; }
+    .dgm-line      { stroke: #ffffff; stroke-width: 1.25; fill: none; }
+    .dgm-chrome    { stroke: rgba(255,255,255,0.45); stroke-width: 1.25; fill: none; }
+    .dgm-label {
+      font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px; letter-spacing: 0.06em; fill: #ffffff; text-anchor: middle;
+    }
+    .dgm-label.sm   { font-size: 11px; }
+    .dgm-label.note { font-size: 10.5px; fill: #bfe0ff; letter-spacing: 0.12em; text-anchor: start; }
+  </style>
+  <title>Target architecture: the secure element drives the trusted display and trusted button directly, with the companion app connected over NFC, USB or BLE</title>
+
+  <rect class="dgm-chrome" x="100" y="8" width="140" height="200" rx="18"/>
+  <rect class="dgm-chrome" x="112" y="34" width="116" height="140"/>
+  <line class="dgm-chrome" x1="158" y1="21" x2="182" y2="21" stroke-linecap="round"/>
+  <circle class="dgm-chrome" cx="148" cy="21" r="2"/>
+  <circle class="dgm-chrome" cx="170" cy="190" r="11"/>
+
+  <rect class="dgm-box" x="122" y="70" width="96" height="68" rx="2"/>
+  <text class="dgm-label sm" x="170" y="92">HARDWARE</text>
+  <text class="dgm-label sm" x="170" y="107">WALLET</text>
+  <text class="dgm-label sm" x="170" y="122">APP</text>
+
+  <line class="dgm-line" x1="170" y1="208" x2="170" y2="252"/>
+  <text class="dgm-label note" x="180" y="234">NFC / USB / BLE</text>
+
+  <rect class="dgm-enclosure" x="20" y="252" width="300" height="220" rx="12"/>
+
+  <rect class="dgm-box" x="95" y="282" width="150" height="52" rx="2"/>
+  <text class="dgm-label" x="170" y="312">SECURE ELEMENT</text>
+
+  <path class="dgm-line" d="M 170,334 V 360 M 88,360 H 252 M 88,360 V 386 M 252,360 V 386"/>
+
+  <rect class="dgm-box" x="36" y="386" width="104" height="58" rx="2"/>
+  <text class="dgm-label" x="88" y="410">TRUSTED</text>
+  <text class="dgm-label" x="88" y="428">DISPLAY</text>
+
+  <rect class="dgm-box" x="200" y="386" width="104" height="58" rx="2"/>
+  <text class="dgm-label" x="252" y="410">TRUSTED</text>
+  <text class="dgm-label" x="252" y="428">BUTTON</text>
+</svg>

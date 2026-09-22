@@ -66,8 +66,11 @@
 
       <figure class="diagram">
         <div class="diagram-frame">
+          <picture>
+          <source media="(max-width: 700px)" srcset="images/diagram-trust-chain-stacked.svg">
           <img src="images/diagram-trust-chain.svg"
             alt="A hardware wallet connects to a blockchain node only through the internet and a phone running a hardware wallet app.">
+        </picture>
         </div>
         <figcaption>The signing device never touches the network directly. Everything it learns about the world arrives
           through an intermediary you should assume is hostile.</figcaption>
@@ -87,8 +90,11 @@
 
       <figure class="diagram">
         <div class="diagram-frame">
+          <picture>
+          <source media="(max-width: 700px)" srcset="images/diagram-target-architecture-stacked.svg">
           <img src="images/diagram-target-architecture.svg"
             alt="Target architecture: a phone app connects over NFC, USB or BLE to an enclosure whose secure element drives a trusted display and a trusted button directly.">
+        </picture>
         </div>
         <figcaption>The secure element is the only chip in the enclosure. It holds the seed, renders what you see, and
           reads what you press — so no other component can sit between you and the transaction.</figcaption>

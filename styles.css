@@ -766,8 +766,16 @@ a:hover { color: var(--ice); }
 .diagram img {
   display: block;
   width: 100%;
-  min-width: 600px;
   height: auto;
+}
+
+/* Below the swap point the portrait variant is used; cap it at its natural
+   size so it never scales up past the point of looking clumsy. */
+@media (max-width: 700px) {
+  .diagram img {
+    max-width: 380px;
+    margin: 0 auto;
+  }
 }
 
 
