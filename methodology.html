@@ -1,109 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Methodology — walletblueprint.com</title>
-<meta name="description" content="How walletblueprint.com scores hardware wallets: secure element, trusted screen, trusted input, entropy and open source, on a published 0–10 rubric.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Methodology — walletblueprint.com</title>
+  <meta name="description"
+    content="How walletblueprint.com scores hardware wallets: secure element, trusted screen, trusted input, entropy and open source, on a published 0–10 rubric.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <a class="brand" href="index.html">
-    <div class="brand-mark"><i></i></div>
-    <div class="brand-text">
-      <span class="brand-name">wallet<span class="b">blueprint</span><span class="tld">.com</span></span>
-      <span class="brand-tag">Evaluating hardware wallets based on security architecture</span>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <div class="brand-mark"><i></i></div>
+      <div class="brand-text">
+        <span class="brand-name">wallet<span class="b">blueprint</span><span class="tld">.com</span></span>
+        <span class="brand-tag">Evaluating hardware wallets based on security architecture</span>
+      </div>
+    </a>
+    <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-nav"
+      aria-label="Menu">
+      <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <nav class="site-nav" id="site-nav">
+      <a class="btn-nav" href="index.html">COMPARISON</a>
+      <a class="btn-nav is-active" href="methodology.html" aria-current="page">METHODOLOGY</a>
+      <a class="btn-nav" href="about.html">ABOUT</a>
+      <a class="btn-ghost" href="index.html#changelog">CHANGELOG</a>
+      <a class="btn-ghost" href="mailto:hossein@walletblueprint.com?subject=walletblueprint.com">CONTACT</a>
+    </nav>
+  </header>
+
+  <main class="wrap-narrow">
+
+    <div class="doc-head">
+      <h1>Security architecture principles for hardware wallets</h1>
+      <p>A hardware wallet is a dedicated machine with one job: generate a secret, keep it where nothing can read it,
+        and tell you the truth about what you are signing. Most comparisons score coin support, app polish and price.
+        This one scores the architecture — because architectural flaws cannot be patched away, and they are the root
+        cause of most hacks.</p>
     </div>
-  </a>
-  <button class="nav-toggle" type="button" id="nav-toggle"
-          aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-    <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
-  </button>
-  <nav class="site-nav" id="site-nav">
-    <a class="btn-nav" href="index.html">COMPARISON</a>
-    <a class="btn-nav is-active" href="methodology.html" aria-current="page">METHODOLOGY</a>
-    <a class="btn-nav" href="about.html">ABOUT</a>
-    <a class="btn-ghost" href="index.html#changelog">CHANGELOG</a>
-    <a class="btn-ghost" href="mailto:hossein@walletblueprint.com?subject=walletblueprint.com">CONTACT</a>
-  </nav>
-</header>
 
-<main class="wrap-narrow">
+    <article class="doc">
+      <p>The scores in the comparison table are not a review average. Each is a reading of one part of the device's
+        architecture, taken from public datasheets, published firmware, certification reports and security-lab
+        disclosures. Where a vendor claim cannot be verified, it is scored as if the property were absent.</p>
 
-  <div class="doc-head">
-    <h1>Security architecture principles for hardware wallets</h1>
-    <p>A hardware wallet is not a safe. It is a small machine that must tell you the truth about what you are signing, and keep one secret while doing it. Five properties decide whether it can. Everything else — coin support, app polish, price — is downstream.</p>
-  </div>
+      <p>Vulnerabilities are found every few months and vendors ship updates to close them. That cycle is normal and it
+        is not what this site tracks. What it tracks is the smaller set of flaws that no firmware update can repair,
+        because they are decisions made in silicon and board layout.</p>
 
-  <article class="doc">
-    <p>The scores in the comparison table are not a review average. Each is a reading of one part of the device's architecture, taken from public datasheets, firmware source, certification reports and our own bench work. Where a claim cannot be verified, it is scored as if it were absent.</p>
+      <h2>WHY A HARDWARE WALLET IS NEVER ALONE</h2>
+      <h3>The companion device is part of the threat model.</h3>
+      <p>A hardware wallet is not a general-purpose computer, which is exactly what makes it resistant to malware — and
+        also what stops it reaching the network by itself. It cannot fetch a balance, read transaction history, or
+        broadcast a signed transaction. Every one of those operations is delegated to a companion: a phone or a laptop
+        running a wallet app.</p>
 
-    <h2>01 — SECURE ELEMENT</h2>
-    <h3>The secret should live somewhere that cannot be read.</h3>
-    <p>A general-purpose microcontroller stores your seed in flash that a skilled attacker with physical access can often extract — through voltage glitching, decapping, or a debug interface someone forgot to fuse off. A secure element is purpose-built against exactly that: hardened memory, active shielding, glitch and fault detection, and no path that returns key material to the outside world.</p>
-    <p>We score three things. Whether the seed is generated and used <em>inside</em> the element rather than merely encrypted by it. Whether the element is independently certified at a meaningful level. And whether the firmware running on it can be reasoned about — a closed element with an open host MCU is a different risk from a fully closed stack.</p>
-    <div class="pull">Full marks require: key material never leaves the element, certified silicon, and a documented attack surface between element and host.</div>
+      <figure class="diagram">
+        <div class="diagram-frame">
+          <img src="images/diagram-trust-chain.svg"
+            alt="A hardware wallet connects to a blockchain node only through the internet and a phone running a hardware wallet app.">
+        </div>
+        <figcaption>The signing device never touches the network directly. Everything it learns about the world arrives
+          through an intermediary you should assume is hostile.</figcaption>
+      </figure>
 
-    <h2>02 — TRUSTED SCREEN</h2>
-    <h3>What you see must be what you sign.</h3>
-    <p>Assume the computer is hostile. The only defence left is a display the host cannot influence: driven directly by the signing firmware, over a bus nothing else shares, rendering the address and amount the device is actually about to authorise. If a companion app can put pixels on that screen, the screen proves nothing.</p>
-    <p>Resolution matters less than people think, and legibility more. A screen that truncates a destination address to eight characters invites address-substitution malware to brute-force a lookalike. A screen that cannot render the full contract call is, for smart-contract use, close to blind signing.</p>
+      <p>This is the whole reason the following five properties matter. If the companion app is compromised, it can lie
+        about the recipient address, lie about the amount, and suppress what you are shown. The device's only defence is
+        what it can prove on its own hardware, without trusting anything the phone says. Many products sold as hardware
+        wallets fail here: they lean on the security of the middle device rather than replacing the need to trust it.
+      </p>
 
-    <h2>03 — TRUSTED INPUT</h2>
-    <h3>Consent has to be physical.</h3>
-    <p>Confirmation is only meaningful if it cannot be produced by software. That means buttons or a touch controller wired to the secure domain, a signing step that cannot be batched away by an earlier approval, and a PIN entered on the device rather than typed into a host that may be logging it.</p>
-    <p>We also penalise interfaces that make the safe path tedious. Devices that hide address verification three menus deep, or default to a &ldquo;trust this session&rdquo; mode, lose points: an input path humans route around is not a control.</p>
+      <h2>THE TARGET ARCHITECTURE</h2>
+      <h3>One chip should own the secret, the screen and the buttons.</h3>
+      <p>The ideal model is a secure element that drives all input and output itself, with no non-secure intermediate
+        chip anywhere in the signing path and no reliance on the phone or computer. Everything below is a measurement of
+        how far a given device sits from this diagram.</p>
 
-    <h2>04 — ENTROPY</h2>
-    <h3>A predictable seed is no seed at all.</h3>
-    <p>Every key in the device descends from one number generated once, usually in the first minute of the device's life. If that number is weak, every other control is decoration. We look for a hardware noise source rather than a software PRNG, health tests that run at generation time and fail loudly, and a documented mixing function — ideally one that lets the user contribute their own entropy, dice rolls included, without having to trust the device alone.</p>
-    <p>Verifiability is the differentiator here. Several devices generate perfectly good entropy that a user has no way to audit. That earns a solid score, not a top one.</p>
+      <figure class="diagram">
+        <div class="diagram-frame">
+          <img src="images/diagram-target-architecture.svg"
+            alt="Target architecture: a phone app connects over NFC, USB or BLE to an enclosure whose secure element drives a trusted display and a trusted button directly.">
+        </div>
+        <figcaption>The secure element is the only chip in the enclosure. It holds the seed, renders what you see, and
+          reads what you press — so no other component can sit between you and the transaction.</figcaption>
+      </figure>
 
-    <h2>05 — OPEN SOURCE</h2>
-    <h3>A claim you cannot check is a claim you are trusting.</h3>
-    <p>Open source is not a security property by itself — plenty of open firmware is unreviewed, and a closed secure-element applet can still be excellent. What openness buys is the ability to verify the other four. If the signing firmware is published and the build is reproducible, the binary on your device can be shown to match the code people have read.</p>
-    <p>We score the proportion of the stack you can read and rebuild — signing firmware first, then bootloader, then host application — and we require reproducible builds plus a signature scheme that lets you confirm what is actually installed. Vendors are scored down where &ldquo;open source&rdquo; covers only the desktop app while the firmware that touches your seed stays closed.</p>
-    <div class="pull">Full marks require: published signing firmware and bootloader, reproducible builds, and a way for the user to attest the running image.</div>
+      <h2>01 — TRUSTED SCREEN</h2>
+      <h3>What you see must be what you sign.</h3>
+      <p>To display transaction details — the recipient address, the amount — the device needs a screen of its own. A
+        wallet without one falls back on the screen of whatever it is plugged into, and that is a machine you have
+        already agreed to distrust. Malicious code on the phone can substitute the recipient address, and a device with
+        no display has no way to confirm the real one with you.</p>
+      <p>Resolution matters less than legibility. A screen that truncates a destination address to a handful of
+        characters invites address-substitution malware to brute-force a convincing lookalike. A screen that cannot
+        render a full contract call is, for smart-contract use, only a step away from blind signing.</p>
+      <p>Devices are marked down here when the display is absent entirely. Arculus generates seeds securely and supports
+        multi-factor authentication, but has no trusted screen, so its users inherit every vulnerability in the mobile
+        app. Bitkey pairs a software wallet for routine transactions with a hardware wallet for large ones — a sound
+        split — but the hardware half has no display on which to confirm what is being approved.</p>
+      <div class="pull">Full marks require: a display driven by the signing domain, on a bus the host cannot reach,
+        rendering the full destination and amount.</div>
 
-    <h2>SCORING</h2>
-    <div class="rubric">
-      <div class="rubric-row">
-        <div>9 – 10</div>
-        <div>Property implemented and independently verifiable</div>
+      <h2>02 — TRUSTED INPUT</h2>
+      <h3>Consent has to be physical.</h3>
+      <p>A confirmation is only meaningful if software cannot produce it. The device needs its own way to record the
+        inputs that matter: a button press to approve a transaction, a PIN entered on the device itself. Where a wallet
+        asks the phone or computer for the PIN, the password or the confirmation, an attack on that app is an attack on
+        the wallet. Arculus has this problem as well as the screen one.</p>
+      <p>Interfaces that make the safe path tedious are also penalised. A device that buries address verification three
+        menus deep, or offers a &ldquo;trust this session&rdquo; mode that batches away per-transaction approval, has
+        built a control that humans will route around.</p>
+
+      <h2>03 — SECURE ELEMENT</h2>
+      <h3>The secret should live somewhere that cannot be read.</h3>
+      <p>Keys and seeds belong in a secure element: a chip built to generate elliptic-curve keys and sign transactions,
+        with hardened memory, active shielding, glitch and fault detection, and no path that hands key material back
+        out. Secure elements are normally submitted for third-party evaluation and certified under Common Criteria or
+        NIST FIPS 140.</p>
+      <p>A wallet without one is performing cryptography on a general-purpose chip and inherits that chip's attack
+        surface. Trezor Model One and Model T both sit here. Trezor's stated reason was open source: using a certified
+        element would have meant an NDA with the vendor and closed firmware. That is a real tension, but declining the
+        element was a serious concession — Kraken Security Labs and Ledger's Donjon team have both published flaws, and
+        seeds have been recovered from these devices through power glitching and by dumping memory to brute-force the
+        passphrase offline. The same class of attack was demonstrated against KeepKey, which also has no secure element.
+        OneKey Touch is a related case: a colourful touchscreen on what is functionally a cold wallet, with no secure
+        element behind it.</p>
+      <h3>Having one is not the same as using it.</h3>
+      <p>A system is as strong as its weakest component, so the secure element has to cover the entire life cycle of the
+        secret — generated inside it, used inside it, never written out in the clear. CoolWallet S held a secure element
+        with a top-tier certification and still stored its password and seed in plaintext in the mobile app, which
+        Kraken Security Labs found and reported. That specific issue was fixed, but the PIN is still entered on the
+        phone.</p>
+      <p>A larger group of devices uses the element only as a lockbox. Trezor Safe 3 and Safe 5 keep a key in the secure
+        element that decrypts the seed; the PIN unlocks the element, and the <em>plaintext seed is then loaded into a
+          general-purpose STM32 microcontroller</em>, where all signing happens. Encryption at rest is real protection,
+        but malware on that MCU — planted, for instance, through a supply-chain attack — can read the seed straight out
+        of memory. ColdCard Mk4 and ColdCard Q carry two secure elements and a protocol to protect the seed between
+        them, and still load it into an STM32 to sign. ColdCard's answer is a read-only bootloader that hashes the
+        firmware and has a secure element verify it, turning an indicator light green on success — which makes the
+        security of the device rest on the general-purpose chip being genuinely read-only, rather than on the secure
+        elements. Keystone 3 Pro and Passport follow the same pattern: generate and store in the element, sign on a chip
+        that is not one.</p>
+      <div class="pull">Full marks require: the seed generated inside a certified element, used inside it, and never
+        present in plaintext anywhere else — including in RAM, in transit.</div>
+
+      <h2>04 — TRUSTED I/O WIRED TO THE ELEMENT</h2>
+      <h3>A display the secure element does not drive is a display someone else can drive.</h3>
+      <p>Screen, buttons and host connection should all terminate at the secure element. This is a genuinely hard
+        engineering problem: secure elements are resource-constrained and often lack the pins to drive connectors, which
+        is why the common workaround is a microcontroller acting as a hub — driving the display and reading the buttons,
+        then talking to the element.</p>
+      <p>That hub is a new place to hide. A manipulated MCU can show you one address on the display while handing a
+        different transaction to the secure element to sign, which is precisely the shape of a supply-chain attack, and
+        why every vendor in this category tells you to buy direct. Ledger Nano S is the worked example: a ST31 secure
+        element paired with an STM32 MCU, and Thomas Roth demonstrated at CCC that the MCU could be overwritten — he
+        loaded a game onto it.</p>
+
+      <h2>05 — NO GENERAL-PURPOSE MCU</h2>
+      <h3>The strongest design removes the hub rather than hardening it.</h3>
+      <p>Ledger Nano S Plus and Nano X move to the ST33, a secure element with enough I/O to take on more of the job,
+        and pull the display driver and button handling into the element itself — which makes manipulating what is
+        shown, or faking a press, substantially harder. An MCU remains, handling USB and Bluetooth. That remnant has
+        already been costly once: Kraken Security Labs found the MCU code could be overwritten before the device reached
+        the buyer, after which connecting it to a computer for the first time would run malicious code that could blank
+        the display and steer the user into pressing buttons while their assets were taken. Ledger patched the firmware
+        and says JTAG is disabled on newer devices, though its own documentation has said otherwise. No new exploit of
+        that path has been published, but the MCU is still the softest part of the device.</p>
+      <p>Ledger Stax is hard to place — public technical detail is thin, and on what is available it appears to share
+        the Nano X architecture, MCU included.</p>
+      <h3>What removing it would take.</h3>
+      <p>This is not hypothetical work. ICCD is a USB stack written for secure elements and already shipping on smart
+        cards, which run the USB code on the element with no intermediary. NFC is supported by many secure elements —
+        including Ledger's ST33 — needs no battery in the device, is more secure than Bluetooth, and is already the
+        transport for card payments on both iPhone and Android. The pieces to build a wallet with no general-purpose
+        chip in the signing path exist.</p>
+      <div class="pull">Full marks require: no general-purpose microcontroller anywhere between the user, the host and
+        the secure element.</div>
+
+      <h2>A NOTE ON OPEN SOURCE</h2>
+      <h3>Openness is not a security property. It is what lets you check the other five.</h3>
+      <p>Open firmware is not automatically reviewed firmware, and a closed secure-element applet can be excellent. What
+        openness buys is verification: if the signing firmware is published and the build is reproducible, the binary on
+        your device can be shown to match the code people have actually read.</p>
+      <p>The trade-off is real in both directions. Trezor chose open source over a secure element and paid for it in
+        extractable seeds. Ledger runs certified silicon but keeps the secure-element firmware closed under an NDA with
+        its supplier — and while BOLOS is a genuine contribution, the critical component sits behind that wall. Reverse
+        engineering is slow and unrewarding, so researchers mostly do not do it; a sufficiently motivated attacker will.
+        A reasonable middle path is to separate the low-level modules that talk directly to the element from the
+        high-level ones and open the latter, shrinking the closed surface to the part that genuinely cannot be
+        published.</p>
+
+      <h2>SCORING</h2>
+      <div class="rubric">
+        <div class="rubric-row">
+          <div>9 – 10</div>
+          <div>Property implemented and independently verifiable</div>
+        </div>
+        <div class="rubric-row">
+          <div>7 – 8</div>
+          <div>Sound design, one documented gap or unverifiable claim</div>
+        </div>
+        <div class="rubric-row">
+          <div>4 – 6</div>
+          <div>Partial coverage, or mitigations that depend on the host</div>
+        </div>
+        <div class="rubric-row">
+          <div>0 – 3</div>
+          <div>Property absent, or claimed with no way to check</div>
+        </div>
       </div>
-      <div class="rubric-row">
-        <div>7 – 8</div>
-        <div>Sound design, one documented gap or unverifiable claim</div>
+      <p class="doc-note">The composite is an unweighted mean of the five, rounded to one decimal. We publish it because
+        people want one number, and we refuse to weight it because the right weighting is your threat model, not ours.
+      </p>
+
+      <div class="doc-footer">
+        <p>Scores are re-read when firmware ships, when a certification lapses, and when a disclosed attack changes what
+          a property is worth. Corrections, teardown data and wallet suggestions are welcome at <a class="inline-link"
+            href="mailto:hossein@walletblueprint.com?subject=Methodology">hossein@walletblueprint.com</a>.</p>
+        <a class="btn-primary" href="index.html">← BACK TO THE COMPARISON</a>
       </div>
-      <div class="rubric-row">
-        <div>4 – 6</div>
-        <div>Partial coverage, or mitigations that depend on the host</div>
-      </div>
-      <div class="rubric-row">
-        <div>0 – 3</div>
-        <div>Property absent, or claimed with no way to check</div>
-      </div>
-    </div>
-    <p class="doc-note">The composite is an unweighted mean of the five, rounded to one decimal. We publish it because people want one number, and we refuse to weight it because the right weighting is your threat model, not ours.</p>
+    </article>
 
-    <div class="doc-footer">
-      <p>Scores are re-read when firmware ships, when a certification lapses, and when a disclosed attack changes what a property is worth. Corrections, teardown data and wallet suggestions are welcome at <a class="inline-link" href="mailto:hossein@walletblueprint.com?subject=Methodology">hossein@walletblueprint.com</a>.</p>
-      <a class="btn-primary" href="index.html">← BACK TO THE COMPARISON</a>
-    </div>
-  </article>
+  </main>
 
-</main>
+  <footer class="site-footer">
+    <span>WALLETBLUEPRINT.COM — INDEPENDENT, NO AFFILIATE LINKS</span>
+    <span>SAMPLE DATA FOR LAYOUT REVIEW</span>
+  </footer>
 
-<footer class="site-footer">
-  <span>WALLETBLUEPRINT.COM — INDEPENDENT, NO AFFILIATE LINKS</span>
-  <span>SAMPLE DATA FOR LAYOUT REVIEW</span>
-</footer>
-
-<script src="nav.js"></script>
+  <script src="nav.js"></script>
 </body>
+
 </html>

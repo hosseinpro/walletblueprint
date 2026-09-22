@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img"
+     viewBox="-16 -12 812 264" width="812" height="264">
+  <style>
+    .dgm-box       { fill: rgba(255,255,255,0.05); stroke: #ffffff; stroke-width: 1.25; }
+    .dgm-enclosure { fill: rgba(255,255,255,0.03); stroke: rgba(255,255,255,0.45); stroke-width: 1.25; stroke-dasharray: 5 4; }
+    .dgm-line      { stroke: #ffffff; stroke-width: 1.25; fill: none; }
+    .dgm-chrome    { stroke: rgba(255,255,255,0.45); stroke-width: 1.25; fill: none; }
+    .dgm-label {
+      font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px; letter-spacing: 0.07em; fill: #ffffff; text-anchor: middle;
+    }
+    .dgm-label.sm   { font-size: 10.5px; }
+    .dgm-label.note { font-size: 10.5px; fill: #bfe0ff; letter-spacing: 0.14em; }
+  </style>
+  <title id="dgm1-title">A hardware wallet reaches the blockchain only through a companion phone or computer running a wallet app</title>
+
+  <rect class="dgm-box" x="4" y="84" width="150" height="72" rx="2"/>
+  <text class="dgm-label" x="79" y="114">BLOCKCHAIN</text>
+  <text class="dgm-label" x="79" y="134">NODE</text>
+
+  <line class="dgm-line" x1="154" y1="120" x2="200" y2="120"/>
+
+  <path class="dgm-box" d="M 218,142 C 204,142 202,124 214,119 C 210,104 226,94 238,101 C 244,88 266,88 272,101 C 288,97 298,112 290,123 C 300,131 294,142 282,142 Z"/>
+  <text class="dgm-label" x="250" y="126">INTERNET</text>
+
+  <line class="dgm-line" x1="300" y1="120" x2="376" y2="120"/>
+
+  <rect class="dgm-chrome" x="352" y="14" width="150" height="212" rx="20"/>
+  <rect class="dgm-chrome" x="364" y="40" width="126" height="152"/>
+  <line class="dgm-chrome" x1="416" y1="27" x2="442" y2="27" stroke-linecap="round"/>
+  <circle class="dgm-chrome" cx="405" cy="27" r="2"/>
+  <circle class="dgm-chrome" cx="427" cy="208" r="12"/>
+
+  <rect class="dgm-box" x="376" y="86" width="102" height="68" rx="2"/>
+  <text class="dgm-label sm" x="427" y="108">HARDWARE</text>
+  <text class="dgm-label sm" x="427" y="123">WALLET</text>
+  <text class="dgm-label sm" x="427" y="138">APP</text>
+
+  <line class="dgm-line" x1="478" y1="120" x2="600" y2="120"/>
+
+  <rect class="dgm-box" x="600" y="84" width="176" height="72" rx="2"/>
+  <text class="dgm-label" x="688" y="126">HARDWARE WALLET</text>
+</svg>
