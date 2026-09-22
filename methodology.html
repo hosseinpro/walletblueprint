@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology — walletblueprint.com</title>
+<meta name="description" content="How walletblueprint.com scores hardware wallets: secure element, trusted screen, trusted input, entropy and open source, on a published 0–10 rubric.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="brand-mark"><i></i></div>
+    <div class="brand-text">
+      <span class="brand-name">wallet<span class="b">blueprint</span><span class="tld">.com</span></span>
+      <span class="brand-tag">Evaluating hardware wallets based on security architecture</span>
+    </div>
+  </a>
+  <nav class="site-nav">
+    <a class="btn-nav" href="index.html">COMPARISON</a>
+    <a class="btn-nav is-active" href="methodology.html" aria-current="page">METHODOLOGY</a>
+    <a class="btn-nav" href="about.html">ABOUT</a>
+    <a class="btn-ghost" href="index.html#changelog">CHANGELOG</a>
+    <a class="btn-ghost" href="mailto:hossein@walletblueprint.com?subject=walletblueprint.com">CONTACT</a>
+  </nav>
+</header>
+
+<main class="wrap-narrow">
+
+  <div class="doc-head">
+    <div class="eyebrow">METHODOLOGY — SHEET 02 — REV. 2026.09</div>
+    <h1>Security architecture principles for hardware wallets</h1>
+    <p>A hardware wallet is not a safe. It is a small machine that must tell you the truth about what you are signing, and keep one secret while doing it. Five properties decide whether it can. Everything else — coin support, app polish, price — is downstream.</p>
+  </div>
+
+  <article class="doc">
+    <p>The scores in the comparison table are not a review average. Each is a reading of one part of the device's architecture, taken from public datasheets, firmware source, certification reports and our own bench work. Where a claim cannot be verified, it is scored as if it were absent.</p>
+
+    <h2>01 — SECURE ELEMENT</h2>
+    <h3>The secret should live somewhere that cannot be read.</h3>
+    <p>A general-purpose microcontroller stores your seed in flash that a skilled attacker with physical access can often extract — through voltage glitching, decapping, or a debug interface someone forgot to fuse off. A secure element is purpose-built against exactly that: hardened memory, active shielding, glitch and fault detection, and no path that returns key material to the outside world.</p>
+    <p>We score three things. Whether the seed is generated and used <em>inside</em> the element rather than merely encrypted by it. Whether the element is independently certified at a meaningful level. And whether the firmware running on it can be reasoned about — a closed element with an open host MCU is a different risk from a fully closed stack.</p>
+    <div class="pull">Full marks require: key material never leaves the element, certified silicon, and a documented attack surface between element and host.</div>
+
+    <h2>02 — TRUSTED SCREEN</h2>
+    <h3>What you see must be what you sign.</h3>
+    <p>Assume the computer is hostile. The only defence left is a display the host cannot influence: driven directly by the signing firmware, over a bus nothing else shares, rendering the address and amount the device is actually about to authorise. If a companion app can put pixels on that screen, the screen proves nothing.</p>
+    <p>Resolution matters less than people think, and legibility more. A screen that truncates a destination address to eight characters invites address-substitution malware to brute-force a lookalike. A screen that cannot render the full contract call is, for smart-contract use, close to blind signing.</p>
+
+    <h2>03 — TRUSTED INPUT</h2>
+    <h3>Consent has to be physical.</h3>
+    <p>Confirmation is only meaningful if it cannot be produced by software. That means buttons or a touch controller wired to the secure domain, a signing step that cannot be batched away by an earlier approval, and a PIN entered on the device rather than typed into a host that may be logging it.</p>
+    <p>We also penalise interfaces that make the safe path tedious. Devices that hide address verification three menus deep, or default to a &ldquo;trust this session&rdquo; mode, lose points: an input path humans route around is not a control.</p>
+
+    <h2>04 — ENTROPY</h2>
+    <h3>A predictable seed is no seed at all.</h3>
+    <p>Every key in the device descends from one number generated once, usually in the first minute of the device's life. If that number is weak, every other control is decoration. We look for a hardware noise source rather than a software PRNG, health tests that run at generation time and fail loudly, and a documented mixing function — ideally one that lets the user contribute their own entropy, dice rolls included, without having to trust the device alone.</p>
+    <p>Verifiability is the differentiator here. Several devices generate perfectly good entropy that a user has no way to audit. That earns a solid score, not a top one.</p>
+
+    <h2>05 — OPEN SOURCE</h2>
+    <h3>A claim you cannot check is a claim you are trusting.</h3>
+    <p>Open source is not a security property by itself — plenty of open firmware is unreviewed, and a closed secure-element applet can still be excellent. What openness buys is the ability to verify the other four. If the signing firmware is published and the build is reproducible, the binary on your device can be shown to match the code people have read.</p>
+    <p>We score the proportion of the stack you can read and rebuild — signing firmware first, then bootloader, then host application — and we require reproducible builds plus a signature scheme that lets you confirm what is actually installed. Vendors are scored down where &ldquo;open source&rdquo; covers only the desktop app while the firmware that touches your seed stays closed.</p>
+    <div class="pull">Full marks require: published signing firmware and bootloader, reproducible builds, and a way for the user to attest the running image.</div>
+
+    <h2>SCORING</h2>
+    <div class="rubric">
+      <div class="rubric-row">
+        <div>9 – 10</div>
+        <div>Property implemented and independently verifiable</div>
+      </div>
+      <div class="rubric-row">
+        <div>7 – 8</div>
+        <div>Sound design, one documented gap or unverifiable claim</div>
+      </div>
+      <div class="rubric-row">
+        <div>4 – 6</div>
+        <div>Partial coverage, or mitigations that depend on the host</div>
+      </div>
+      <div class="rubric-row">
+        <div>0 – 3</div>
+        <div>Property absent, or claimed with no way to check</div>
+      </div>
+    </div>
+    <p class="doc-note">The composite is an unweighted mean of the five, rounded to one decimal. We publish it because people want one number, and we refuse to weight it because the right weighting is your threat model, not ours.</p>
+
+    <div class="doc-footer">
+      <p>Scores are re-read when firmware ships, when a certification lapses, and when a disclosed attack changes what a property is worth. Corrections, teardown data and wallet suggestions are welcome at <a class="inline-link" href="mailto:hossein@walletblueprint.com?subject=Methodology">hossein@walletblueprint.com</a>.</p>
+      <a class="btn-primary" href="index.html">← BACK TO THE COMPARISON</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>WALLETBLUEPRINT.COM — INDEPENDENT, NO AFFILIATE LINKS</span>
+  <span>SAMPLE DATA FOR LAYOUT REVIEW</span>
+</footer>
+
+</body>
+</html>
