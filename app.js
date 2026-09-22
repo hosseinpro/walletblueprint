@@ -44,11 +44,11 @@ const SORT_KEYS = {
 };
 
 const COLUMNS = [
-  { key: 'se', note: 'seNote' },
-  { key: 'scr', note: 'scrNote' },
-  { key: 'inp', note: 'inpNote' },
-  { key: 'ent', note: 'entNote' },
-  { key: 'os', note: 'osNote' }
+  { key: 'se',  note: 'seNote',  label: 'SECURE ELEMENT' },
+  { key: 'scr', note: 'scrNote', label: 'TRUSTED SCREEN' },
+  { key: 'inp', note: 'inpNote', label: 'TRUSTED INPUT' },
+  { key: 'ent', note: 'entNote', label: 'ENTROPY' },
+  { key: 'os',  note: 'osNote',  label: 'OPEN SOURCE' }
 ];
 
 const state = { sort: 'overall', query: '', open: null };
@@ -86,6 +86,7 @@ function scoreCell(w, col) {
   const value = w[col.key];
   return `
     <div class="cell-score">
+      <span class="cell-label">${col.label}</span>
       <div class="value">${value.toFixed(1)}</div>
       <div class="bar"><span style="width: ${value * 10}%"></span></div>
       <div class="note">${esc(w[col.note])}</div>
@@ -96,7 +97,7 @@ function rowMarkup(w) {
   const overall = score(w);
   const isOpen = state.open === w.id;
   return `
-    <div class="row">
+    <div class="row${isOpen ? ' is-open' : ''}">
       <div class="grid-row row-main" role="button" tabindex="0" data-id="${w.id}"
            aria-expanded="${isOpen}" aria-controls="teardown-${w.id}">
         <div class="cell-device">
@@ -108,6 +109,7 @@ function rowMarkup(w) {
         </div>
         ${COLUMNS.map((col) => scoreCell(w, col)).join('')}
         <div class="cell-total">
+          <span class="cell-label">COMPOSITE</span>
           <div class="value">${overall.toFixed(1)}</div>
           <div class="tier">${tier(overall)}</div>
         </div>
