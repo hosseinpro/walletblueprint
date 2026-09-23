@@ -448,7 +448,7 @@ a:hover { color: var(--ice); }
 }
 .device-photo {
   width: 74px;
-  height: 52px;
+  height: 72px;
   flex: 0 0 auto;
   border: 1px solid var(--line-45);
   background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0 3px, transparent 3px 8px);
@@ -461,6 +461,15 @@ a:hover { color: var(--ice); }
   text-align: center;
   line-height: 1.3;
 }
+.device-photo-img {
+  width: 74px;
+  height: 72px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  border: 1px solid var(--line-45);
+  background: rgba(255, 255, 255, 0.04);
+}
+
 .device-name {
   font-weight: 600;
   font-size: 16.5px;
@@ -532,6 +541,20 @@ a:hover { color: var(--ice); }
   line-height: 1.65;
   color: var(--body-alt);
   text-wrap: pretty;
+}
+
+/* Devices with no sourced assessment read as blank rather than scored. */
+.row.is-unrated .cell-score .value,
+.row.is-unrated .cell-total .value {
+  color: var(--ice);
+  font-weight: 400;
+}
+.row.is-unrated .cell-total .tier {
+  color: var(--ice);
+  letter-spacing: 0.08em;
+}
+.row.is-unrated .cell-score .note {
+  color: rgba(191, 224, 255, 0.65);
 }
 
 /* ---------- lower sections ---------- */
@@ -875,8 +898,9 @@ a:hover { color: var(--ice); }
   .cell-total .value { font-size: 24px; line-height: 1.1; }
 
   .cell-device { gap: 13px; }
-  .device-photo { width: 58px; height: 42px; }
-  .device-name { font-size: 15.5px; }
+  .device-photo,
+  .device-photo-img { width: 54px; height: 58px; }
+.device-name { font-size: 15.5px; }
   .device-meta { font-size: 10.5px; margin-top: 3px; }
 
   .teardown {
