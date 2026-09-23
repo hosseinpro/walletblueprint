@@ -557,6 +557,69 @@ a:hover { color: var(--ice); }
   color: rgba(191, 224, 255, 0.65);
 }
 
+/* ---------- open source layer breakdown ---------- */
+
+/* Spans the teardown's two columns rather than becoming a third, so neither
+   mobile media block can conflict with .teardown's column count. */
+.os-breakdown { grid-column: 1 / -1; }
+
+.os-layers {
+  display: grid;
+  gap: 1px;
+  background: var(--line-25);
+  border: 1px solid var(--line-25);
+}
+.os-layer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) 82px 112px minmax(0, 1.5fr);
+  gap: 1px;
+}
+.os-layer > div {
+  background: var(--blue);
+  padding: 9px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.os-layer-name { color: var(--ice); letter-spacing: 0.08em; }
+.os-layer-pts { letter-spacing: 0.04em; }
+.os-layer-note { color: var(--body-alt); }
+
+/* The state word always carries the meaning; colour only reinforces it. */
+.os-layer.is-open    .os-layer-state { color: var(--text); }
+.os-layer.is-partial .os-layer-state { color: var(--ice); }
+.os-layer.is-closed  .os-layer-state { color: rgba(191, 224, 255, 0.65); }
+.os-layer.is-na      .os-layer-state,
+.os-layer.is-na      .os-layer-pts   { color: rgba(191, 224, 255, 0.5); }
+/* Not established by us, as opposed to established closed. */
+.os-layer.is-unknown .os-layer-state {
+  color: var(--ice);
+  border-bottom: 1px dotted rgba(191, 224, 255, 0.6);
+  display: inline-block;
+}
+
+.os-src {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+.os-src:hover { color: var(--ice); }
+
+.os-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 12px;
+  font-family: var(--mono);
+  color: var(--ice);
+}
+.os-total-value { font-size: 19px; color: var(--text); }
+.os-total-sum { font-size: 11.5px; letter-spacing: 0.08em; }
+/* Relies on .bar being globally scoped — do not move it under .cell-score. */
+.os-total .bar { flex: 1 1 160px; max-width: 280px; }
+
 /* ---------- lower sections ---------- */
 
 .summary-section {
@@ -908,6 +971,15 @@ a:hover { color: var(--ice); }
     border-top: 1px dashed var(--line-30);
   }
   .teardown > div { padding-top: 16px; }
+
+  /* Reflowed to two columns — every child placed explicitly, never auto. */
+  .os-layer { grid-template-columns: minmax(0, 1fr) auto; }
+  .os-layer-name  { grid-column: 1; grid-row: 1; font-size: 11px; }
+  .os-layer-pts   { grid-column: 2; grid-row: 1; text-align: right; }
+  .os-layer-state { grid-column: 1 / -1; grid-row: 2; }
+  .os-layer-note  { grid-column: 1 / -1; grid-row: 3; }
+  .os-layer > div { padding: 8px 12px; font-size: 11.5px; }
+  .os-breakdown .kicker { padding-top: 16px; }
 }
 
 /* ---------- footer ---------- */

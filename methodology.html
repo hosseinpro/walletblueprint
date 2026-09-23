@@ -204,7 +204,38 @@
         high-level ones and open the latter, shrinking the closed surface to the part that genuinely cannot be
         published.</p>
 
-      <h2>SCORING</h2>
+      <h2>OPEN SOURCE — THE FIVE LAYERS</h2>
+    <h3>Not all published code is worth the same.</h3>
+    <p>Treating openness as one bit is useless, because it lets a vendor publish a phone app and a marketing schematic while the code that touches your seed stays closed — and then describe the product as open source. So the score is split into the five layers a wallet can publish, each weighted by how close it sits to the secret.</p>
+
+    <div class="rubric">
+      <div class="rubric-row"><div>4.0</div><div><strong>Secure element firmware</strong> — the code running on the element itself, where the seed is generated and used</div></div>
+      <div class="rubric-row"><div>2.0</div><div><strong>Device firmware and bootloader</strong> — what signs transactions, drives the screen and reads the buttons</div></div>
+      <div class="rubric-row"><div>2.0</div><div><strong>Board design</strong> — schematics, layout and bill of materials; the only way to check which chip drives what</div></div>
+      <div class="rubric-row"><div>1.0</div><div><strong>SDK</strong> — integration libraries, which tell you little about the device itself</div></div>
+      <div class="rubric-row"><div>1.0</div><div><strong>Companion app</strong> — the host software you are already asked to distrust</div></div>
+    </div>
+    <p class="doc-note">The weights total ten, so each layer&rsquo;s weight is the number of points it can earn. A vendor whose only open components are the desktop app and an SDK cannot score above 2.0, however loudly the box says open source — while the element that holds the seed is worth four points on its own.</p>
+
+    <h3>Three levels, and no credit for good intentions.</h3>
+    <p>Each layer earns a share of its own weight, so the same level is worth more where it matters more.</p>
+    <div class="rubric">
+      <div class="rubric-row"><div>100%</div><div>Published, reproducibly buildable, and attestable against the binary on the device</div></div>
+      <div class="rubric-row"><div>50%</div><div>Source published, but the build is not reproducible — you can read it, not verify it</div></div>
+      <div class="rubric-row"><div>0%</div><div>Closed, bound by a supplier NDA, or simply not established</div></div>
+    </div>
+    <p class="doc-note">So a secure element, carrying four points, earns 4.0 when its firmware is published and reproducible, 2.0 when it is merely published, and nothing when it is closed. The same three levels applied to the companion app move the total by at most one point.</p>
+    <p>Those last three all score zero, because an unverifiable claim is scored as absent everywhere else on this sheet. They are labelled differently in each device&rsquo;s expanded row all the same. <em>Closed</em> is a decision. <em>NDA-bound</em> is a constraint the vendor may not control — the case Ledger makes about its element supplier. <em>Unverified</em> is a gap in our sourcing rather than a finding about the product, and it is an invitation to send us a link.</p>
+
+    <h3>Layers a product does not have.</h3>
+    <p>A device with no secure element has no secure-element firmware to publish. Scoring that zero would punish it twice, once here and once in the secure element column, so a layer the product genuinely lacks is marked not applicable and the score is taken over the remaining weight, rescaled to ten. Because the five weights already sum to ten, that rescaling only engages when a layer is truly absent.</p>
+    <p>Not applicable is a claim about the bill of materials, not about disclosure, and it has to agree with the rest of the row: a device marked not applicable here must be scored low on secure element for the same reason. An element whose firmware merely is not published is closed or NDA-bound — never not applicable.</p>
+    <p>The consequence is worth stating plainly rather than hiding: a fully open signer with no secure element can score ten here and close to zero on secure element. That is the trade-off this site exists to show, not a defect in the arithmetic.</p>
+
+    <div class="pull">Full marks require: every layer the product actually has, published, reproducibly buildable, and attestable against the binary on the device.</div>
+    <p class="doc-note">Each layer&rsquo;s source is linked in the device&rsquo;s expanded row on the comparison sheet.</p>
+
+    <h2>SCORING</h2>
       <div class="rubric">
         <div class="rubric-row">
           <div>9 – 10</div>
@@ -224,7 +255,11 @@
         </div>
       </div>
       <p class="doc-note">The composite is an unweighted mean of the five, rounded to one decimal. We publish it because
-        people want one number, and we refuse to weight it because the right weighting is your threat model, not ours.
+        people want one number, and we refuse to weight the five against each other, because the right weighting
+        <em>across</em> properties is your threat model and not ours. Weighting <em>within</em> a property is a different
+        question: how much of the open-source score each layer earns is a fact about the architecture rather than a
+        preference — code running closer to the seed is code more worth being able to read, whatever you are defending
+        against.
       </p>
 
       <div class="doc-footer">
