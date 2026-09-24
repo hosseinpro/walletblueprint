@@ -17,6 +17,9 @@
   --line-40: rgba(255, 255, 255, 0.4);
   --line-45: rgba(255, 255, 255, 0.45);
   --hover: rgba(255, 255, 255, 0.16);
+  --warn: #ff8172;
+  --warn-line: rgba(255, 129, 114, 0.6);
+  --warn-fill: rgba(255, 129, 114, 0.12);
   --header-pad-x: 28px;
   --header-pad-y: 20px;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -557,6 +560,46 @@ a:hover { color: var(--ice); }
   color: rgba(191, 224, 255, 0.65);
 }
 
+/* A published security advisory against a device, surfaced before the notes. */
+.row-warning {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+  border: 1px solid var(--warn-line);
+  border-left: 3px solid var(--warn);
+  background: var(--warn-fill);
+  padding: 14px 16px;
+}
+.row-warning-tag {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--warn);
+  margin-bottom: 8px;
+}
+.row-warning p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--body-alt);
+  text-wrap: pretty;
+}
+
+.device-flag {
+  display: inline-grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  margin-left: 7px;
+  vertical-align: 1px;
+  border: 1px solid var(--warn);
+  border-radius: 50%;
+  color: var(--warn);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 /* ---------- open source layer breakdown ---------- */
 
 /* Spans the teardown's two columns rather than becoming a third, so neither
@@ -605,6 +648,12 @@ a:hover { color: var(--ice); }
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 }
 .os-src:hover { color: var(--ice); }
+
+.row-warning .os-src {
+  color: var(--warn);
+  border-bottom-color: var(--warn-line);
+}
+.row-warning .os-src:hover { color: var(--warn); border-bottom-color: var(--warn); }
 
 .os-total {
   display: flex;

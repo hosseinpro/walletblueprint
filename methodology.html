@@ -75,7 +75,7 @@
           through an intermediary you should assume is hostile.</figcaption>
       </figure>
 
-      <p>This is the whole reason the following five properties matter. If the companion app is compromised, it can lie
+      <p>This is the whole reason the following six properties matter. If the companion app is compromised, it can lie
         about the recipient address, lie about the amount, and suppress what you are shown. The device's only defence is
         what it can prove on its own hardware, without trusting anything the phone says. Many products sold as hardware
         wallets fail here: they lean on the security of the middle device rather than replacing the need to trust it.
@@ -191,7 +191,32 @@
       <div class="pull">Full marks require: no general-purpose microcontroller anywhere between the user, the host and
         the secure element.</div>
 
-      <h2>A NOTE ON OPEN SOURCE</h2>
+      <h2>06 — ENTROPY</h2>
+    <h3>A predictable seed is no seed at all.</h3>
+    <p>Every key in the device descends from one number generated once, usually in the first minute of the device&rsquo;s life. If that number is weak, every other control on this sheet is decoration — the screen, the buttons and the element are all guarding a secret an attacker can simply recompute.</p>
+    <p>Two questions decide it, and they are scored separately because a device can do well at one and badly at the other. Where the seed is generated belongs to the secure element section above, and whether the mixing code can be read belongs to the open-source score below; neither is re-scored here.</p>
+
+    <h3>Rule one — what the randomness comes from.</h3>
+    <div class="rubric">
+      <div class="rubric-row"><div>5</div><div>A dedicated true-random generator in silicon, <strong>independently certified</strong> — AIS-31, NIST SP 800-90B, or a Common Criteria scope that covers the generator itself</div></div>
+      <div class="rubric-row"><div>3</div><div>Hardware randomness with no independent evaluation — whether a dedicated generator nobody has certified, or general hardware pressed into service such as CPU jitter or sensor noise</div></div>
+      <div class="rubric-row"><div>1</div><div>A software pseudo-random generator, or no hardware source documented at all</div></div>
+    </div>
+    <p class="doc-note">The certification has to cover the generator, not merely the chip it sits in. Several wallets cite a Common Criteria level whose evaluated scope leaves the random generator out entirely, and a datasheet asserting conformance is not a certificate — the difference between the two is most of what separates five points from three here.</p>
+
+    <h3>Rule two — how many sources are combined.</h3>
+    <div class="rubric">
+      <div class="rubric-row"><div>5</div><div>Several sources mixed, <em>and</em> the user can contribute their own entropy at generation time</div></div>
+      <div class="rubric-row"><div>3</div><div>Two or more hardware or software sources mixed together</div></div>
+      <div class="rubric-row"><div>1</div><div>A single source, or the mixing is undocumented</div></div>
+    </div>
+    <p>User-contributed entropy is the only item on this page that protects you when the vendor is the problem. A certified generator is worth having, but you cannot inspect it, cannot test it, and cannot tell a healthy one from a backdoored one by looking at the output. Roll your own dice into the mix and a compromised generator no longer decides your seed on its own.</p>
+    <p>We are strict about what counts. The entropy must be contributed <em>at generation time</em> and mixed into the seed. A passphrase applied afterwards is a different mechanism with different properties, and it does not earn this point.</p>
+
+    <div class="pull">Full marks require: an independently evaluated hardware generator, several sources mixed, and a documented way for the user to add their own.</div>
+    <p class="doc-note">The floor is one point per rule rather than zero: a device that generates a number badly has still generated one. The worst score available here is two, and no device that leaves the user out of the process can exceed eight — which is the difference between sound entropy and entropy you can check.</p>
+
+    <h2>A NOTE ON OPEN SOURCE</h2>
       <h3>Openness is not a security property. It is what lets you check the other five.</h3>
       <p>Open firmware is not automatically reviewed firmware, and a closed secure-element applet can be excellent. What
         openness buys is verification: if the signing firmware is published and the build is reproducible, the binary on

@@ -2,8 +2,12 @@
 
 const WALLETS = [
   {
-    id: 'lnsp', photo: 'images/devices/ledger-nano-s-plus.webp', name: 'Ledger Nano S Plus', meta: 'USB-C · ST33 element · buttons in SE', se: 9.5, scr: 9.0, inp: 9.0, ent: 9.0,
-    seNote: 'certified ST33, seed in-element', scrNote: 'display driver inside SE', inpNote: 'button handling inside SE', entNote: 'certified SE key generation', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lnsp', photo: 'images/devices/ledger-nano-s-plus.webp', name: 'Ledger Nano S Plus', meta: 'USB-C · ST33 element · buttons in SE', se: 9.5, scr: 9.0, inp: 9.0,
+    seNote: 'certified ST33, seed in-element', scrNote: 'display driver inside SE', inpNote: 'button handling inside SE', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    entRules: {
+      source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-rapport.pdf' },
+      count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
+    },
     osLayers: {
       seFw:     { state: 'nda',    note: 'Ledger OS is closed; the ST supplier agreement legally prevents publishing the low-level code', src: 'https://www.ledger.com/academy/topics/ledgersolutions/is-ledger-open-source' },
       deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
@@ -15,8 +19,12 @@ const WALLETS = [
     watch: 'An MCU still handles USB. Kraken Security Labs showed it could be overwritten before delivery — patched, but the MCU remains the softest part of the device.'
   },
   {
-    id: 'lnx', photo: 'images/devices/ledger-nano-x.webp', name: 'Ledger Nano X', meta: 'USB-C · Bluetooth · ST33 element', se: 9.5, scr: 9.0, inp: 9.0, ent: 9.0,
-    seNote: 'certified ST33, seed in-element', scrNote: 'display driver inside SE', inpNote: 'button handling inside SE', entNote: 'certified SE key generation', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lnx', photo: 'images/devices/ledger-nano-x.webp', name: 'Ledger Nano X', meta: 'USB-C · Bluetooth · ST33 element', se: 9.5, scr: 9.0, inp: 9.0,
+    seNote: 'certified ST33, seed in-element', scrNote: 'display driver inside SE', inpNote: 'button handling inside SE', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    entRules: {
+      source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-17-rapport.pdf' },
+      count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
+    },
     osLayers: {
       seFw:     { state: 'nda',    note: 'closed, except a dashboard-only export from one 2023 build under a non-open licence, unchanged since', src: 'https://github.com/LedgerHQ/ledger-secure-os/blob/main/LICENSE.md' },
       deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
@@ -28,8 +36,12 @@ const WALLETS = [
     watch: 'Bluetooth widens what the remaining MCU is exposed to. NFC would remove the need for a battery and is already supported by the ST33.'
   },
   {
-    id: 'lstax', photo: 'images/devices/ledger-stax.webp', name: 'Ledger Stax', meta: 'USB-C · Bluetooth · e-ink', se: 9.0, scr: 8.5, inp: 8.5, ent: 8.5,
-    seNote: 'certified element, detail scarce', scrNote: 'large e-ink, likely SE-driven', inpNote: 'touch, likely SE-driven', entNote: 'certified SE key generation', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lstax', photo: 'images/devices/ledger-stax.webp', name: 'Ledger Stax', meta: 'USB-C · Bluetooth · e-ink', se: 9.0, scr: 8.5, inp: 8.5,
+    seNote: 'certified element, detail scarce', scrNote: 'large e-ink, likely SE-driven', inpNote: 'touch, likely SE-driven', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    entRules: {
+      source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2025-03-rapport.pdf' },
+      count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
+    },
     osLayers: {
       seFw:     { state: 'nda',    note: 'closed Ledger OS on the ST33K1M5C; no Stax export exists', src: 'https://github.com/LedgerHQ/ledger-secure-os' },
       deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
@@ -41,8 +53,12 @@ const WALLETS = [
     watch: 'Scored below the Nano X only because the architecture is inferred rather than documented.'
   },
   {
-    id: 'lflex', photo: 'images/devices/ledger-flex.webp', name: 'Ledger Flex', meta: 'USB-C · Bluetooth · e-ink touch', se: 9.0, scr: 8.5, inp: 8.5, ent: 8.5,
-    seNote: 'certified element, seed in-element', scrNote: 'e-ink, driven through the element', inpNote: 'touch routed via the element', entNote: 'certified SE key generation', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lflex', photo: 'images/devices/ledger-flex.webp', name: 'Ledger Flex', meta: 'USB-C · Bluetooth · e-ink touch', se: 9.0, scr: 8.5, inp: 8.5,
+    seNote: 'certified element, seed in-element', scrNote: 'e-ink, driven through the element', inpNote: 'touch routed via the element', entNote: 'certified chip, no device-level evaluation', osNote: 'SDK and app open; every seed-touching layer closed',
+    entRules: {
+      source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://shop.ledger.com/products/ledger-flex' },
+      count:  { state: 'single', note: 'inferred from the identical element and OS; no Flex-specific evaluation is published, unlike the other three', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
+    },
     osLayers: {
       seFw:     { state: 'nda',    note: 'closed Ledger OS on the ST33K1M5C; no Flex export exists', src: 'https://github.com/LedgerHQ/ledger-secure-os' },
       deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
@@ -60,8 +76,12 @@ const WALLETS = [
   },
 
   {
-    id: 'tsafe3', photo: 'images/devices/trezor-safe-3.webp', name: 'Trezor Safe 3', meta: 'USB-C · EAL6+ element · open firmware', se: 5.0, scr: 7.5, inp: 7.5, ent: 7.0,
-    seNote: 'EAL6+, but seed leaves it', scrNote: 'mono, on-device, MCU-driven', inpNote: 'buttons, PIN on device', entNote: 'SE-assisted, MCU-side mixing', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    id: 'tsafe3', photo: 'images/devices/trezor-safe-3.webp', name: 'Trezor Safe 3', meta: 'USB-C · EAL6+ element · open firmware', se: 5.0, scr: 7.5, inp: 7.5,
+    seNote: 'EAL6+, but seed leaves it', scrNote: 'mono, on-device, MCU-driven', inpNote: 'buttons, PIN on device', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    entRules: {
+      source: { state: 'trng', note: 'Optiga Trust M on a platform whose certification used AIS-31 for the generator, XORed into the MCU generator; the public report does not state a PTG class', src: 'https://www.commoncriteriaportal.org/nfs/ccpfiles/files/epfiles/0961V4a_pdf.pdf' },
+      count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes — readable end to end in public source. No human entropy: Trezor says user-supplied entropy is still only under consideration', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
+    },
     osLayers: {
       seFw:     { state: 'closed', note: 'the Optiga Trust M is fixed-function silicon programmed by Infineon; Trezor calls it NDA-free, never open', src: 'https://trezor.io/learn/security-privacy/how-trezor-keeps-you-safe/secure-elements-in-trezor-safe-devices' },
       deviceFw: { state: 'open',   note: 'boardloader, bootloader and firmware GPL-3.0, reproducible to a byte-identical image, and hash-checked by Suite on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
@@ -73,8 +93,12 @@ const WALLETS = [
     watch: 'The plaintext seed is then loaded into a general-purpose STM32, where all signing happens. Malware on that chip can read it straight out of memory.'
   },
   {
-    id: 'tsafe5', photo: 'images/devices/trezor-safe-5.avif', name: 'Trezor Safe 5', meta: 'USB-C · colour touchscreen · EAL6+ element', se: 5.0, scr: 8.5, inp: 8.5, ent: 7.0,
-    seNote: 'EAL6+, but seed leaves it', scrNote: 'colour touchscreen, Gorilla Glass', inpNote: 'touch, PIN entered on device', entNote: 'SE-assisted, MCU-side mixing', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    id: 'tsafe5', photo: 'images/devices/trezor-safe-5.avif', name: 'Trezor Safe 5', meta: 'USB-C · colour touchscreen · EAL6+ element', se: 5.0, scr: 8.5, inp: 8.5,
+    seNote: 'EAL6+, but seed leaves it', scrNote: 'colour touchscreen, Gorilla Glass', inpNote: 'touch, PIN entered on device', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    entRules: {
+      source: { state: 'trng', note: 'Optiga Trust M on a platform whose certification used AIS-31 for the generator, XORed into the MCU generator; the public report does not state a PTG class', src: 'https://www.commoncriteriaportal.org/nfs/ccpfiles/files/epfiles/0961V4a_pdf.pdf' },
+      count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes — readable end to end in public source. No human entropy: Trezor says user-supplied entropy is still only under consideration', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
+    },
     osLayers: {
       seFw:     { state: 'closed', note: 'same Optiga Trust M as the Safe 3; proprietary on-chip software', src: 'https://trezor.io/learn/security-privacy/how-trezor-keeps-you-safe/secure-elements-in-trezor-safe-devices' },
       deviceFw: { state: 'open',   note: 'boardloader, bootloader and firmware GPL-3.0, reproducible to a byte-identical image, and hash-checked by Suite on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
@@ -92,8 +116,12 @@ const WALLETS = [
   },
 
   {
-    id: 'keepkey', photo: 'images/devices/keepkey.webp', name: 'KeepKey', meta: 'USB · no element · legacy', se: 1.0, scr: 6.5, inp: 6.0, ent: 4.5,
-    seNote: 'none', scrNote: 'mono display', inpNote: 'single button, host PIN grid', entNote: 'MCU RNG, no certified silicon', osNote: 'no element; firmware open, board claim unsupported',
+    id: 'keepkey', photo: 'images/devices/keepkey.webp', name: 'KeepKey', meta: 'USB · no element · legacy', se: 1.0, scr: 6.5, inp: 6.0,
+    seNote: 'none', scrNote: 'mono display', inpNote: 'single button, host PIN grid', entNote: 'uncertified generator, host entropy optional', osNote: 'no element; firmware open, board claim unsupported',
+    entRules: {
+      source: { state: 'hardware', note: 'the STM32F205 generator peripheral read directly, with a repeat check and error-flag handling; no independent evaluation of any kind exists', src: 'https://github.com/keepkey/keepkey-firmware/blob/master/lib/rand/rng.c' },
+      count:  { state: 'multiple', note: 'device entropy hashed together with host-supplied bytes — but the host contribution is optional and silently skipped when absent, leaving one source. Defaults to 12 words', src: 'https://github.com/keepkey/keepkey-firmware/blob/master/lib/firmware/reset.c' }
+    },
     osLayers: {
       seFw:     { state: 'na',     note: 'no secure element; everything runs on a commodity STM32F205' },
       deviceFw: { state: 'source', note: 'firmware and bootloader LGPLv3, pinned-Docker build matches the release; no on-device attestation of the running image', src: 'https://github.com/keepkey/keepkey-firmware' },
@@ -106,8 +134,18 @@ const WALLETS = [
   },
 
   {
-    id: 'ccmk4', photo: 'images/devices/coldcard-mk4.png', name: 'ColdCard Mk4', meta: 'air-gapped · microSD · dual element', se: 6.5, scr: 8.0, inp: 8.5, ent: 8.0,
-    seNote: 'two elements, seed leaves to sign', scrNote: 'mono, full address', inpNote: 'keypad, PIN on device', entNote: 'dual-element generation', osNote: 'firmware reproducible; elements and app closed',
+    id: 'ccmk4', photo: 'images/devices/coldcard-mk4.png', name: 'ColdCard Mk4', meta: 'air-gapped · microSD · dual element', se: 6.5, scr: 8.0, inp: 8.5,
+    seNote: 'two elements, seed leaves to sign', scrNote: 'mono, full address', inpNote: 'keypad, PIN on device', entNote: 'dedicated generator, none of it independently certified', osNote: 'firmware reproducible; elements and app closed',
+    warning: {
+      tag: 'SEED COMPROMISED — JULY 2026',
+      text: 'For five years a build error routed seed generation through a software PRNG instead of the hardware generator, leaving roughly 40 bits of entropy on Mk2 and Mk3 and 72 on Mk4 against a 128-bit target. On 30 July 2026 wallets were drained offline; TRM Labs puts the loss above 116 million dollars across more than 5,200 addresses. Fixed the next day in 5.6.0, 1.5.0Q and 4.2.0 — but updating does not repair an existing seed. Any seed generated on affected firmware must be replaced and funds moved. Seeds made from dice rolls alone were never affected.',
+      src: 'https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/',
+      srcLabel: 'COINKITE ADVISORY'
+    },
+    entRules: {
+      source: { state: 'hardware', note: 'STM32L4S5 RNG peripheral feeding a SHA-256 Hash_DRBG, with both secure elements mixed in; Coinkite publishes no independent certification of the generator', src: 'https://github.com/Coldcard/firmware/blob/master/releases/ChangeLog.md' },
+      count:  { state: 'user', note: 'three device sources combined by SHA256d, then mandatory user entropy — 50 dice rolls, 128 coin flips or 65 key presses — with the result recomputable off-device', src: 'https://github.com/Coldcard/firmware/blob/master/docs/verify_seed_mix.py' }
+    },
     osLayers: {
       seFw:     { state: 'closed', note: 'both elements are fixed-function parts whose on-die code is chip-vendor proprietary; no Coinkite code runs on them', src: 'https://blog.coinkite.com/understanding-mk4-security-model/' },
       deviceFw: { state: 'open',   note: 'firmware and bootloader published with a Docker reproducible build, and the element checksums flash to drive the GENUINE light through circuitry software cannot override', src: 'https://github.com/Coldcard/firmware' },
@@ -116,12 +154,16 @@ const WALLETS = [
       app:      { state: 'na',     note: 'no first-party wallet app; driven by third-party software over PSBT' }
     },
     note: 'Two secure elements and a protocol that protects the seed between them and the STM32. Strongly protected at rest.',
-    watch: 'To sign, the seed enters the general-purpose chip. A read-only bootloader hashes the firmware for an element to verify — so the guarantee rests on the STM32 being genuinely read-only.'
+    watch: 'To sign, the seed enters the general-purpose chip. A read-only bootloader hashes the firmware for an element to verify — so the guarantee rests on that chip being genuinely read-only, and the entropy advisory above shows what a build-level mistake in the same codebase can cost.'
   },
 
   {
-    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', name: 'Keystone 3 Pro', meta: 'QR air-gap · touchscreen · three elements', se: 6.0, scr: 8.5, inp: 8.0, ent: 8.0,
-    seNote: 'three elements, seed leaves to sign', scrNote: 'large color touchscreen', inpNote: 'touch, PIN on device', entNote: 'multi-element generation', osNote: 'published widely, but nothing verifiable end to end',
+    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', name: 'Keystone 3 Pro', meta: 'QR air-gap · touchscreen · three elements', se: 6.0, scr: 8.5, inp: 8.0,
+    seNote: 'three elements, seed leaves to sign', scrNote: 'large color touchscreen', inpNote: 'touch, PIN on device', entNote: 'three generators, none independently certified', osNote: 'published widely, but nothing verifiable end to end',
+    entRules: {
+      source: { state: 'hardware', note: 'three dedicated generators across the MCU and two elements, but SP 800-90 conformance is asserted in datasheets with no validation certificate found', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/hardware/v3.2/V3.2BOM.pdf' },
+      count:  { state: 'multiple', note: 'three generators chained through HKDF and seeded with a hash of the device password; the dice mode replaces device entropy rather than mixing it in', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/src/managers/keystore.c' }
+    },
     osLayers: {
       seFw:     { state: 'closed', note: 'vendor concedes element firmware cannot be opened, and the elements are where the recovery phrase and fingerprint live', src: 'https://blog.keyst.one/inside-the-vault-how-keystone-3-pro-secures-your-crypto-with-triple-se-chips' },
       deviceFw: { state: 'source', note: 'MIT firmware and bootloader, but a pre-compiled vendor library is baked in and the release artefact never matches the rebuild byte for byte', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/docs/verify.md' },
@@ -155,8 +197,12 @@ const WALLETS = [
     watch: 'Unassessed. If the display and fingerprint reader are driven from the secure element, this answers the two failings the CoolWallet S is marked down for. If they are not, it does not.'
   },
   {
-    id: 'bitkey', photo: 'images/devices/bitkey.png', name: 'Bitkey', meta: 'NFC · fingerprint · no display', se: 7.5, scr: 0.5, inp: 3.0, ent: 7.5,
-    seNote: 'certified element', scrNote: 'no display at all', inpNote: 'fingerprint on device only', entNote: 'certified SE generation', osNote: 'broadly published, not reproducibly buildable',
+    id: 'bitkey', photo: 'images/devices/bitkey.png', name: 'Bitkey', meta: 'NFC · fingerprint · no display', se: 7.5, scr: 0.5, inp: 3.0,
+    seNote: 'certified element', scrNote: 'no display at all', inpNote: 'fingerprint on device only', entNote: 'uncertified for this part, single source', osNote: 'broadly published, not reproducibly buildable',
+    entRules: {
+      source: { state: 'hardware', note: 'EFR32MG24 Secure Engine generator; the datasheet claims SP 800-90B health tests, but the PSA certificate covers other parts and does not list this one', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/lib/crypto/src/efr32/secure_rng.c' },
+      count:  { state: 'single', note: 'one call to one generator, no second source and no user path; a more defensively written generator exists in the repo but runs on a controller that never touches the seed', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/lib/wallet/src/seed.c' }
+    },
     osLayers: {
       seFw:     { state: 'unknown', note: 'no published description of a discrete element with its own applet; the firmware tree is an MCU codebase', src: 'https://github.com/proto-at-block/bitkey/tree/main/firmware' },
       deviceFw: { state: 'source',  note: 'MIT, but a contractually withheld fingerprint-matching library means external parties cannot build it', src: 'https://github.com/proto-at-block/bitkey/tree/main/firmware' },
@@ -183,8 +229,12 @@ const WALLETS = [
     watch: 'Unassessed. Nothing about this device has been verified against the five properties.'
   },
   {
-    id: 'arculus', photo: 'images/devices/arculus-card.webp', name: 'Arculus', meta: 'card · NFC · no display', se: 7.5, scr: 0.5, inp: 1.0, ent: 7.5,
-    seNote: 'certified smartcard element', scrNote: 'no display', inpNote: 'tap only, PIN on phone', entNote: 'secure in-element generation', osNote: 'closed at every layer',
+    id: 'arculus', photo: 'images/devices/arculus-card.webp', name: 'Arculus', meta: 'card · NFC · no display', se: 7.5, scr: 0.5, inp: 1.0,
+    seNote: 'certified smartcard element', scrNote: 'no display', inpNote: 'tap only, PIN on phone', entNote: 'generator claimed but unnamed and uncheckable', osNote: 'closed at every layer',
+    entRules: {
+      source: { state: 'unknown', note: 'a true generator is claimed, but the chip is never named and no certificate has been issued to CompoSecure — the claim cannot be checked, so it is scored as absent', src: 'https://www.commoncriteriaportal.org/products/certified_products.csv' },
+      count:  { state: 'single', note: 'the card returns a mnemonic from a call whose only input is the word count; the phone contributes nothing, and 12 words is the default', src: 'https://github.com/ByneappLLC/arculus-sdk-flutter/blob/main/android/src/main/cpp/include/csdk.h' }
+    },
     osLayers: {
       seFw:     { state: 'closed', note: 'proprietary; keys generated and stored on the element with nothing published', src: 'https://walletscrutiny.com/hardware/arculus/' },
       deviceFw: { state: 'closed', note: 'the card is a smartcard, so the applet is the firmware — same closed status', src: 'https://walletscrutiny.com/hardware/arculus/' },
@@ -255,6 +305,45 @@ const OS_STATES = {
 
 const osState = (entry) => OS_STATES[entry && entry.state] || OS_STATES.unknown;
 
+// ---------------------------------------------------------------------------
+// Entropy, by rule.
+//
+// Two independent 5-point rules: how good the source is, and how many sources
+// are combined. Unlike the open-source layers these are flat point scales with
+// a floor of 1 — a device that produces a number at all is not scored zero.
+// Nothing here re-scores what the SECURE ELEMENT or OPEN SOURCE columns cover:
+// where the seed is born belongs to the former, whether the mixing code can be
+// read belongs to the latter.
+// ---------------------------------------------------------------------------
+
+const ENT_RULES = [
+  {
+    key: 'source',
+    label: 'SOURCE OF RNG',
+    max: 5,
+    states: {
+      software: { pts: 1, label: 'SOFTWARE PRNG',       cls: 'is-closed' },
+      hardware: { pts: 3, label: 'UNCERTIFIED HARDWARE', cls: 'is-partial' },
+      trng:     { pts: 5, label: 'CERTIFIED TRNG',       cls: 'is-open' },
+      unknown:  { pts: 1, label: 'UNVERIFIED',           cls: 'is-unknown' }
+    }
+  },
+  {
+    key: 'count',
+    label: 'NUMBER OF SOURCES',
+    max: 5,
+    states: {
+      single:   { pts: 1, label: 'SINGLE SOURCE',    cls: 'is-closed' },
+      multiple: { pts: 3, label: 'MULTIPLE SOURCES', cls: 'is-partial' },
+      user:     { pts: 5, label: 'MULTIPLE + USER',  cls: 'is-open' },
+      unknown:  { pts: 1, label: 'UNVERIFIED',       cls: 'is-unknown' }
+    }
+  }
+];
+
+const entState = (rule, entry) =>
+  rule.states[entry && entry.state] || rule.states.unknown;
+
 const state = { sort: 'overall', query: '', open: null };
 
 const els = {
@@ -296,11 +385,19 @@ function osScore(w) {
   return Math.round((10 * earned / possible) * 10) / 10;
 }
 
+// Layered devices derive entropy from the two rules; the rest keep flat `ent`.
+function entScore(w) {
+  if (!isRated(w)) return null;
+  if (!w.entRules) return w.ent;
+  return ENT_RULES.reduce((n, r) => n + entState(r, w.entRules[r.key]).pts, 0);
+}
+
 // Single accessor for every score read, so `os` can be flat or derived.
-const metric = (w, key) => (key === 'os' ? osScore(w) : w[key]);
+const metric = (w, key) =>
+  (key === 'os' ? osScore(w) : key === 'ent' ? entScore(w) : w[key]);
 
 const score = (w) =>
-  (isRated(w) ? (w.se + w.scr + w.inp + w.ent + osScore(w)) / 5 : null);
+  (isRated(w) ? (w.se + w.scr + w.inp + entScore(w) + osScore(w)) / 5 : null);
 
 const tier = (v) => (v >= 9 ? 'STRONG' : v >= 8 ? 'SOUND' : v >= 6.5 ? 'MIXED' : 'WEAK');
 
@@ -398,6 +495,47 @@ function osBreakdown(w) {
       </div>`;
 }
 
+function warningBlock(w) {
+  if (!w.warning) return '';
+  const url = safeUrl(w.warning.src);
+  const link = url
+    ? ` <a class="os-src" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(w.warning.srcLabel || 'ADVISORY')} \u2197</a>`
+    : '';
+  return `
+      <div class="row-warning">
+        <div class="row-warning-tag">${esc(w.warning.tag || 'ADVISORY')}</div>
+        <p>${esc(w.warning.text)}${link}</p>
+      </div>`;
+}
+
+function entRuleRow(w, rule) {
+  const entry = w.entRules[rule.key];
+  const st = entState(rule, entry);
+  return `
+        <div class="os-layer ${st.cls}">
+          <div class="os-layer-name">${rule.label}</div>
+          <div class="os-layer-pts">${st.pts.toFixed(1)} / ${rule.max.toFixed(1)}</div>
+          <div class="os-layer-state">${st.label}</div>
+          <div class="os-layer-note">${esc((entry && entry.note) || 'not established')}${osSourceLink(entry)}</div>
+        </div>`;
+}
+
+function entBreakdown(w) {
+  if (!isRated(w) || !w.entRules) return '';
+  const total = entScore(w);
+  return `
+      <div class="os-breakdown">
+        <div class="kicker">ENTROPY \u2014 RULE BREAKDOWN</div>
+        <div class="os-layers">${ENT_RULES.map((r) => entRuleRow(w, r)).join('')}
+        </div>
+        <div class="os-total">
+          <span class="os-total-value">${total.toFixed(1)}</span>
+          <span class="os-total-sum">${total.toFixed(1)} of 10.0 points</span>
+          <div class="bar"><span style="width: ${total * 10}%"></span></div>
+        </div>
+      </div>`;
+}
+
 function rowMarkup(w) {
   const overall = score(w);
   const isOpen = state.open === w.id;
@@ -408,7 +546,7 @@ function rowMarkup(w) {
         <div class="cell-device">
           ${devicePhoto(w)}
           <div style="min-width: 0;">
-            <div class="device-name">${esc(w.name)}</div>
+            <div class="device-name">${esc(w.name)}${w.warning ? '<span class="device-flag" title="Security advisory">!</span>' : ''}</div>
             <div class="device-meta">${esc(w.meta)}</div>
           </div>
         </div>
@@ -419,7 +557,7 @@ function rowMarkup(w) {
           <div class="tier">${isRated(w) ? tier(overall) : 'NOT RATED'}</div>
         </div>
       </div>
-      <div class="teardown" id="teardown-${w.id}" ${isOpen ? '' : 'hidden'}>
+      <div class="teardown" id="teardown-${w.id}" ${isOpen ? '' : 'hidden'}>${warningBlock(w)}
         <div>
           <div class="kicker">TEARDOWN NOTE</div>
           <p>${esc(w.note)}</p>
@@ -427,7 +565,7 @@ function rowMarkup(w) {
         <div>
           <div class="kicker">WATCH ITEM</div>
           <p>${esc(w.watch)}</p>
-        </div>${osBreakdown(w)}
+        </div>${entBreakdown(w)}${osBreakdown(w)}
       </div>
     </div>`;
 }
