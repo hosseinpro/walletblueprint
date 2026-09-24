@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>walletblueprint.com — hardware wallets by security architecture</title>
-<meta name="description" content="Hardware wallets scored on five security primitives: secure element, trusted screen, trusted input, entropy and open source. No affiliate links.">
+<meta name="description" content="Hardware wallets scored on four security properties: secure element, trusted I/O, entropy and open source. No affiliate links.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -37,8 +37,8 @@
   <section class="hero">
     <div>
       <div class="eyebrow">REV. 2026.09</div>
-      <h1>Five questions decide<br>whether a wallet holds.</h1>
-      <p>Hardware wallets share one problem no product fixes: a device whose only purpose is holding Bitcoin marks its owner as worth attacking — distributor databases have been breached, and supply-chain tampering is real even where the vendor ships no backdoors. If you need one anyway, five things stand between an attacker and your seed: the secure element, the trusted screen, the trusted input path, entropy generation, and how much of the stack you can read. No affiliate links, no aggregate star ratings — just the architecture.</p>
+      <h1>Four questions decide<br>whether a wallet holds.</h1>
+      <p>Hardware wallets share one problem no product fixes: a device whose only purpose is holding Bitcoin marks its owner as worth attacking — distributor databases have been breached, and supply-chain tampering is real even where the vendor ships no backdoors. If you need one anyway, four things stand between an attacker and your seed: how much of the wallet actually runs inside the secure element, whether the screen and buttons are driven by it, where the randomness comes from, and how much of the stack you can read. No affiliate links, no aggregate star ratings — just the architecture.</p>
     </div>
     <img src="images/hero.png" alt="Blueprint drawing of a wallet holding Bitcoin, Ethereum and Solana coins">
   </section>
@@ -48,8 +48,7 @@
       <span class="sort-label">SORT&nbsp;/</span>
       <button class="btn-sort is-active" type="button" data-sort="overall" aria-pressed="true">COMPOSITE</button>
       <button class="btn-sort" type="button" data-sort="secure" aria-pressed="false">SECURE ELEMENT</button>
-      <button class="btn-sort" type="button" data-sort="screen" aria-pressed="false">SCREEN</button>
-      <button class="btn-sort" type="button" data-sort="input" aria-pressed="false">INPUT</button>
+      <button class="btn-sort" type="button" data-sort="io" aria-pressed="false">TRUSTED I/O</button>
       <button class="btn-sort" type="button" data-sort="entropy" aria-pressed="false">ENTROPY</button>
       <button class="btn-sort" type="button" data-sort="open" aria-pressed="false">OPEN SOURCE</button>
       <button class="btn-sort" type="button" data-sort="name" aria-pressed="false">NAME A–Z</button>
@@ -76,8 +75,7 @@
       <div class="grid-row sheet-head">
         <div>DEVICE</div>
         <div>SECURE ELEMENT</div>
-        <div>TRUSTED SCREEN</div>
-        <div>TRUSTED INPUT</div>
+        <div>TRUSTED I/O</div>
         <div>ENTROPY</div>
         <div>OPEN SOURCE</div>
         <div>COMPOSITE</div>

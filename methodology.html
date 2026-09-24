@@ -75,7 +75,7 @@
           through an intermediary you should assume is hostile.</figcaption>
       </figure>
 
-      <p>This is the whole reason the following six properties matter. If the companion app is compromised, it can lie
+      <p>This is the whole reason the following properties matter. If the companion app is compromised, it can lie
         about the recipient address, lie about the amount, and suppress what you are shown. The device's only defence is
         what it can prove on its own hardware, without trusting anything the phone says. Many products sold as hardware
         wallets fail here: they lean on the security of the middle device rather than replacing the need to trust it.
@@ -99,99 +99,60 @@
           reads what you press — so no other component can sit between you and the transaction.</figcaption>
       </figure>
 
-      <h2>01 — TRUSTED SCREEN</h2>
-      <h3>What you see must be what you sign.</h3>
-      <p>To display transaction details — the recipient address, the amount — the device needs a screen of its own. A
-        wallet without one falls back on the screen of whatever it is plugged into, and that is a machine you have
-        already agreed to distrust. Malicious code on the phone can substitute the recipient address, and a device with
-        no display has no way to confirm the real one with you.</p>
-      <p>Resolution matters less than legibility. A screen that truncates a destination address to a handful of
-        characters invites address-substitution malware to brute-force a convincing lookalike. A screen that cannot
-        render a full contract call is, for smart-contract use, only a step away from blind signing.</p>
-      <p>Devices are marked down here when the display is absent entirely. Arculus generates seeds securely and supports
-        multi-factor authentication, but has no trusted screen, so its users inherit every vulnerability in the mobile
-        app. Bitkey pairs a software wallet for routine transactions with a hardware wallet for large ones — a sound
-        split — but the hardware half has no display on which to confirm what is being approved.</p>
-      <div class="pull">Full marks require: a display driven by the signing domain, on a bus the host cannot reach,
-        rendering the full destination and amount.</div>
+      <h2>01 — SECURE ELEMENT</h2>
+    <h3>The question is not whether there is one. It is how much of the wallet runs inside it.</h3>
+    <p>A general-purpose microcontroller stores your seed in flash that a skilled attacker with physical access can often extract — through voltage glitching, decapping, or a debug interface someone forgot to fuse off. A secure element is purpose-built against exactly that: hardened memory, active shielding, glitch and fault detection, and no path that returns key material to the outside world.</p>
+    <p>Almost every device on this sheet now has one. That is why the question has moved. Vendors fit an element, put the PIN behind it, and then carry the seed out to an ordinary chip to do the actual work — so the marketing is true and the protection is thin. What matters is how much of the wallet runs inside the element and how much runs beside it, so the score is built from the four things a wallet does with your key.</p>
 
-      <h2>02 — TRUSTED INPUT</h2>
-      <h3>Consent has to be physical.</h3>
-      <p>A confirmation is only meaningful if software cannot produce it. The device needs its own way to record the
-        inputs that matter: a button press to approve a transaction, a PIN entered on the device itself. Where a wallet
-        asks the phone or computer for the PIN, the password or the confirmation, an attack on that app is an attack on
-        the wallet. Arculus has this problem as well as the screen one.</p>
-      <p>Interfaces that make the safe path tedious are also penalised. A device that buries address verification three
-        menus deep, or offers a &ldquo;trust this session&rdquo; mode that batches away per-transaction approval, has
-        built a control that humans will route around.</p>
+    <div class="rubric">
+      <div class="rubric-row"><div>2</div><div><strong>User authentication inside the element</strong> — the PIN or fingerprint is checked by the element itself. Without this, the key can be used to sign by anyone who reaches it</div></div>
+      <div class="rubric-row"><div>3</div><div><strong>Signing key generated inside the element</strong> — without this, the key has existed in plaintext outside the element at some point</div></div>
+      <div class="rubric-row"><div>3</div><div><strong>Signing performed inside the element</strong> — without this, the key must leave in plaintext every time you spend</div></div>
+      <div class="rubric-row"><div>2</div><div><strong>Transaction built and hashed inside the element</strong> — without this, the element signs whatever hash it is handed, and something else decided what that is</div></div>
+    </div>
+    <p class="doc-note">No element at all scores zero, and nothing special is needed to arrive there: with no element, every component fails on its own terms.</p>
 
-      <h2>03 — SECURE ELEMENT</h2>
-      <h3>The secret should live somewhere that cannot be read.</h3>
-      <p>Keys and seeds belong in a secure element: a chip built to generate elliptic-curve keys and sign transactions,
-        with hardened memory, active shielding, glitch and fault detection, and no path that hands key material back
-        out. Secure elements are normally submitted for third-party evaluation and certified under Common Criteria or
-        NIST FIPS 140.</p>
-      <p>A wallet without one is performing cryptography on a general-purpose chip and inherits that chip's attack
-        surface. Trezor Model One and Model T both sit here. Trezor's stated reason was open source: using a certified
-        element would have meant an NDA with the vendor and closed firmware. That is a real tension, but declining the
-        element was a serious concession — Kraken Security Labs and Ledger's Donjon team have both published flaws, and
-        seeds have been recovered from these devices through power glitching and by dumping memory to brute-force the
-        passphrase offline. The same class of attack was demonstrated against KeepKey, which also has no secure element.
-        OneKey Touch is a related case: a colorful touchscreen on what is functionally a cold wallet, with no secure
-        element behind it.</p>
-      <h3>Having one is not the same as using it.</h3>
-      <p>A system is as strong as its weakest component, so the secure element has to cover the entire life cycle of the
-        secret — generated inside it, used inside it, never written out in the clear. CoolWallet S held a secure element
-        with a top-tier certification and still stored its password and seed in plaintext in the mobile app, which
-        Kraken Security Labs found and reported. That specific issue was fixed, but the PIN is still entered on the
-        phone.</p>
-      <p>A larger group of devices uses the element only as a lockbox. Trezor Safe 3 and Safe 5 keep a key in the secure
-        element that decrypts the seed; the PIN unlocks the element, and the <em>plaintext seed is then loaded into a
-          general-purpose STM32 microcontroller</em>, where all signing happens. Encryption at rest is real protection,
-        but malware on that MCU — planted, for instance, through a supply-chain attack — can read the seed straight out
-        of memory. ColdCard Mk4 and ColdCard Q carry two secure elements and a protocol to protect the seed between
-        them, and still load it into an STM32 to sign. ColdCard's answer is a read-only bootloader that hashes the
-        firmware and has a secure element verify it, turning an indicator light green on success — which makes the
-        security of the device rest on the general-purpose chip being genuinely read-only, rather than on the secure
-        elements. Keystone 3 Pro and Passport follow the same pattern: generate and store in the element, sign on a chip
-        that is not one.</p>
-      <div class="pull">Full marks require: the seed generated inside a certified element, used inside it, and never
-        present in plaintext anywhere else — including in RAM, in transit.</div>
+    <p>The middle two are the heart of it. A device that generates the seed on a general-purpose chip has exposed it before the element ever sees it; a device that carries the seed back out to sign exposes it on every spend. Trezor&rsquo;s Safe line and ColdCard both sit here — the element gates the PIN and holds a decryption key, and an ordinary STM32 does the signing. Malware on that chip, planted through a supply chain or a firmware flaw, reads the seed straight out of memory.</p>
+    <p>The last component is the one most often overlooked. An element that signs whatever hash arrives at its door is only as trustworthy as whatever computed that hash. If the transaction is parsed and hashed outside, the element is a signing oracle rather than a wallet, and the thing deciding what you sign is the chip you were trying not to trust.</p>
+    <p>Having an element is also not the same as using it honestly. CoolWallet S held an element with a top-tier certification and still stored its password and seed in plaintext in the mobile app, which Kraken Security Labs found and reported. A system is only as strong as its weakest component, and the element does not make the rest of the device disappear.</p>
 
-      <h2>04 — TRUSTED I/O WIRED TO THE ELEMENT</h2>
-      <h3>A display the secure element does not drive is a display someone else can drive.</h3>
-      <p>Screen, buttons and host connection should all terminate at the secure element. This is a genuinely hard
-        engineering problem: secure elements are resource-constrained and often lack the pins to drive connectors, which
-        is why the common workaround is a microcontroller acting as a hub — driving the display and reading the buttons,
-        then talking to the element.</p>
-      <p>That hub is a new place to hide. A manipulated MCU can show you one address on the display while handing a
-        different transaction to the secure element to sign, which is precisely the shape of a supply-chain attack, and
-        why every vendor in this category tells you to buy direct. Ledger Nano S is the worked example: a ST31 secure
-        element paired with an STM32 MCU, and Thomas Roth demonstrated at CCC that the MCU could be overwritten — he
-        loaded a game onto it.</p>
+    <div class="pull">Full marks require: the PIN checked inside the element, the key born there, the transaction built and hashed there, and the signature produced there — so that the key never exists in plaintext anywhere else.</div>
 
-      <h2>05 — NO GENERAL-PURPOSE MCU</h2>
-      <h3>The strongest design removes the hub rather than hardening it.</h3>
-      <p>Ledger Nano S Plus and Nano X move to the ST33, a secure element with enough I/O to take on more of the job,
-        and pull the display driver and button handling into the element itself — which makes manipulating what is
-        shown, or faking a press, substantially harder. An MCU remains, handling USB and Bluetooth. That remnant has
-        already been costly once: Kraken Security Labs found the MCU code could be overwritten before the device reached
-        the buyer, after which connecting it to a computer for the first time would run malicious code that could blank
-        the display and steer the user into pressing buttons while their assets were taken. Ledger patched the firmware
-        and says JTAG is disabled on newer devices, though its own documentation has said otherwise. No new exploit of
-        that path has been published, but the MCU is still the softest part of the device.</p>
-      <p>Ledger Stax is hard to place — public technical detail is thin, and on what is available it appears to share
-        the Nano X architecture, MCU included.</p>
-      <h3>What removing it would take.</h3>
-      <p>This is not hypothetical work. ICCD is a USB stack written for secure elements and already shipping on smart
-        cards, which run the USB code on the element with no intermediary. NFC is supported by many secure elements —
-        including Ledger's ST33 — needs no battery in the device, is more secure than Bluetooth, and is already the
-        transport for card payments on both iPhone and Android. The pieces to build a wallet with no general-purpose
-        chip in the signing path exist.</p>
-      <div class="pull">Full marks require: no general-purpose microcontroller anywhere between the user, the host and
-        the secure element.</div>
+    <h2>02 — TRUSTED I/O</h2>
+    <h3>What you see must be what you sign, and consent must be physical.</h3>
+    <p>Assume the computer is hostile. The only defence left is a display the host cannot influence, driven by the domain that holds the key, rendering the address and amount the device is actually about to authorise. If a companion app can put pixels on that screen, the screen proves nothing. A screen that truncates a destination address to a handful of characters invites address-substitution malware to brute-force a convincing lookalike; one that cannot render a full contract call is, for smart-contract use, a step from blind signing.</p>
+    <p>Consent is the same problem in the other direction. A confirmation is only meaningful if software cannot produce it: buttons or a touch controller wired to the secure domain, a signing step that cannot be batched away by an earlier approval, and a PIN entered on the device rather than typed into a host that may be logging it.</p>
+    <p>Screen and buttons were scored separately here until now, which was a distinction without a difference — they fail together and for the same reason. What decides both is which chip is driving them.</p>
 
-      <h2>06 — ENTROPY</h2>
+    <p><strong>Display and user output</strong></p>
+    <div class="rubric">
+      <div class="rubric-row"><div>4</div><div>Driven by the element — what you read comes from the domain that holds the key</div></div>
+      <div class="rubric-row"><div>2</div><div>Driven by the device&rsquo;s own microcontroller — a real screen, but one the element does not control</div></div>
+      <div class="rubric-row"><div>0</div><div>No display on the device; what you see is whatever the phone app decides to show</div></div>
+    </div>
+
+    <p><strong>Buttons and user input</strong></p>
+    <div class="rubric">
+      <div class="rubric-row"><div>4</div><div>Read by the element — your consent is recorded by the domain that holds the key</div></div>
+      <div class="rubric-row"><div>2</div><div>Read by the device&rsquo;s own microcontroller — physical, but not wired to the element</div></div>
+      <div class="rubric-row"><div>0</div><div>Nothing on the device records consent; approval is collected in the app</div></div>
+    </div>
+
+    <p><strong>Host link — USB, Bluetooth or NFC</strong></p>
+    <div class="rubric">
+      <div class="rubric-row"><div>2</div><div>Handled by the element, with no general-purpose chip anywhere in the path</div></div>
+      <div class="rubric-row"><div>0</div><div>Handled by a microcontroller beside the element</div></div>
+    </div>
+    <p class="doc-note">The middle level matters. A screen driven by the device&rsquo;s own microcontroller can still be lied to by malware on that chip — but it is not the same failure as having no screen at all, where the only thing you can read is a phone that may already be compromised. The host link has no middle level: either the element handles it or a general-purpose chip does, and that chip is the hub this section is about.</p>
+
+    <h3>Why the hub is the problem.</h3>
+    <p>Terminating screen, buttons and host connection at the element is a genuinely hard engineering problem: elements are resource-constrained and often lack the pins to drive connectors. The common workaround is a microcontroller acting as a hub — driving the display, reading the buttons, then talking to the element. That hub is a new place to hide. A manipulated MCU can show you one address while handing a different transaction to the element to sign, which is precisely the shape of a supply-chain attack and why every vendor in this category tells you to buy direct. Ledger Nano S is the worked example: a ST31 element paired with an STM32, and Thomas Roth demonstrated at CCC that the MCU could be overwritten — he loaded a game onto it.</p>
+    <p>The strongest designs remove the hub rather than harden it. Ledger&rsquo;s later devices move to an element with enough I/O to take the display driver and button handling inside, which makes manipulating what is shown, or faking a press, substantially harder. An MCU remains for USB and Bluetooth, and that remnant has already been costly once: Kraken Security Labs found the MCU code could be overwritten before the device reached the buyer, after which first connection would run code that could blank the display and steer the user into pressing buttons while their assets were taken.</p>
+    <p>Removing it entirely is not hypothetical. ICCD is a USB stack written for secure elements and already shipping on smart cards, running the USB code on the element with no intermediary. NFC is supported by many elements, needs no battery, is more secure than Bluetooth, and already carries card payments on both iPhone and Android. The pieces exist; the last two points are there for whoever assembles them.</p>
+
+    <div class="pull">Full marks require: no general-purpose microcontroller anywhere between the user, the host and the element.</div>
+
+    <h2>03 — ENTROPY</h2>
     <h3>A predictable seed is no seed at all.</h3>
     <p>Every key in the device descends from one number generated once, usually in the first minute of the device&rsquo;s life. If that number is weak, every other control on this sheet is decoration — the screen, the buttons and the element are all guarding a secret an attacker can simply recompute.</p>
     <p>Two questions decide it, and they are scored separately because a device can do well at one and badly at the other. Where the seed is generated belongs to the secure element section above, and whether the mixing code can be read belongs to the open-source score below; neither is re-scored here.</p>
@@ -217,7 +178,7 @@
     <p class="doc-note">The floor is one point per rule rather than zero: a device that generates a number badly has still generated one. The worst score available here is two, and no device that leaves the user out of the process can exceed eight — which is the difference between sound entropy and entropy you can check.</p>
 
     <h2>A NOTE ON OPEN SOURCE</h2>
-      <h3>Openness is not a security property. It is what lets you check the other five.</h3>
+      <h3>Openness is not a security property. It is what lets you check the other three.</h3>
       <p>Open firmware is not automatically reviewed firmware, and a closed secure-element applet can be excellent. What
         openness buys is verification: if the signing firmware is published and the build is reproducible, the binary on
         your device can be shown to match the code people have actually read.</p>
@@ -229,7 +190,7 @@
         high-level ones and open the latter, shrinking the closed surface to the part that genuinely cannot be
         published.</p>
 
-      <h2>OPEN SOURCE — THE FIVE LAYERS</h2>
+      <h2>04 — OPEN SOURCE</h2>
     <h3>Not all published code is worth the same.</h3>
     <p>Treating openness as one bit is useless, because it lets a vendor publish a phone app and a marketing schematic while the code that touches your seed stays closed — and then describe the product as open source. So the score is split into the five layers a wallet can publish, each weighted by how close it sits to the secret.</p>
 
@@ -279,8 +240,8 @@
           <div>Property absent, or claimed with no way to check</div>
         </div>
       </div>
-      <p class="doc-note">The composite is an unweighted mean of the five, rounded to one decimal. We publish it because
-        people want one number, and we refuse to weight the five against each other, because the right weighting
+      <p class="doc-note">The composite is an unweighted mean of the four, rounded to one decimal. We publish it because
+        people want one number, and we refuse to weight the four against each other, because the right weighting
         <em>across</em> properties is your threat model and not ours. Weighting <em>within</em> a property is a different
         question: how much of the open-source score each layer earns is a fact about the architecture rather than a
         preference — code running closer to the seed is code more worth being able to read, whatever you are defending

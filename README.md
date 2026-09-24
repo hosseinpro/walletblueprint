@@ -16,19 +16,20 @@ design are easy to advertise. Whether the seed can be read off the chip, whether
 can be lied to, whether entropy was generated properly — those are the things that decide
 whether the device does its job, and they are almost never on the box.
 
-So the site keeps one table, maintained in public, scoring each device on five architectural
+So the site keeps one table, maintained in public, scoring each device on four architectural
 properties:
 
 | Property | The question it answers |
 |---|---|
-| **Secure element** | Can the seed be read off the chip? |
-| **Trusted screen** | Is what you see what you sign, or can the display be driven by something else? |
-| **Trusted input** | Is consent physical and handled on-device? |
-| **Entropy** | Was the key generated properly, and can that be checked? |
-| **Open source** | How much of the stack can you actually read? |
+| **Secure element** | How much of the wallet actually runs inside it — authentication, key generation, signing, transaction building? |
+| **Trusted I/O** | Are the display, the buttons and the host link driven by the element, or by a general-purpose chip beside it? |
+| **Entropy** | Is the randomness from a certified generator, and can you contribute your own? |
+| **Open source** | How much of the stack can you actually read, weighted by how close each layer sits to the seed? |
 
 Each is scored `0–10`, and the composite is their unweighted mean. It stays unweighted on
-purpose: the right weighting is your threat model, not ours.
+purpose: the right weighting *across* properties is your threat model, not ours — though the
+components *within* each property are weighted, because proximity to the seed is an
+architectural fact rather than a preference.
 
 | Range | Meaning |
 |---|---|

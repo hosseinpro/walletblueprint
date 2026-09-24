@@ -408,11 +408,11 @@ a:hover { color: var(--ice); }
   border: 1px solid var(--line-40);
   background: var(--panel);
 }
-.sheet-inner { min-width: 1160px; }
+.sheet-inner { min-width: 1020px; }
 
 .grid-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.8fr) repeat(5, minmax(0, 1fr)) 108px;
+  grid-template-columns: minmax(0, 1.8fr) repeat(4, minmax(0, 1fr)) 108px;
 }
 
 .sheet-head {
@@ -1004,8 +1004,8 @@ a:hover { color: var(--ice); }
     margin-top: 6px;
   }
 
-  /* The tier word already qualifies the number; the label would cost
-     width the device name needs. */
+  /* The label would cost width the device name needs, and the column header
+     already names it on desktop. */
   .cell-total .cell-label { display: none; }
   .cell-total .value { font-size: 24px; line-height: 1.1; }
 

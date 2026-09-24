@@ -2,8 +2,19 @@
 
 const WALLETS = [
   {
-    id: 'lnsp', photo: 'images/devices/ledger-nano-s-plus.webp', name: 'Ledger Nano S Plus', meta: 'USB-C · ST33 element · buttons in SE', se: 9.5, scr: 9.0, inp: 9.0,
-    seNote: 'certified ST33, seed in-element', scrNote: 'display driver inside SE', inpNote: 'button handling inside SE', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lnsp', photo: 'images/devices/ledger-nano-s-plus.webp', name: 'Ledger Nano S Plus', meta: 'USB-C · ST33 element · buttons in SE',
+    seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and buttons in the element; USB on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    seParts: {
+      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      keygen:  { state: 'element', note: 'seed generated inside the element and never exported' },
+      signing: { state: 'element', note: 'signing runs on the element' },
+      txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
+    },
+    ioParts: {
+      display: { state: 'element', note: 'display driver pulled into the element itself' },
+      input:   { state: 'element', note: 'button handling runs inside the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-rapport.pdf' },
       count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
@@ -19,8 +30,19 @@ const WALLETS = [
     watch: 'An MCU still handles USB. Kraken Security Labs showed it could be overwritten before delivery — patched, but the MCU remains the softest part of the device.'
   },
   {
-    id: 'lnx', photo: 'images/devices/ledger-nano-x.webp', name: 'Ledger Nano X', meta: 'USB-C · Bluetooth · ST33 element', se: 9.5, scr: 9.0, inp: 9.0,
-    seNote: 'certified ST33, seed in-element', scrNote: 'display driver inside SE', inpNote: 'button handling inside SE', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lnx', photo: 'images/devices/ledger-nano-x.webp', name: 'Ledger Nano X', meta: 'USB-C · Bluetooth · ST33 element',
+    seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and buttons in the element; USB and BLE on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    seParts: {
+      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      keygen:  { state: 'element', note: 'seed generated inside the element and never exported' },
+      signing: { state: 'element', note: 'signing runs on the element' },
+      txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
+    },
+    ioParts: {
+      display: { state: 'element', note: 'display driver pulled into the element itself' },
+      input:   { state: 'element', note: 'button handling runs inside the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-17-rapport.pdf' },
       count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
@@ -36,8 +58,19 @@ const WALLETS = [
     watch: 'Bluetooth widens what the remaining MCU is exposed to. NFC would remove the need for a battery and is already supported by the ST33.'
   },
   {
-    id: 'lstax', photo: 'images/devices/ledger-stax.webp', name: 'Ledger Stax', meta: 'USB-C · Bluetooth · e-ink', se: 9.0, scr: 8.5, inp: 8.5,
-    seNote: 'certified element, detail scarce', scrNote: 'large e-ink, likely SE-driven', inpNote: 'touch, likely SE-driven', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lstax', photo: 'images/devices/ledger-stax.webp', name: 'Ledger Stax', meta: 'USB-C · Bluetooth · e-ink',
+    seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and touch in the element; USB and BLE on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
+    seParts: {
+      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      keygen:  { state: 'element', note: 'seed generated inside the element and never exported' },
+      signing: { state: 'element', note: 'signing runs on the element' },
+      txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
+    },
+    ioParts: {
+      display: { state: 'element', note: 'display driver pulled into the element itself' },
+      input:   { state: 'element', note: 'button handling runs inside the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2025-03-rapport.pdf' },
       count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
@@ -53,8 +86,19 @@ const WALLETS = [
     watch: 'Scored below the Nano X only because the architecture is inferred rather than documented.'
   },
   {
-    id: 'lflex', photo: 'images/devices/ledger-flex.webp', name: 'Ledger Flex', meta: 'USB-C · Bluetooth · e-ink touch', se: 9.0, scr: 8.5, inp: 8.5,
-    seNote: 'certified element, seed in-element', scrNote: 'e-ink, driven through the element', inpNote: 'touch routed via the element', entNote: 'certified chip, no device-level evaluation', osNote: 'SDK and app open; every seed-touching layer closed',
+    id: 'lflex', photo: 'images/devices/ledger-flex.webp', name: 'Ledger Flex', meta: 'USB-C · Bluetooth · e-ink touch',
+    seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and touch in the element; USB and BLE on an MCU', entNote: 'certified chip, no device-level evaluation', osNote: 'SDK and app open; every seed-touching layer closed',
+    seParts: {
+      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      keygen:  { state: 'element', note: 'seed generated inside the element and never exported' },
+      signing: { state: 'element', note: 'signing runs on the element' },
+      txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
+    },
+    ioParts: {
+      display: { state: 'element', note: 'display driver pulled into the element itself' },
+      input:   { state: 'element', note: 'button handling runs inside the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'trng', note: 'ST33 secure element carrying an AIS-31 PTG.2 generator, with total-failure and online statistical tests in hardware', src: 'https://shop.ledger.com/products/ledger-flex' },
       count:  { state: 'single', note: 'inferred from the identical element and OS; no Flex-specific evaluation is published, unlike the other three', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
@@ -76,8 +120,19 @@ const WALLETS = [
   },
 
   {
-    id: 'tsafe3', photo: 'images/devices/trezor-safe-3.webp', name: 'Trezor Safe 3', meta: 'USB-C · EAL6+ element · open firmware', se: 5.0, scr: 7.5, inp: 7.5,
-    seNote: 'EAL6+, but seed leaves it', scrNote: 'mono, on-device, MCU-driven', inpNote: 'buttons, PIN on device', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    id: 'tsafe3', photo: 'images/devices/trezor-safe-3.webp', name: 'Trezor Safe 3', meta: 'USB-C · EAL6+ element · open firmware',
+    seNote: 'element gates the PIN, but the seed lives and signs on the MCU', ioNote: 'screen, buttons and host link all on the MCU', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    seParts: {
+      auth:    { state: 'element', note: 'PIN checked against the Optiga, which enforces the retry counter' },
+      keygen:  { state: 'outside',  note: 'seed generated on the MCU; the element only holds a key that decrypts it' },
+      signing: { state: 'outside',  note: 'all signing happens on a general-purpose STM32' },
+      txbuild: { state: 'outside',  note: 'transaction parsing and hashing run on the MCU' }
+    },
+    ioParts: {
+      display: { state: 'device', note: 'a screen on the device, but driven by a general-purpose MCU' },
+      input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'trng', note: 'Optiga Trust M on a platform whose certification used AIS-31 for the generator, XORed into the MCU generator; the public report does not state a PTG class', src: 'https://www.commoncriteriaportal.org/nfs/ccpfiles/files/epfiles/0961V4a_pdf.pdf' },
       count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes — readable end to end in public source. No human entropy: Trezor says user-supplied entropy is still only under consideration', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
@@ -93,8 +148,19 @@ const WALLETS = [
     watch: 'The plaintext seed is then loaded into a general-purpose STM32, where all signing happens. Malware on that chip can read it straight out of memory.'
   },
   {
-    id: 'tsafe5', photo: 'images/devices/trezor-safe-5.avif', name: 'Trezor Safe 5', meta: 'USB-C · colour touchscreen · EAL6+ element', se: 5.0, scr: 8.5, inp: 8.5,
-    seNote: 'EAL6+, but seed leaves it', scrNote: 'colour touchscreen, Gorilla Glass', inpNote: 'touch, PIN entered on device', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    id: 'tsafe5', photo: 'images/devices/trezor-safe-5.avif', name: 'Trezor Safe 5', meta: 'USB-C · colour touchscreen · EAL6+ element',
+    seNote: 'element gates the PIN, but the seed lives and signs on the MCU', ioNote: 'touchscreen and host link all on the MCU', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
+    seParts: {
+      auth:    { state: 'element', note: 'PIN checked against the Optiga, which enforces the retry counter' },
+      keygen:  { state: 'outside',  note: 'seed generated on the MCU; the element only holds a key that decrypts it' },
+      signing: { state: 'outside',  note: 'all signing happens on a general-purpose STM32' },
+      txbuild: { state: 'outside',  note: 'transaction parsing and hashing run on the MCU' }
+    },
+    ioParts: {
+      display: { state: 'device', note: 'a screen on the device, but driven by a general-purpose MCU' },
+      input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'trng', note: 'Optiga Trust M on a platform whose certification used AIS-31 for the generator, XORed into the MCU generator; the public report does not state a PTG class', src: 'https://www.commoncriteriaportal.org/nfs/ccpfiles/files/epfiles/0961V4a_pdf.pdf' },
       count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes — readable end to end in public source. No human entropy: Trezor says user-supplied entropy is still only under consideration', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
@@ -116,8 +182,19 @@ const WALLETS = [
   },
 
   {
-    id: 'keepkey', photo: 'images/devices/keepkey.webp', name: 'KeepKey', meta: 'USB · no element · legacy', se: 1.0, scr: 6.5, inp: 6.0,
-    seNote: 'none', scrNote: 'mono display', inpNote: 'single button, host PIN grid', entNote: 'uncertified generator, host entropy optional', osNote: 'no element; firmware open, board claim unsupported',
+    id: 'keepkey', photo: 'images/devices/keepkey.webp', name: 'KeepKey', meta: 'USB · no element · legacy',
+    seNote: 'no element anywhere in the design', ioNote: 'screen, button and host link all on the MCU', entNote: 'uncertified generator, host entropy optional', osNote: 'no element; firmware open, board claim unsupported',
+    seParts: {
+      auth:    { state: 'outside', note: 'no secure element; the PIN is checked by the MCU against encrypted flash' },
+      keygen:  { state: 'outside', note: 'no element to generate in' },
+      signing: { state: 'outside', note: 'signing runs on a general-purpose STM32' },
+      txbuild: { state: 'outside', note: 'everything runs on the MCU' }
+    },
+    ioParts: {
+      display: { state: 'device', note: 'a screen on the device, but driven by a general-purpose MCU' },
+      input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'hardware', note: 'the STM32F205 generator peripheral read directly, with a repeat check and error-flag handling; no independent evaluation of any kind exists', src: 'https://github.com/keepkey/keepkey-firmware/blob/master/lib/rand/rng.c' },
       count:  { state: 'multiple', note: 'device entropy hashed together with host-supplied bytes — but the host contribution is optional and silently skipped when absent, leaving one source. Defaults to 12 words', src: 'https://github.com/keepkey/keepkey-firmware/blob/master/lib/firmware/reset.c' }
@@ -134,13 +211,24 @@ const WALLETS = [
   },
 
   {
-    id: 'ccmk4', photo: 'images/devices/coldcard-mk4.png', name: 'ColdCard Mk4', meta: 'air-gapped · microSD · dual element', se: 6.5, scr: 8.0, inp: 8.5,
-    seNote: 'two elements, seed leaves to sign', scrNote: 'mono, full address', inpNote: 'keypad, PIN on device', entNote: 'dedicated generator, none of it independently certified', osNote: 'firmware reproducible; elements and app closed',
+    id: 'ccmk4', photo: 'images/devices/coldcard-mk4.png', name: 'ColdCard Mk4', meta: 'air-gapped · microSD · dual element',
+    seNote: 'two elements gate the seed, but signing happens outside them', ioNote: 'screen, keypad and host link all on the MCU', entNote: 'dedicated generator, none of it independently certified', osNote: 'firmware reproducible; elements and app closed',
     warning: {
       tag: 'SEED COMPROMISED — JULY 2026',
       text: 'For five years a build error routed seed generation through a software PRNG instead of the hardware generator, leaving roughly 40 bits of entropy on Mk2 and Mk3 and 72 on Mk4 against a 128-bit target. On 30 July 2026 wallets were drained offline; TRM Labs puts the loss above 116 million dollars across more than 5,200 addresses. Fixed the next day in 5.6.0, 1.5.0Q and 4.2.0 — but updating does not repair an existing seed. Any seed generated on affected firmware must be replaced and funds moved. Seeds made from dice rolls alone were never affected.',
       src: 'https://blog.coinkite.com/coldcard-mk3-seed-generation-warning/',
       srcLabel: 'COINKITE ADVISORY'
+    },
+    seParts: {
+      auth:    { state: 'element', note: 'PIN checked across both elements, which gate the seed' },
+      keygen:  { state: 'outside',  note: 'entropy comes from the elements but the seed is assembled on the STM32' },
+      signing: { state: 'outside',  note: 'the seed enters the general-purpose chip to sign' },
+      txbuild: { state: 'outside',  note: 'PSBT parsing and hashing run on the MCU' }
+    },
+    ioParts: {
+      display: { state: 'device', note: 'a screen on the device, but driven by a general-purpose MCU' },
+      input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
     },
     entRules: {
       source: { state: 'hardware', note: 'STM32L4S5 RNG peripheral feeding a SHA-256 Hash_DRBG, with both secure elements mixed in; Coinkite publishes no independent certification of the generator', src: 'https://github.com/Coldcard/firmware/blob/master/releases/ChangeLog.md' },
@@ -158,8 +246,19 @@ const WALLETS = [
   },
 
   {
-    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', name: 'Keystone 3 Pro', meta: 'QR air-gap · touchscreen · three elements', se: 6.0, scr: 8.5, inp: 8.0,
-    seNote: 'three elements, seed leaves to sign', scrNote: 'large color touchscreen', inpNote: 'touch, PIN on device', entNote: 'three generators, none independently certified', osNote: 'published widely, but nothing verifiable end to end',
+    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', name: 'Keystone 3 Pro', meta: 'QR air-gap · touchscreen · three elements',
+    seNote: 'elements gate access, but signing happens outside them', ioNote: 'touchscreen and camera driven by the MCU', entNote: 'three generators, none independently certified', osNote: 'published widely, but nothing verifiable end to end',
+    seParts: {
+      auth:    { state: 'element', note: 'PIN and fingerprint verified against the elements' },
+      keygen:  { state: 'outside',  note: 'elements supply entropy, but the seed is assembled on the MH1903' },
+      signing: { state: 'outside',  note: 'the seed is transferred to a non-secure chip to sign' },
+      txbuild: { state: 'outside',  note: 'transaction handling runs on the MCU' }
+    },
+    ioParts: {
+      display: { state: 'device', note: 'a screen on the device, but driven by a general-purpose MCU' },
+      input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'hardware', note: 'three dedicated generators across the MCU and two elements, but SP 800-90 conformance is asserted in datasheets with no validation certificate found', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/hardware/v3.2/V3.2BOM.pdf' },
       count:  { state: 'multiple', note: 'three generators chained through HKDF and seeded with a hash of the device password; the dice mode replaces device entropy rather than mixing it in', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/src/managers/keystore.c' }
@@ -189,7 +288,7 @@ const WALLETS = [
   {
     id: 'coolwalletgo', photo: 'images/devices/coolwallet-go.webp', name: 'CoolWallet Go', meta: 'card · Bluetooth', rated: false,
     note: 'Card-format wallet, a separate product from the CoolWallet S scored above.',
-    watch: 'Unassessed. The CoolWallet S scores 2.5 on trusted input because its PIN is entered on the phone — whether the Go moves that on-device, and whether it has any display, decides most of its score.'
+    watch: 'Unassessed. The CoolWallet S loses its trusted I/O score because the PIN is entered on the phone — whether the Go moves that on-device, and whether it has any display at all, decides most of its score.'
   },
   {
     id: 'coolwalletpro', photo: 'images/devices/coolwallet-pro.png', name: 'CoolWallet Pro', meta: 'card · e-ink · fingerprint', rated: false,
@@ -197,8 +296,19 @@ const WALLETS = [
     watch: 'Unassessed. If the display and fingerprint reader are driven from the secure element, this answers the two failings the CoolWallet S is marked down for. If they are not, it does not.'
   },
   {
-    id: 'bitkey', photo: 'images/devices/bitkey.png', name: 'Bitkey', meta: 'NFC · fingerprint · no display', se: 7.5, scr: 0.5, inp: 3.0,
-    seNote: 'certified element', scrNote: 'no display at all', inpNote: 'fingerprint on device only', entNote: 'uncertified for this part, single source', osNote: 'broadly published, not reproducibly buildable',
+    id: 'bitkey', photo: 'images/devices/bitkey.png', name: 'Bitkey', meta: 'NFC · fingerprint · no display',
+    seNote: 'keys, signing and fingerprint on the device', ioNote: 'fingerprint on device, but nothing to see what you sign', entNote: 'uncertified for this part, single source', osNote: 'broadly published, not reproducibly buildable',
+    seParts: {
+      auth:    { state: 'element', note: 'fingerprint matched on the device before signing is released' },
+      keygen:  { state: 'element', note: 'the hardware key is generated on the element' },
+      signing: { state: 'element', note: 'the device signs its share of the 2-of-3' },
+      txbuild: { state: 'outside',  note: 'the phone builds and hashes the transaction' }
+    },
+    ioParts: {
+      display: { state: 'host', note: 'no display on the device — what you see comes from the phone app' },
+      input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'hardware', note: 'EFR32MG24 Secure Engine generator; the datasheet claims SP 800-90B health tests, but the PSA certificate covers other parts and does not list this one', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/lib/crypto/src/efr32/secure_rng.c' },
       count:  { state: 'single', note: 'one call to one generator, no second source and no user path; a more defensively written generator exists in the repo but runs on a controller that never touches the seed', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/lib/wallet/src/seed.c' }
@@ -221,16 +331,27 @@ const WALLETS = [
   {
     id: 'dcentx', photo: 'images/devices/dcent-x.webp', name: "D'CENT X", meta: 'USB-C · side button', rated: false,
     note: 'Added at the maintainer\'s request. No display is visible on the front face; a single control sits on the right edge.',
-    watch: 'Unassessed. If there is no trusted screen, the trusted-screen and trusted-input scores are the ones that will decide this device — as they did for Arculus and Bitkey.'
+    watch: 'Unassessed. With no visible display on the front face, trusted I/O is the score that will decide this device — as it did for Arculus and Bitkey.'
   },
   {
     id: 'dcents', photo: 'images/devices/dcent-s.webp', name: "D'CENT S", meta: 'form factor to confirm', rated: false,
     note: 'Added at the maintainer\'s request. Architecture not yet established.',
-    watch: 'Unassessed. Nothing about this device has been verified against the five properties.'
+    watch: 'Unassessed. Nothing about this device has been verified against the four properties.'
   },
   {
-    id: 'arculus', photo: 'images/devices/arculus-card.webp', name: 'Arculus', meta: 'card · NFC · no display', se: 7.5, scr: 0.5, inp: 1.0,
-    seNote: 'certified smartcard element', scrNote: 'no display', inpNote: 'tap only, PIN on phone', entNote: 'generator claimed but unnamed and uncheckable', osNote: 'closed at every layer',
+    id: 'arculus', photo: 'images/devices/arculus-card.webp', name: 'Arculus', meta: 'card · NFC · no display',
+    seNote: 'keys and signing on the card, but the PIN is checked on the phone', ioNote: 'no display and no on-card input', entNote: 'generator claimed but unnamed and uncheckable', osNote: 'closed at every layer',
+    seParts: {
+      auth:    { state: 'outside',  note: 'the PIN is entered and checked on the phone, not the card' },
+      keygen:  { state: 'element', note: 'keys generated on the smartcard element' },
+      signing: { state: 'element', note: 'signing runs on the element' },
+      txbuild: { state: 'outside',  note: 'the phone builds and hashes the transaction' }
+    },
+    ioParts: {
+      display: { state: 'host', note: 'no display on the device — what you see comes from the phone app' },
+      input:   { state: 'host', note: 'nothing on the device records consent; the app collects it' },
+      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+    },
     entRules: {
       source: { state: 'unknown', note: 'a true generator is claimed, but the chip is never named and no certificate has been issued to CompoSecure — the claim cannot be checked, so it is scored as absent', src: 'https://www.commoncriteriaportal.org/products/certified_products.csv' },
       count:  { state: 'single', note: 'the card returns a mnemonic from a call whose only input is the word count; the phone contributes nothing, and 12 words is the default', src: 'https://github.com/ByneappLLC/arculus-sdk-flutter/blob/main/android/src/main/cpp/include/csdk.h' }
@@ -243,7 +364,7 @@ const WALLETS = [
       app:      { state: 'closed', note: 'store distribution only, no source' }
     },
     note: 'Genuinely strong silicon in a card body, with multi-factor authentication and secure seed generation.',
-    watch: 'No trusted screen and no trusted input. Every confirmation is delegated to the phone, so users inherit every vulnerability in the mobile app.'
+    watch: 'Nothing on the card shows you what you are signing, and nothing on it records your consent. Every confirmation is delegated to the phone, so users inherit every vulnerability in the mobile app.'
   },
   {
     id: 'seedsigner', photo: 'images/devices/seedsigner.png', name: 'SeedSigner', meta: 'QR air-gap · DIY · stateless', rated: false,
@@ -259,16 +380,14 @@ const WALLETS = [
 
 const SORT_KEYS = {
   secure: 'se',
-  screen: 'scr',
-  input: 'inp',
+  io: 'io',
   entropy: 'ent',
   open: 'os'
 };
 
 const COLUMNS = [
   { key: 'se', note: 'seNote', label: 'SECURE ELEMENT' },
-  { key: 'scr', note: 'scrNote', label: 'TRUSTED SCREEN' },
-  { key: 'inp', note: 'inpNote', label: 'TRUSTED INPUT' },
+  { key: 'io', note: 'ioNote', label: 'TRUSTED I/O' },
   { key: 'ent', note: 'entNote', label: 'ENTROPY' },
   { key: 'os', note: 'osNote', label: 'OPEN SOURCE' }
 ];
@@ -341,8 +460,61 @@ const ENT_RULES = [
   }
 ];
 
-const entState = (rule, entry) =>
-  rule.states[entry && entry.state] || rule.states.unknown;
+// ---------------------------------------------------------------------------
+// Secure element and trusted I/O, by component.
+//
+// Both ask the same underlying question: how much of the wallet actually runs
+// inside the element, and how much runs on a general-purpose chip beside it.
+// Each component is simply present or absent, and its weight is the number of
+// points it carries. No element at all means every component fails, so the
+// score falls out at zero without a special case.
+// ---------------------------------------------------------------------------
+
+const SE_PARTS = [
+  { key: 'auth', label: 'USER AUTHENTICATION', max: 2, states: {
+      element: { pts: 2, label: 'IN ELEMENT', cls: 'is-open' },
+      outside:  { pts: 0, label: 'OUTSIDE',   cls: 'is-closed' },
+      unknown:  { pts: 0, label: 'UNVERIFIED', cls: 'is-unknown' } } },
+  { key: 'keygen', label: 'SIGNING KEY GENERATED', max: 3, states: {
+      element: { pts: 3, label: 'IN ELEMENT', cls: 'is-open' },
+      outside:  { pts: 0, label: 'OUTSIDE',   cls: 'is-closed' },
+      unknown:  { pts: 0, label: 'UNVERIFIED', cls: 'is-unknown' } } },
+  { key: 'signing', label: 'TRANSACTION SIGNED', max: 3, states: {
+      element: { pts: 3, label: 'IN ELEMENT', cls: 'is-open' },
+      outside:  { pts: 0, label: 'OUTSIDE',   cls: 'is-closed' },
+      unknown:  { pts: 0, label: 'UNVERIFIED', cls: 'is-unknown' } } },
+  { key: 'txbuild', label: 'TX BUILT AND HASHED', max: 2, states: {
+      element: { pts: 2, label: 'IN ELEMENT', cls: 'is-open' },
+      outside:  { pts: 0, label: 'OUTSIDE',   cls: 'is-closed' },
+      unknown:  { pts: 0, label: 'UNVERIFIED', cls: 'is-unknown' } } }
+];
+
+// Display and input each distinguish three places the work can happen. A screen
+// driven by the wallet's own MCU is worth something; a screen that only exists
+// in the phone app is worth nothing.
+const IO_PARTS = [
+  { key: 'display', label: 'DISPLAY / USER OUTPUT', max: 4, states: {
+      element: { pts: 4, label: 'IN ELEMENT',    cls: 'is-open' },
+      device:  { pts: 2, label: 'ON DEVICE MCU', cls: 'is-partial' },
+      host:    { pts: 0, label: 'IN THE APP',    cls: 'is-closed' },
+      unknown: { pts: 0, label: 'UNVERIFIED',    cls: 'is-unknown' } } },
+  { key: 'input', label: 'BUTTONS / USER INPUT', max: 4, states: {
+      element: { pts: 4, label: 'IN ELEMENT',    cls: 'is-open' },
+      device:  { pts: 2, label: 'ON DEVICE MCU', cls: 'is-partial' },
+      host:    { pts: 0, label: 'IN THE APP',    cls: 'is-closed' },
+      unknown: { pts: 0, label: 'UNVERIFIED',    cls: 'is-unknown' } } },
+  { key: 'comms', label: 'HOST LINK — USB / BLE / NFC', max: 2, states: {
+      element: { pts: 2, label: 'IN ELEMENT',    cls: 'is-open' },
+      device:  { pts: 0, label: 'ON DEVICE MCU', cls: 'is-closed' },
+      unknown: { pts: 0, label: 'UNVERIFIED',    cls: 'is-unknown' } } }
+];
+
+// One shape for secure element, trusted I/O and entropy: each rule carries its
+// own states, so a rule's levels are defined next to the rule itself.
+const ruleState = (rule, entry) => rule.states[entry && entry.state] || rule.states.unknown;
+
+const rulesScore = (rules, data) =>
+  rules.reduce((n, r) => n + ruleState(r, data[r.key]).pts, 0);
 
 const state = { sort: 'overall', query: '', open: null };
 
@@ -385,21 +557,33 @@ function osScore(w) {
   return Math.round((10 * earned / possible) * 10) / 10;
 }
 
+function seScore(w) {
+  if (!isRated(w)) return null;
+  return w.seParts ? rulesScore(SE_PARTS, w.seParts) : w.se;
+}
+
+function ioScore(w) {
+  if (!isRated(w)) return null;
+  if (w.ioParts) return rulesScore(IO_PARTS, w.ioParts);
+  if (w.io !== undefined) return w.io;
+  // Pre-merge records carried screen and input separately.
+  return (w.scr + w.inp) / 2;
+}
+
 // Layered devices derive entropy from the two rules; the rest keep flat `ent`.
 function entScore(w) {
   if (!isRated(w)) return null;
   if (!w.entRules) return w.ent;
-  return ENT_RULES.reduce((n, r) => n + entState(r, w.entRules[r.key]).pts, 0);
+  return rulesScore(ENT_RULES, w.entRules);
 }
 
 // Single accessor for every score read, so `os` can be flat or derived.
-const metric = (w, key) =>
-  (key === 'os' ? osScore(w) : key === 'ent' ? entScore(w) : w[key]);
+const DERIVED = { se: seScore, io: ioScore, ent: entScore, os: osScore };
+
+const metric = (w, key) => (DERIVED[key] ? DERIVED[key](w) : w[key]);
 
 const score = (w) =>
-  (isRated(w) ? (w.se + w.scr + w.inp + entScore(w) + osScore(w)) / 5 : null);
-
-const tier = (v) => (v >= 9 ? 'STRONG' : v >= 8 ? 'SOUND' : v >= 6.5 ? 'MIXED' : 'WEAK');
+  (isRated(w) ? (seScore(w) + ioScore(w) + entScore(w) + osScore(w)) / 4 : null);
 
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -495,6 +679,32 @@ function osBreakdown(w) {
       </div>`;
 }
 
+function ruleRow(rule, entry) {
+  const st = ruleState(rule, entry);
+  return `
+        <div class="os-layer ${st.cls}">
+          <div class="os-layer-name">${rule.label}</div>
+          <div class="os-layer-pts">${st.pts.toFixed(1)} / ${rule.max.toFixed(1)}</div>
+          <div class="os-layer-state">${st.label}</div>
+          <div class="os-layer-note">${esc((entry && entry.note) || 'not established')}${osSourceLink(entry)}</div>
+        </div>`;
+}
+
+function rulesBreakdown(w, kicker, rules, data, total) {
+  if (!isRated(w) || !data) return '';
+  return `
+      <div class="os-breakdown">
+        <div class="kicker">${kicker}</div>
+        <div class="os-layers">${rules.map((r) => ruleRow(r, data[r.key])).join('')}
+        </div>
+        <div class="os-total">
+          <span class="os-total-value">${total.toFixed(1)}</span>
+          <span class="os-total-sum">${total.toFixed(1)} of 10.0 points</span>
+          <div class="bar"><span style="width: ${total * 10}%"></span></div>
+        </div>
+      </div>`;
+}
+
 function warningBlock(w) {
   if (!w.warning) return '';
   const url = safeUrl(w.warning.src);
@@ -505,34 +715,6 @@ function warningBlock(w) {
       <div class="row-warning">
         <div class="row-warning-tag">${esc(w.warning.tag || 'ADVISORY')}</div>
         <p>${esc(w.warning.text)}${link}</p>
-      </div>`;
-}
-
-function entRuleRow(w, rule) {
-  const entry = w.entRules[rule.key];
-  const st = entState(rule, entry);
-  return `
-        <div class="os-layer ${st.cls}">
-          <div class="os-layer-name">${rule.label}</div>
-          <div class="os-layer-pts">${st.pts.toFixed(1)} / ${rule.max.toFixed(1)}</div>
-          <div class="os-layer-state">${st.label}</div>
-          <div class="os-layer-note">${esc((entry && entry.note) || 'not established')}${osSourceLink(entry)}</div>
-        </div>`;
-}
-
-function entBreakdown(w) {
-  if (!isRated(w) || !w.entRules) return '';
-  const total = entScore(w);
-  return `
-      <div class="os-breakdown">
-        <div class="kicker">ENTROPY \u2014 RULE BREAKDOWN</div>
-        <div class="os-layers">${ENT_RULES.map((r) => entRuleRow(w, r)).join('')}
-        </div>
-        <div class="os-total">
-          <span class="os-total-value">${total.toFixed(1)}</span>
-          <span class="os-total-sum">${total.toFixed(1)} of 10.0 points</span>
-          <div class="bar"><span style="width: ${total * 10}%"></span></div>
-        </div>
       </div>`;
 }
 
@@ -554,7 +736,7 @@ function rowMarkup(w) {
         <div class="cell-total">
           <span class="cell-label">COMPOSITE</span>
           <div class="value">${isRated(w) ? overall.toFixed(1) : '—'}</div>
-          <div class="tier">${isRated(w) ? tier(overall) : 'NOT RATED'}</div>
+          ${isRated(w) ? '' : '<div class="tier">NOT RATED</div>'}
         </div>
       </div>
       <div class="teardown" id="teardown-${w.id}" ${isOpen ? '' : 'hidden'}>${warningBlock(w)}
@@ -565,7 +747,7 @@ function rowMarkup(w) {
         <div>
           <div class="kicker">WATCH ITEM</div>
           <p>${esc(w.watch)}</p>
-        </div>${entBreakdown(w)}${osBreakdown(w)}
+        </div>${rulesBreakdown(w, 'SECURE ELEMENT \u2014 COMPONENT BREAKDOWN', SE_PARTS, w.seParts, seScore(w))}${rulesBreakdown(w, 'TRUSTED I/O \u2014 COMPONENT BREAKDOWN', IO_PARTS, w.ioParts, ioScore(w))}${rulesBreakdown(w, 'ENTROPY \u2014 RULE BREAKDOWN', ENT_RULES, w.entRules, entScore(w))}${osBreakdown(w)}
       </div>
     </div>`;
 }
