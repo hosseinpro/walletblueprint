@@ -140,10 +140,12 @@
 
     <p><strong>Host link — USB, Bluetooth or NFC</strong></p>
     <div class="rubric">
+      <div class="rubric-row"><div>2</div><div>There is no data link at all — the device is air-gapped, and anything reaching it arrives as a QR code or on removable media</div></div>
       <div class="rubric-row"><div>2</div><div>Handled by the element, with no general-purpose chip anywhere in the path</div></div>
       <div class="rubric-row"><div>0</div><div>Handled by a microcontroller beside the element</div></div>
     </div>
-    <p class="doc-note">The middle level matters. A screen driven by the device&rsquo;s own microcontroller can still be lied to by malware on that chip — but it is not the same failure as having no screen at all, where the only thing you can read is a phone that may already be compromised. The host link has no middle level: either the element handles it or a general-purpose chip does, and that chip is the hub this section is about.</p>
+    <p class="doc-note">The first two score the same because they achieve the same thing: no general-purpose chip sits between the host and the domain holding your key. One removes the hub by absorbing it into the element; the other removes it by having no link to hub. A charging port that carries no data does not count as a link — but a port the vendor calls optional, or uses for firmware updates, does.</p>
+    <p class="doc-note">The middle level matters. A screen driven by the device&rsquo;s own microcontroller can still be lied to by malware on that chip — but it is not the same failure as having no screen at all, where the only thing you can read is a phone that may already be compromised. The host link has no middle level: either a general-purpose chip sits in that path or nothing does.</p>
 
     <h3>Why the hub is the problem.</h3>
     <p>Terminating screen, buttons and host connection at the element is a genuinely hard engineering problem: elements are resource-constrained and often lack the pins to drive connectors. The common workaround is a microcontroller acting as a hub — driving the display, reading the buttons, then talking to the element. That hub is a new place to hide. A manipulated MCU can show you one address while handing a different transaction to the element to sign, which is precisely the shape of a supply-chain attack and why every vendor in this category tells you to buy direct. Ledger Nano S is the worked example: a ST31 element paired with an STM32, and Thomas Roth demonstrated at CCC that the MCU could be overwritten — he loaded a game onto it.</p>
@@ -192,16 +194,16 @@
 
       <h2>04 — OPEN SOURCE</h2>
     <h3>Not all published code is worth the same.</h3>
-    <p>Treating openness as one bit is useless, because it lets a vendor publish a phone app and a marketing schematic while the code that touches your seed stays closed — and then describe the product as open source. So the score is split into the five layers a wallet can publish, each weighted by how close it sits to the secret.</p>
+    <p>Treating openness as one bit is useless, because it lets a vendor publish a phone app and a marketing schematic while the code that touches your seed stays closed — and then describe the product as open source. So the score is split into four layers, each weighted by how close it sits to the secret.</p>
+    <p>The heaviest layer names a <em>role</em> rather than a component, and that matters. Asking &ldquo;is the secure element firmware published?&rdquo; has no answer for a wallet with no element, and flatters one whose element is closed but never touches the seed anyway. Asking &ldquo;can you read the code that holds and uses your key?&rdquo; always has an answer — for some devices that code runs on the element, for others on an ordinary microcontroller, and the question is the same either way.</p>
 
     <div class="rubric">
-      <div class="rubric-row"><div>4.0</div><div><strong>Secure element firmware</strong> — the code running on the element itself, where the seed is generated and used</div></div>
-      <div class="rubric-row"><div>2.0</div><div><strong>Device firmware and bootloader</strong> — what signs transactions, drives the screen and reads the buttons</div></div>
+      <div class="rubric-row"><div>4.0</div><div><strong>Seed-touching firmware</strong> — the code that generates, holds and uses your key, wherever it runs: element firmware where the element does that work, device firmware where it does not</div></div>
+      <div class="rubric-row"><div>2.0</div><div><strong>Bootloader and supporting firmware</strong> — everything else running on the device</div></div>
       <div class="rubric-row"><div>2.0</div><div><strong>Board design</strong> — schematics, layout and bill of materials; the only way to check which chip drives what</div></div>
-      <div class="rubric-row"><div>1.0</div><div><strong>SDK</strong> — integration libraries, which tell you little about the device itself</div></div>
-      <div class="rubric-row"><div>1.0</div><div><strong>Companion app</strong> — the host software you are already asked to distrust</div></div>
+      <div class="rubric-row"><div>2.0</div><div><strong>Host software</strong> — the SDK and companion app the vendor ships, or where none is shipped, the third-party software you must use instead</div></div>
     </div>
-    <p class="doc-note">The weights total ten, so each layer&rsquo;s weight is the number of points it can earn. A vendor whose only open components are the desktop app and an SDK cannot score above 2.0, however loudly the box says open source — while the element that holds the seed is worth four points on its own.</p>
+    <p class="doc-note">The weights total ten, so each layer&rsquo;s weight is the number of points it can earn. A vendor whose only open component is its host software cannot score above 2.0, however loudly the box says open source — while the code that holds your key is worth four points on its own. Because every layer exists for every device, no score is ever rescaled and every total lands on the same grid.</p>
 
     <h3>Three levels, and no credit for good intentions.</h3>
     <p>Each layer earns a share of its own weight, so the same level is worth more where it matters more.</p>
@@ -210,13 +212,21 @@
       <div class="rubric-row"><div>50%</div><div>Source published, but the build is not reproducible — you can read it, not verify it</div></div>
       <div class="rubric-row"><div>0%</div><div>Closed, bound by a supplier NDA, or simply not established</div></div>
     </div>
-    <p class="doc-note">So a secure element, carrying four points, earns 4.0 when its firmware is published and reproducible, 2.0 when it is merely published, and nothing when it is closed. The same three levels applied to the companion app move the total by at most one point.</p>
+    <p class="doc-note">So the seed-touching layer, carrying four points, earns 4.0 when that code is published and reproducible, 2.0 when it is merely published, and nothing when it is closed. The same three levels applied to host software move the total by at most two.</p>
+
+    <h3>What the levels mean for a board.</h3>
+    <p>Reproducibility is a property of software: you rebuild from source and compare the result against the binary you were shipped. A circuit board has no build to repeat and no binary to compare — short of destroying the device, you cannot verify that the board in your hand matches the design you were shown. So the same three levels are read differently for hardware, and the top one is labelled <em>fabricable</em> rather than reproducible.</p>
+    <div class="rubric">
+      <div class="rubric-row"><div>100%</div><div>Schematics, layout and bill of materials published under terms that would let you have the board made</div></div>
+      <div class="rubric-row"><div>50%</div><div>Schematics or a parts list published, but not enough to fabricate — typically a PDF or an image rather than design files</div></div>
+      <div class="rubric-row"><div>0%</div><div>Nothing published, or a published claim the linked files do not support</div></div>
+    </div>
+    <p class="doc-note">Where a device is assembled from commodity hardware rather than a board the vendor designed, this layer is scored on that hardware instead — a project that publishes a complete parts list is still limited by how open the parts themselves are.</p>
     <p>Those last three all score zero, because an unverifiable claim is scored as absent everywhere else on this sheet. They are labelled differently in each device&rsquo;s expanded row all the same. <em>Closed</em> is a decision. <em>NDA-bound</em> is a constraint the vendor may not control — the case Ledger makes about its element supplier. <em>Unverified</em> is a gap in our sourcing rather than a finding about the product, and it is an invitation to send us a link.</p>
 
-    <h3>Layers a product does not have.</h3>
-    <p>A device with no secure element has no secure-element firmware to publish. Scoring that zero would punish it twice, once here and once in the secure element column, so a layer the product genuinely lacks is marked not applicable and the score is taken over the remaining weight, rescaled to ten. Because the five weights already sum to ten, that rescaling only engages when a layer is truly absent.</p>
-    <p>Not applicable is a claim about the bill of materials, not about disclosure, and it has to agree with the rest of the row: a device marked not applicable here must be scored low on secure element for the same reason. An element whose firmware merely is not published is closed or NDA-bound — never not applicable.</p>
-    <p>The consequence is worth stating plainly rather than hiding: a fully open signer with no secure element can score ten here and close to zero on secure element. That is the trade-off this site exists to show, not a defect in the arithmetic.</p>
+    <h3>Nothing is exempt.</h3>
+    <p>Every device on this sheet has code that touches its key, a bootloader, a board and host software of some kind — so every layer is scored for every device and no total is ever rescaled to compensate for a missing one. Where a vendor ships no companion app, the layer is scored on the third-party software you are obliged to use instead. Where a device is assembled from commodity parts rather than a designed board, the layer is scored on how completely that assembly is documented and on whether the parts themselves are open.</p>
+    <p>One consequence is worth stating plainly: a wallet whose element is closed can still score full marks here if the element never touches the seed, because then the code you need to read is the device firmware. That is not a loophole. If the key lives on an ordinary microcontroller, the firmware on that microcontroller is exactly what you should be able to audit — and the wallet will already have been marked down for it in the secure element score above.</p>
 
     <div class="pull">Full marks require: every layer the product actually has, published, reproducibly buildable, and attestable against the binary on the device.</div>
     <p class="doc-note">Each layer&rsquo;s source is linked in the device&rsquo;s expanded row on the comparison sheet.</p>

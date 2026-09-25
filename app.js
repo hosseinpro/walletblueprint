@@ -20,11 +20,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
     },
     osLayers: {
-      seFw:     { state: 'nda',    note: 'Ledger OS is closed; the ST supplier agreement legally prevents publishing the low-level code', src: 'https://www.ledger.com/academy/topics/ledgersolutions/is-ledger-open-source' },
-      deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
-      board:    { state: 'closed', note: 'the only board design Ledger ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
-      sdk:      { state: 'open',   note: 'ledger-secure-sdk is Apache-2.0 and you build it yourself, so there is no vendor binary to reconcile', src: 'https://github.com/LedgerHQ/ledger-secure-sdk' },
-      app:      { state: 'source', note: 'Ledger Live is MIT and fully published, but builds are not reproducible', src: 'https://github.com/LedgerHQ/ledger-live' }
+      seedFw: { state: 'nda', note: 'the element holds and uses the seed, and its firmware is closed under a supplier agreement Ledger says it cannot publish', src: 'https://www.ledger.com/academy/topics/ledgersolutions/is-ledger-open-source' },
+      bootFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S, archived in 2017', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
+      board:  { state: 'closed', note: 'the only board design ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
+      host:   { state: 'source', note: 'the SDK is Apache-2.0 and you build it yourself, but Ledger Live is published without a reproducible build', src: 'https://github.com/LedgerHQ/ledger-live' }
     },
     note: 'The ST33 has enough I/O for Ledger to pull the display driver and button handling into the secure element itself, which makes manipulating what is shown, or faking a press, substantially harder.',
     watch: 'An MCU still handles USB. Kraken Security Labs showed it could be overwritten before delivery — patched, but the MCU remains the softest part of the device.'
@@ -48,11 +47,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
     },
     osLayers: {
-      seFw:     { state: 'nda',    note: 'closed, except a dashboard-only export from one 2023 build under a non-open licence, unchanged since', src: 'https://github.com/LedgerHQ/ledger-secure-os/blob/main/LICENSE.md' },
-      deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
-      board:    { state: 'closed', note: 'the only board design Ledger ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
-      sdk:      { state: 'open',   note: 'ledger-secure-sdk is Apache-2.0 and you build it yourself, so there is no vendor binary to reconcile', src: 'https://github.com/LedgerHQ/ledger-secure-sdk' },
-      app:      { state: 'source', note: 'Ledger Live is MIT and fully published, but builds are not reproducible', src: 'https://github.com/LedgerHQ/ledger-live' }
+      seedFw: { state: 'nda', note: 'the element holds and uses the seed, and its firmware is closed under a supplier agreement Ledger says it cannot publish', src: 'https://www.ledger.com/academy/topics/ledgersolutions/is-ledger-open-source' },
+      bootFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S, archived in 2017', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
+      board:  { state: 'closed', note: 'the only board design ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
+      host:   { state: 'source', note: 'the SDK is Apache-2.0 and you build it yourself, but Ledger Live is published without a reproducible build', src: 'https://github.com/LedgerHQ/ledger-live' }
     },
     note: 'Architecturally the Nano S Plus with Bluetooth added. Same ST33, same display and button handling inside the secure element.',
     watch: 'Bluetooth widens what the remaining MCU is exposed to. NFC would remove the need for a battery and is already supported by the ST33.'
@@ -76,11 +74,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'one physical source plus closed software post-processing, which conditions the output rather than adding a second source; neither host nor user contributes anything', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
     },
     osLayers: {
-      seFw:     { state: 'nda',    note: 'closed Ledger OS on the ST33K1M5C; no Stax export exists', src: 'https://github.com/LedgerHQ/ledger-secure-os' },
-      deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
-      board:    { state: 'closed', note: 'the only board design Ledger ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
-      sdk:      { state: 'open',   note: 'ledger-secure-sdk is Apache-2.0 and you build it yourself, so there is no vendor binary to reconcile', src: 'https://github.com/LedgerHQ/ledger-secure-sdk' },
-      app:      { state: 'source', note: 'Ledger Live is MIT and fully published, but builds are not reproducible', src: 'https://github.com/LedgerHQ/ledger-live' }
+      seedFw: { state: 'nda', note: 'the element holds and uses the seed, and its firmware is closed under a supplier agreement Ledger says it cannot publish', src: 'https://www.ledger.com/academy/topics/ledgersolutions/is-ledger-open-source' },
+      bootFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S, archived in 2017', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
+      board:  { state: 'closed', note: 'the only board design ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
+      host:   { state: 'source', note: 'the SDK is Apache-2.0 and you build it yourself, but Ledger Live is published without a reproducible build', src: 'https://github.com/LedgerHQ/ledger-live' }
     },
     note: 'Solves the user-experience problem, but public technical detail is thin. On what is available it appears to share the Nano X architecture, MCU included.',
     watch: 'Scored below the Nano X only because the architecture is inferred rather than documented.'
@@ -104,11 +101,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'inferred from the identical element and OS; no Flex-specific evaluation is published, unlike the other three', src: 'https://messervices.cyber.gouv.fr/visas/ANSSI-CSPN-2023-13-cible.pdf' }
     },
     osLayers: {
-      seFw:     { state: 'nda',    note: 'closed Ledger OS on the ST33K1M5C; no Flex export exists', src: 'https://github.com/LedgerHQ/ledger-secure-os' },
-      deviceFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S — Apache-2.0, archived in 2017 — and nothing since for this device', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
-      board:    { state: 'closed', note: 'the only board design Ledger ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
-      sdk:      { state: 'open',   note: 'ledger-secure-sdk is Apache-2.0 and you build it yourself, so there is no vendor binary to reconcile', src: 'https://github.com/LedgerHQ/ledger-secure-sdk' },
-      app:      { state: 'source', note: 'Ledger Live is MIT and fully published, but builds are not reproducible', src: 'https://github.com/LedgerHQ/ledger-live' }
+      seedFw: { state: 'nda', note: 'the element holds and uses the seed, and its firmware is closed under a supplier agreement Ledger says it cannot publish', src: 'https://www.ledger.com/academy/topics/ledgersolutions/is-ledger-open-source' },
+      bootFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S, archived in 2017', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
+      board:  { state: 'closed', note: 'the only board design ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
+      host:   { state: 'source', note: 'the SDK is Apache-2.0 and you build it yourself, but Ledger Live is published without a reproducible build', src: 'https://github.com/LedgerHQ/ledger-live' }
     },
     note: 'Ledger\'s e-ink touchscreen device. Ledger documents the display and touch controller as driven through the secure element rather than the connectivity MCU — the same direction of travel as the Nano S Plus.',
     watch: 'Released after the 2024 analysis and not covered by it. Scored by extrapolation from the Stax and Nano X architecture, not from independent verification.'
@@ -132,11 +128,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'one physical source, conditioned rather than mixed; no second chip, no host entropy and no user contribution', src: 'https://www.ledger.com/blog-coldcard-incident' }
     },
     osLayers: {
-      seFw:     { state: 'nda',    note: 'no Gen5 export exists in ledger-secure-os; the closed-OS position applies', src: 'https://github.com/LedgerHQ/ledger-secure-os' },
-      deviceFw: { state: 'closed', note: 'no firmware or bootloader source published for this device under any name', src: 'https://developers.ledger.com/docs/device-app/explanation/gen5-porting' },
-      board:    { state: 'closed', note: 'no Gen5 hardware repo exists in the vendor org' },
-      sdk:      { state: 'open',   note: 'Gen5 ships in the Apache-2.0 SDK under the target name apex_p', src: 'https://developers.ledger.com/docs/device-app/explanation/gen5-porting' },
-      app:      { state: 'source', note: 'the same Ledger Live as the rest of the range; published but not reproducible', src: 'https://github.com/LedgerHQ/ledger-live' }
+      seedFw: { state: 'nda', note: 'the element holds and uses the seed, and its firmware is closed under a supplier agreement Ledger says it cannot publish', src: 'https://www.ledger.com/academy/topics/ledgersolutions/is-ledger-open-source' },
+      bootFw: { state: 'closed', note: 'the only MCU firmware Ledger ever published was for the original Nano S, archived in 2017', src: 'https://github.com/LedgerHQ/nanos-nonsecure-firmware' },
+      board:  { state: 'closed', note: 'the only board design ever published was the 2016 Blue Developer Edition', src: 'https://github.com/LedgerHQ/blue-schematics' },
+      host:   { state: 'source', note: 'the SDK is Apache-2.0 and you build it yourself, but Ledger Live is published without a reproducible build', src: 'https://github.com/LedgerHQ/ledger-live' }
     },
     note: 'E-ink touchscreen with an on-device fingerprint sensor. Released after the 2024 analysis.',
     watch: 'Needs verifying before it can be scored: secure-element part, what drives the display and touch controller, where the fingerprint template is held, and whether a general-purpose MCU remains in the signing path.'
@@ -161,11 +156,10 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes — readable end to end in public source. No human entropy: Trezor says user-supplied entropy is still only under consideration', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'the Optiga Trust M is fixed-function silicon programmed by Infineon; Trezor calls it NDA-free, never open', src: 'https://trezor.io/learn/security-privacy/how-trezor-keeps-you-safe/secure-elements-in-trezor-safe-devices' },
-      deviceFw: { state: 'open',   note: 'boardloader, bootloader and firmware GPL-3.0, reproducible to a byte-identical image, and hash-checked by Suite on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
-      board:    { state: 'source', note: 'CERN-OHL-S-2.0 with OSHWA certification, but only a BOM and PNG schematics — no editable CAD, no gerbers', src: 'https://github.com/trezor/trezor-hardware/tree/master/electronics/trezor_safe_3' },
-      sdk:      { state: 'source', note: 'the Python library is LGPL-3.0, but the flagship @trezor/connect sits under the reference-only T-RSL', src: 'https://github.com/trezor/trezor-firmware/blob/main/python/COPYING' },
-      app:      { state: 'source', note: 'Trezor Suite is source-available under the T-RSL, not an open-source licence, and is not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
+      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU, and that firmware is GPL-3.0, reproducible to a byte-identical image and hash-checked on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
+      bootFw: { state: 'open', note: 'boardloader and bootloader ship in the same repository and the same reproducible build' },
+      board:  { state: 'source', note: 'CERN-OHL-S schematics and BOM, but as images and PDFs — no editable CAD and no gerbers', src: 'https://github.com/trezor/trezor-hardware' },
+      host:   { state: 'source', note: 'Suite and the connect library are source-available under a reference-only licence, not an open-source one, and are not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
     },
     note: 'The secure element holds a key that decrypts the seed; the PIN unlocks the element. Real protection at rest, and a genuine reversal of Trezor\'s long refusal to use one.',
     watch: 'The plaintext seed is then loaded into a general-purpose STM32, where all signing happens. Malware on that chip can read it straight out of memory.'
@@ -189,11 +183,10 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes — readable end to end in public source. No human entropy: Trezor says user-supplied entropy is still only under consideration', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'same Optiga Trust M as the Safe 3; proprietary on-chip software', src: 'https://trezor.io/learn/security-privacy/how-trezor-keeps-you-safe/secure-elements-in-trezor-safe-devices' },
-      deviceFw: { state: 'open',   note: 'boardloader, bootloader and firmware GPL-3.0, reproducible to a byte-identical image, and hash-checked by Suite on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
-      board:    { state: 'source', note: 'CERN-OHL-S-2.0 PDF schematics and renders only — no BOM, unlike the Safe 3', src: 'https://github.com/trezor/trezor-hardware/tree/master/electronics/trezor_safe_5' },
-      sdk:      { state: 'source', note: 'the Python library is LGPL-3.0, but the flagship @trezor/connect sits under the reference-only T-RSL', src: 'https://github.com/trezor/trezor-firmware/blob/main/python/COPYING' },
-      app:      { state: 'source', note: 'Trezor Suite is source-available under the T-RSL, not an open-source licence, and is not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
+      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU, and that firmware is GPL-3.0, reproducible to a byte-identical image and hash-checked on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
+      bootFw: { state: 'open', note: 'boardloader and bootloader ship in the same repository and the same reproducible build' },
+      board:  { state: 'source', note: 'CERN-OHL-S schematics and BOM, but as images and PDFs — no editable CAD and no gerbers', src: 'https://github.com/trezor/trezor-hardware' },
+      host:   { state: 'source', note: 'Suite and the connect library are source-available under a reference-only licence, not an open-source one, and are not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
     },
     note: 'Gorilla Glass and a full touchscreen make this the easiest Trezor to live with, and taking the PIN on the device rather than a host-rendered grid is a real step forward.',
     watch: 'Architecturally the Safe 3. The secure element holds only a key that decrypts the seed; the plaintext seed is then loaded into a general-purpose STM32 where all signing happens. No significant security gain over its predecessor.'
@@ -223,11 +216,10 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'three hardware sources XORed with a fatal error if any fails to contribute, then hashed with host entropy \u2014 but the extra input is the host app, not the owner', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
     },
     osLayers: {
-      seFw:     { state: 'source', note: 'TROPIC01 application and coprocessor firmware published BSD-3-Clause-Clear, but the CPU boot ROM is withheld and a second, fully closed Optiga is also fitted', src: 'https://github.com/tropicsquare/ts-tr01-app' },
-      deviceFw: { state: 'open',   note: 'T3W1 is in trezor-firmware under GPL-3.0, listed in the reproducible-build procedure and hash-checked by Suite', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/CHANGELOG.T3W1.md' },
-      board:    { state: 'source', note: 'CERN-OHL-S-2.0 PDF schematics for main board, UI and antenna; no BOM, no CAD, display and battery boards excluded', src: 'https://github.com/trezor/trezor-hardware/tree/master/electronics/trezor_safe_7' },
-      sdk:      { state: 'source', note: 'Python library LGPL-3.0, but the flagship connect library sits under the reference-only T-RSL', src: 'https://github.com/trezor/trezor-firmware/blob/main/python/COPYING' },
-      app:      { state: 'source', note: 'Trezor Suite is source-available under the T-RSL, not an open-source licence, and is not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
+      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU under GPL-3.0 with a reproducible build; the published TROPIC01 firmware is notable but never touches the seed', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
+      bootFw: { state: 'open', note: 'boardloader and bootloader ship in the same reproducible build' },
+      board:  { state: 'source', note: 'CERN-OHL-S PDF schematics for main board, UI and antenna; no BOM, no CAD, display and battery boards excluded', src: 'https://github.com/trezor/trezor-hardware/tree/master/electronics/trezor_safe_7' },
+      host:   { state: 'source', note: 'Suite and the connect library under the reference-only licence, not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
     },
     note: 'Carries TROPIC01 branding — Tropic Square\'s auditable secure element, the first serious attempt at the open-source-versus-certified-silicon trade-off this methodology describes.',
     watch: 'The decisive question is unanswered: does signing run on TROPIC01, or is the plaintext seed still loaded into a general-purpose MCU as on the Safe 3 and Safe 5? The answer moves this device to either end of the sheet.'
@@ -252,11 +244,10 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'device entropy hashed together with host-supplied bytes — but the host contribution is optional and silently skipped when absent, leaving one source. Defaults to 12 words', src: 'https://github.com/keepkey/keepkey-firmware/blob/master/lib/firmware/reset.c' }
     },
     osLayers: {
-      seFw:     { state: 'na',     note: 'no secure element; everything runs on a commodity STM32F205' },
-      deviceFw: { state: 'source', note: 'firmware and bootloader LGPLv3, pinned-Docker build matches the release; no on-device attestation of the running image', src: 'https://github.com/keepkey/keepkey-firmware' },
-      board:    { state: 'closed', note: 'vendor advertises schematics, PCB and BOM, but the linked repo is a community guide to building a lookalike from dev boards', src: 'https://github.com/keepkey/keepkey-diy' },
-      sdk:      { state: 'source', note: 'python-keepkey and device-protocol published under LGPL-3.0 and MIT', src: 'https://github.com/keepkey' },
-      app:      { state: 'source', note: 'keepkey-desktop GPL-3.0; the current vault app carries no licence file and no reproducible build', src: 'https://github.com/keepkey/keepkey-vault' }
+      seedFw: { state: 'source', note: 'no element, so the seed lives and signs on the MCU; that firmware is LGPLv3 with a pinned-Docker build that matches the release, but nothing on the device attests what is running', src: 'https://github.com/keepkey/keepkey-firmware' },
+      bootFw: { state: 'source', note: 'the bootloader ships in the same repository and the same build' },
+      board:  { state: 'closed', note: 'the vendor advertises schematics, PCB and BOM, but the repository it links is a community guide to building a lookalike from dev boards', src: 'https://github.com/keepkey/keepkey-diy' },
+      host:   { state: 'source', note: 'the Python library and desktop app are published, but the current vault app carries no licence file and nothing is reproducible', src: 'https://github.com/keepkey/keepkey-vault' }
     },
     note: 'Large display for its era, but architecturally a general-purpose chip holding a seed.',
     watch: 'Kraken Security Labs documented seed extraction from this device — the same class of attack that applies to any wallet without a secure element.'
@@ -280,25 +271,24 @@ const WALLETS = [
     ioParts: {
       display: { state: 'device', note: 'a screen on the device, but driven by a general-purpose MCU' },
       input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
-      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+      comms:   { state: 'device', note: 'a general-purpose chip handles USB, which carries a real data protocol and is enabled until switched off; the NFC hardware ships disabled', src: 'https://github.com/Coldcard/firmware/blob/master/shared/usb.py' }
     },
     entRules: {
       source: { state: 'hardware', note: 'STM32L4S5 RNG peripheral feeding a SHA-256 Hash_DRBG, with both secure elements mixed in; Coinkite publishes no independent certification of the generator', src: 'https://github.com/Coldcard/firmware/blob/master/releases/ChangeLog.md' },
       count:  { state: 'user', note: 'three device sources combined by SHA256d, then mandatory user entropy — 50 dice rolls, 128 coin flips or 65 key presses — with the result recomputable off-device', src: 'https://github.com/Coldcard/firmware/blob/master/docs/verify_seed_mix.py' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'both elements are fixed-function parts whose on-die code is chip-vendor proprietary; no Coinkite code runs on them', src: 'https://blog.coinkite.com/understanding-mk4-security-model/' },
-      deviceFw: { state: 'open',   note: 'firmware and bootloader published with a Docker reproducible build, and the element checksums flash to drive the GENUINE light through circuitry software cannot override', src: 'https://github.com/Coldcard/firmware' },
-      board:    { state: 'source', note: 'schematics and BOM published, but commercial use is not licensed and the files carry no currency guarantee', src: 'https://github.com/Coldcard/firmware/tree/master/hardware' },
-      sdk:      { state: 'source', note: 'ckcc-protocol published under the same source-available terms; no build verification for the published package', src: 'https://github.com/Coldcard/ckcc-protocol' },
-      app:      { state: 'na',     note: 'no first-party wallet app; driven by third-party software over PSBT' }
+      seedFw: { state: 'open', note: 'the seed enters the general-purpose chip to sign, and that firmware is published with a Docker reproducible build and checksummed by the elements to drive the GENUINE light', src: 'https://github.com/Coldcard/firmware' },
+      bootFw: { state: 'open', note: 'the bootloader is published and factory-set read-only, with the same reproducible build' },
+      board:  { state: 'source', note: 'schematics and BOM published, but commercial use is unlicensed and the files carry no currency guarantee', src: 'https://github.com/Coldcard/firmware/tree/master/hardware' },
+      host:   { state: 'source', note: 'no first-party app is shipped and the device is driven by third-party open wallets; the protocol library is source-available under the same non-OSI terms', src: 'https://github.com/Coldcard/ckcc-protocol' }
     },
     note: 'Two secure elements and a protocol that protects the seed between them and the STM32. Strongly protected at rest.',
     watch: 'To sign, the seed enters the general-purpose chip. A read-only bootloader hashes the firmware for an element to verify — so the guarantee rests on that chip being genuinely read-only, and the entropy advisory above shows what a build-level mistake in the same codebase can cost.'
   },
 
   {
-    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', name: 'Keystone 3 Pro', meta: 'QR air-gap · touchscreen · three elements',
+    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', name: 'Keystone 3 Pro', meta: 'QR or USB · touchscreen · three elements',
     seNote: 'elements gate access, but signing happens outside them', ioNote: 'touchscreen and camera driven by the MCU', entNote: 'three generators, none independently certified', osNote: 'published widely, but nothing verifiable end to end',
     seParts: {
       auth:    { state: 'element', note: 'PIN and fingerprint verified against the elements' },
@@ -309,21 +299,20 @@ const WALLETS = [
     ioParts: {
       display: { state: 'device', note: 'a screen on the device, but driven by a general-purpose MCU' },
       input:   { state: 'device', note: 'buttons or touch read by the device MCU, not the element' },
-      comms:   { state: 'device', note: 'a general-purpose MCU handles the host link' }
+      comms:   { state: 'device', note: 'a general-purpose chip handles USB, and the data stack ships enabled — the firmware default is USB on, with air-gap mode an opt-in toggle', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/src/device_settings.c' }
     },
     entRules: {
       source: { state: 'hardware', note: 'three dedicated generators across the MCU and two elements, but SP 800-90 conformance is asserted in datasheets with no validation certificate found', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/hardware/v3.2/V3.2BOM.pdf' },
       count:  { state: 'multiple', note: 'three generators chained through HKDF and seeded with a hash of the device password; the dice mode replaces device entropy rather than mixing it in', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/src/managers/keystore.c' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'vendor concedes element firmware cannot be opened, and the elements are where the recovery phrase and fingerprint live', src: 'https://blog.keyst.one/inside-the-vault-how-keystone-3-pro-secures-your-crypto-with-triple-se-chips' },
-      deviceFw: { state: 'source', note: 'MIT firmware and bootloader, but a pre-compiled vendor library is baked in and the release artefact never matches the rebuild byte for byte', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/docs/verify.md' },
-      board:    { state: 'source', note: 'schematics and BOM as PDFs only; no layout or fabrication files', src: 'https://github.com/KeystoneHQ/keystone3-firmware/tree/master/hardware' },
-      sdk:      { state: 'source', note: 'public SDKs for web, mobile and Rust under ISC', src: 'https://github.com/KeystoneHQ/keystone-sdk-web' },
-      app:      { state: 'closed', note: 'the Keystone Nexus companion app has no public source in the vendor org' }
+      seedFw: { state: 'source', note: 'the seed is assembled and signed on the MCU under an MIT licence, but a pre-compiled vendor library is baked in and the release image never matches a rebuild', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/master/docs/verify.md' },
+      bootFw: { state: 'source', note: 'a separate bootloader repository exists, with the same unbuildable dependency' },
+      board:  { state: 'source', note: 'schematics and BOM as PDFs only; no layout or fabrication files', src: 'https://github.com/KeystoneHQ/keystone3-firmware/tree/master/hardware' },
+      host:   { state: 'source', note: 'the SDKs are public under ISC, but the companion app has no public source at all', src: 'https://github.com/KeystoneHQ/keystone-sdk-web' }
     },
     note: 'Three secure elements used for seed generation and storage, with a large touchscreen that renders full transaction detail.',
-    watch: 'Like Passport and ColdCard, it transfers the seed to a non-secure chip for transaction signing.'
+    watch: 'Marketed as fully air-gapped, but the shipped firmware sets USB data on by default, with a CDC and WebUSB stack, software-wallet pairing and USB firmware updates all built in. Air-gap mode is a setting the owner must find and switch on, not the state the device arrives in.'
   },
 
   {
@@ -345,11 +334,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'on-device setup takes everything from the element\u2019s generator; a toggle to mix in the microcontroller\u2019s generator exists but ships switched off', src: 'https://github.com/OneKeyHQ/firmware-pro/blob/master/core/src/apps/management/reset_device/__init__.py' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'keys are held in a THD89 element whose code is not published; the openness claim covers only the vendor\u2019s own firmware', src: 'https://onekey.so/security/' },
-      deviceFw: { state: 'source', note: 'GPLv3 with boardloader and bootloader included, but verification means hashing the vendor\u2019s own prebuilt binary rather than rebuilding it', src: 'https://help.onekey.so/en/articles/12025839-verifying-onekey-pro-firmware-with-open-source-code' },
-      board:    { state: 'closed', note: 'no hardware design repo exists in the vendor org; the product page limits the claim to firmware and apps' },
-      sdk:      { state: 'source', note: 'the JS hardware SDK is public and covers the Pro; its licence could not be retrieved', src: 'https://github.com/OneKeyHQ/hardware-js-sdk' },
-      app:      { state: 'closed', note: 'the app repo calls itself open source but ships under a reference-use-only licence forbidding derivatives and redistribution', src: 'https://github.com/OneKeyHQ/app-monorepo' }
+      seedFw: { state: 'source', note: 'the element signs and takes no key, but the seed is assembled and displayed on the MCU first; that MCU firmware is published while the element applet is absent from every public repository', src: 'https://github.com/OneKeyHQ/firmware-pro' },
+      bootFw: { state: 'source', note: 'boardloader and bootloader ship in the repository, but verification means hashing the vendor prebuilt binary rather than rebuilding it', src: 'https://help.onekey.so/en/articles/12025839-verifying-onekey-pro-firmware-with-open-source-code' },
+      board:  { state: 'closed', note: 'no hardware design repository exists in the vendor organisation' },
+      host:   { state: 'source', note: 'the SDK is public, but the app ships under a reference-use-only licence forbidding derivatives and redistribution', src: 'https://github.com/OneKeyHQ/app-monorepo' }
     },
     note: 'Large colour touchscreen with a rear camera, and an on-device network/account selector. A separate product from the OneKey Touch scored above.',
     watch: 'Unassessed. OneKey Touch scores 1.5 on secure element because it has none — whether the Pro changes that, and where signing runs, is the first thing to establish.'
@@ -373,11 +361,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'on-device setup takes everything from the element\u2019s generator; and unlike the Pro there is no option to mix in a second source', src: 'https://github.com/OneKeyHQ/firmware-pro/blob/master/core/src/apps/management/reset_device/__init__.py' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'same THD89 element; only the host-side driver is published, not the code running inside', src: 'https://github.com/OneKeyHQ/firmware-classic1s/tree/master/legacy' },
-      deviceFw: { state: 'source', note: 'published with per-directory licences including bootloader, but no reproducible-build procedure is documented for this model', src: 'https://github.com/OneKeyHQ/firmware-classic1s' },
-      board:    { state: 'closed', note: 'no hardware design repo exists in the vendor org' },
-      sdk:      { state: 'source', note: 'covered by the same public JS hardware SDK; licence not established', src: 'https://github.com/OneKeyHQ/hardware-js-sdk' },
-      app:      { state: 'closed', note: 'the same reference-use-only app licence as the Pro', src: 'https://github.com/OneKeyHQ/app-monorepo' }
+      seedFw: { state: 'source', note: 'the element signs and takes no key, but the seed is assembled and displayed on the MCU first; that MCU firmware is published while the element applet is absent from every public repository', src: 'https://github.com/OneKeyHQ/firmware-classic1s' },
+      bootFw: { state: 'source', note: 'boardloader and bootloader ship in the repository, but no reproducible-build procedure is documented for this model', src: 'https://help.onekey.so/en/articles/12025839-verifying-onekey-pro-firmware-with-open-source-code' },
+      board:  { state: 'closed', note: 'no hardware design repository exists in the vendor organisation' },
+      host:   { state: 'source', note: 'the SDK is public, but the app ships under a reference-use-only licence forbidding derivatives and redistribution', src: 'https://github.com/OneKeyHQ/app-monorepo' }
     },
     note: 'Transparent case over a mono OLED and four physical buttons, so the board itself is visible — unusual, and in keeping with an open-hardware posture.',
     watch: 'Unassessed. Needs the same answers as the rest of the OneKey line: is there a certified secure element, and does the seed ever leave it?'
@@ -402,11 +389,10 @@ const WALLETS = [
       count:  { state: 'unknown', note: 'no documentation of sources or mixing for this model' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'the only element applet CoolBitX published is the Pro\u2019s; there is no Go equivalent', src: 'https://github.com/orgs/CoolBitX-Technology/repositories' },
-      deviceFw: { state: 'closed', note: 'nothing published', src: 'https://walletscrutiny.com/hardware/coolwallets/' },
-      board:    { state: 'closed', note: 'nothing published' },
-      sdk:      { state: 'source', note: 'the Apache-2.0 SDK explicitly supports the Go over React Native NFC', src: 'https://github.com/CoolBitX-Technology/coolwallet-sdk' },
-      app:      { state: 'closed', note: 'the companion app is closed source', src: 'https://walletscrutiny.com/hardware/coolwallets/' }
+      seedFw: { state: 'closed', note: 'the key is generated and used on the element, and no applet source exists for this model', src: 'https://github.com/orgs/CoolBitX-Technology/repositories' },
+      bootFw: { state: 'closed', note: 'nothing published' },
+      board:  { state: 'closed', note: 'nothing published' },
+      host:   { state: 'source', note: 'the SDK is Apache-2.0 and explicitly supports this model, but the app is closed', src: 'https://github.com/CoolBitX-Technology/coolwallet-sdk' }
     },
     note: 'Card-format wallet, a separate product from the CoolWallet S scored above.',
     watch: 'Unassessed. The CoolWallet S loses its trusted I/O score because the PIN is entered on the phone — whether the Go moves that on-device, and whether it has any display at all, decides most of its score.'
@@ -430,11 +416,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'seed entropy comes from one call to one generator; nothing else is mixed and there is no user contribution' }
     },
     osLayers: {
-      seFw:     { state: 'source', note: 'the JavaCard applet is genuinely published, but under a non-commercial licence, with an internal crypto library withheld so it cannot be built', src: 'https://github.com/CoolBitX-Technology/coolwallet-pro-se' },
-      deviceFw: { state: 'closed', note: 'the MCU firmware driving Bluetooth, display and power is not published', src: 'https://walletscrutiny.com/hardware/coolwalletpro/' },
-      board:    { state: 'closed', note: 'nothing published' },
-      sdk:      { state: 'source', note: 'Apache-2.0 and actively maintained, with the Pro as its primary target', src: 'https://github.com/CoolBitX-Technology/coolwallet-sdk' },
-      app:      { state: 'closed', note: 'the companion app is closed source', src: 'https://walletscrutiny.com/hardware/coolwalletpro/' }
+      seedFw: { state: 'source', note: 'the applet that generates and uses the key is genuinely published, but under a non-commercial licence with an internal crypto library withheld, so it cannot be built', src: 'https://github.com/CoolBitX-Technology/coolwallet-pro-se' },
+      bootFw: { state: 'closed', note: 'the MCU firmware driving Bluetooth, display and power is not published', src: 'https://walletscrutiny.com/hardware/coolwalletpro/' },
+      board:  { state: 'closed', note: 'nothing published' },
+      host:   { state: 'source', note: 'the SDK is Apache-2.0 and actively maintained, but the companion app is closed', src: 'https://github.com/CoolBitX-Technology/coolwallet-sdk' }
     },
     note: 'Card format with an on-device e-ink display and a fingerprint sensor — both absent or delegated to the phone on the CoolWallet S scored above.',
     watch: 'Unassessed. If the display and fingerprint reader are driven from the secure element, this answers the two failings the CoolWallet S is marked down for. If they are not, it does not.'
@@ -458,11 +443,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'one call to one generator, no second source and no user path; a more defensively written generator exists in the repo but runs on a controller that never touches the seed', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/lib/wallet/src/seed.c' }
     },
     osLayers: {
-      seFw:     { state: 'unknown', note: 'no published description of a discrete element with its own applet; the firmware tree is an MCU codebase', src: 'https://github.com/proto-at-block/bitkey/tree/main/firmware' },
-      deviceFw: { state: 'source',  note: 'MIT, but a contractually withheld fingerprint-matching library means external parties cannot build it', src: 'https://github.com/proto-at-block/bitkey/tree/main/firmware' },
-      board:    { state: 'source',  note: 'main-logic-board schematic published as a PDF; no layout files, no BOM, no open-hardware licence', src: 'https://github.com/proto-at-block/bitkey' },
-      sdk:      { state: 'na',      note: 'closed first-party product with no third-party integration SDK' },
-      app:      { state: 'source',  note: 'Android app MIT and ships a harness that rebuilds and diffs the installed APK; iOS not yet published', src: 'https://github.com/proto-at-block/bitkey/blob/main/app/verifiable-build/android/README.md' }
+      seedFw: { state: 'source', note: 'the firmware is MIT, but a contractually withheld fingerprint library means no external party can build it', src: 'https://github.com/proto-at-block/bitkey/tree/main/firmware' },
+      bootFw: { state: 'source', note: 'the bootloader ships in the same tree and is blocked by the same withheld library' },
+      board:  { state: 'source', note: 'a main-logic-board schematic is published as a PDF; no layout files, no BOM, no open-hardware licence', src: 'https://github.com/proto-at-block/bitkey' },
+      host:   { state: 'source', note: 'the Android app is MIT and ships a harness that rebuilds and diffs the installed package, but iOS is unpublished and there is no third-party SDK', src: 'https://github.com/proto-at-block/bitkey/blob/main/app/verifiable-build/android/README.md' }
     },
     note: 'Pairs a software wallet for routine transactions with hardware for large ones — a sound split, and the firmware is public.',
     watch: 'The hardware half has no display, so there is nothing on which to visually confirm what you are approving.'
@@ -486,11 +470,10 @@ const WALLETS = [
       count:  { state: 'unknown', note: 'no documentation of sources, mixing or any user contribution' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'the vendor states plainly that the secure OS is proprietary and not open source', src: 'https://walletscrutiny.com/mobile/com.kr.iotrust.dcent.wallet/' },
-      deviceFw: { state: 'closed', note: 'a repo named biometric-firmware exists but contains only binary images \u2014 no source, no build instructions', src: 'https://github.com/DcentWallet/biometric-firmware' },
-      board:    { state: 'closed', note: 'nothing published in the vendor org' },
-      sdk:      { state: 'source', note: 'the MIT web connector is public and maintained, though the native mobile SDKs were archived in 2025', src: 'https://github.com/DcentWallet/dcent-web-connector' },
-      app:      { state: 'closed', note: 'the companion app is closed source, confirmed by the vendor', src: 'https://walletscrutiny.com/mobile/com.kr.iotrust.dcent.wallet/' }
+      seedFw: { state: 'closed', note: 'the vendor states the secure OS that holds and uses the key is proprietary', src: 'https://walletscrutiny.com/mobile/com.kr.iotrust.dcent.wallet/' },
+      bootFw: { state: 'closed', note: 'the firmware repository contains binary images only — no source, no build instructions', src: 'https://github.com/DcentWallet/biometric-firmware' },
+      board:  { state: 'closed', note: 'nothing published in the vendor organisation' },
+      host:   { state: 'source', note: 'the web connector is MIT and maintained, but the companion app is closed', src: 'https://github.com/DcentWallet/dcent-web-connector' }
     },
     note: 'On-device OLED display, with input taken on the device via a fingerprint sensor and physical buttons rather than delegated to the phone.',
     watch: 'Needs verifying: secure-element grade, whether signing runs inside it or on a general-purpose MCU, entropy handling, and how much of the stack is published.'
@@ -514,11 +497,10 @@ const WALLETS = [
       count:  { state: 'unknown', note: 'no documentation of sources, mixing or any user contribution' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'the vendor states plainly that the secure OS is proprietary and not open source', src: 'https://walletscrutiny.com/mobile/com.kr.iotrust.dcent.wallet/' },
-      deviceFw: { state: 'closed', note: 'nothing published for this model \u2014 not even the binaries offered for the Biometric', src: 'https://github.com/orgs/DcentWallet/repositories' },
-      board:    { state: 'closed', note: 'nothing published in the vendor org' },
-      sdk:      { state: 'source', note: 'the MIT web connector is public and maintained, though the native mobile SDKs were archived in 2025', src: 'https://github.com/DcentWallet/dcent-web-connector' },
-      app:      { state: 'closed', note: 'the companion app is closed source, confirmed by the vendor', src: 'https://walletscrutiny.com/mobile/com.kr.iotrust.dcent.wallet/' }
+      seedFw: { state: 'closed', note: 'a proprietary security OS holds and uses the key; nothing is published', src: 'https://store.dcentwallet.com/products/dcent-x' },
+      bootFw: { state: 'closed', note: 'nothing published for this model' },
+      board:  { state: 'closed', note: 'nothing published' },
+      host:   { state: 'source', note: 'the MIT web connector covers this model transports, but the app is closed', src: 'https://github.com/DcentWallet/dcent-web-connector' }
     },
     note: 'Added at the maintainer\'s request. No display is visible on the front face; a single control sits on the right edge.',
     watch: 'Unassessed. With no visible display on the front face, trusted I/O is the score that will decide this device — as it did for Arculus and Bitkey.'
@@ -542,11 +524,10 @@ const WALLETS = [
       count:  { state: 'unknown', note: 'no documentation of sources, mixing or any user contribution' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'the vendor states plainly that the secure OS is proprietary and not open source', src: 'https://walletscrutiny.com/mobile/com.kr.iotrust.dcent.wallet/' },
-      deviceFw: { state: 'closed', note: 'nothing published for this model \u2014 not even the binaries offered for the Biometric', src: 'https://github.com/orgs/DcentWallet/repositories' },
-      board:    { state: 'closed', note: 'nothing published in the vendor org' },
-      sdk:      { state: 'unknown', note: 'the MIT web connector targets USB and Bluetooth transports; whether it reaches this NFC-only card is not documented', src: 'https://github.com/DcentWallet/dcent-web-connector' },
-      app:      { state: 'closed', note: 'the companion app is closed source, confirmed by the vendor', src: 'https://walletscrutiny.com/mobile/com.kr.iotrust.dcent.wallet/' }
+      seedFw: { state: 'closed', note: 'a proprietary security OS holds and uses the key; nothing is published', src: 'https://store.dcentwallet.com/pages/dcent-s-card-wallet' },
+      bootFw: { state: 'closed', note: 'nothing published for this model' },
+      board:  { state: 'closed', note: 'nothing published' },
+      host:   { state: 'unknown', note: 'whether the published connector reaches this NFC-only card is not documented, and the app is closed' }
     },
     note: 'Added at the maintainer\'s request. Architecture not yet established.',
     watch: 'Unassessed. Nothing about this device has been verified against the four properties.'
@@ -570,11 +551,10 @@ const WALLETS = [
       count:  { state: 'single', note: 'the card returns a mnemonic from a call whose only input is the word count; the phone contributes nothing, and 12 words is the default', src: 'https://github.com/ByneappLLC/arculus-sdk-flutter/blob/main/android/src/main/cpp/include/csdk.h' }
     },
     osLayers: {
-      seFw:     { state: 'closed', note: 'proprietary; keys generated and stored on the element with nothing published', src: 'https://walletscrutiny.com/hardware/arculus/' },
-      deviceFw: { state: 'closed', note: 'the card is a smartcard, so the applet is the firmware — same closed status', src: 'https://walletscrutiny.com/hardware/arculus/' },
-      board:    { state: 'closed', note: 'no schematics, inlay design or BOM published' },
-      sdk:      { state: 'closed', note: 'a partner SDK exists but the developer portal returns 401; source is not published', src: 'https://www.composecure.com/arculus' },
-      app:      { state: 'closed', note: 'store distribution only, no source' }
+      seedFw: { state: 'closed', note: 'the smartcard applet generates and uses the key and nothing about it is published', src: 'https://walletscrutiny.com/hardware/arculus/' },
+      bootFw: { state: 'closed', note: 'no bootloader or supporting firmware published; the applet ships locked and non-updatable' },
+      board:  { state: 'closed', note: 'no schematics, inlay design or bill of materials published' },
+      host:   { state: 'closed', note: 'the SDK is partner-gated behind an authentication wall and the app is store-only', src: 'https://www.composecure.com/arculus' }
     },
     note: 'Genuinely strong silicon in a card body, with multi-factor authentication and secure seed generation.',
     watch: 'Nothing on the card shows you what you are signing, and nothing on it records your consent. Every confirmation is delegated to the phone, so users inherit every vulnerability in the mobile app.'
@@ -591,20 +571,19 @@ const WALLETS = [
     ioParts: {
       display: { state: 'device', note: 'the LCD is driven over SPI by the application processor' },
       input:   { state: 'device', note: 'joystick and buttons read as raw GPIO by the same chip' },
-      comms:   { state: 'device', note: 'no USB, Bluetooth or network stack is compiled into the kernel at all \u2014 the only channel is a camera in and a QR code out', src: 'https://github.com/SeedSigner/seedsigner-os' }
+      comms:   { state: 'none', note: 'there is no host link to attack \u2014 USB, Bluetooth and networking are not compiled into the kernel at all, and the only channel is a camera in and a QR code out', src: 'https://github.com/SeedSigner/seedsigner-os' }
     },
     entRules: {
       source: { state: 'hardware', note: 'there is no hardware generator on this build \u2014 the physical noise source is the camera image sensor, with health checks the project describes as a stuck-sensor detector rather than an entropy measurement', src: 'https://github.com/SeedSigner/seedsigner/blob/dev/src/seedsigner/views/tools_views.py' },
       count:  { state: 'user', note: 'dice or coin entries become the seed directly \u2014 the only device here that takes user entropy, but nothing device-side is mixed in, so a badly rolled seed is entirely yours', src: 'https://github.com/SeedSigner/seedsigner/blob/dev/docs/dice_verification.md' }
     },
     osLayers: {
-      seFw:     { state: 'na',     note: 'no secure element exists in the design, so there is no element firmware to publish' },
-      deviceFw: { state: 'source', note: 'MIT application and OS image builder, reproducible since 0.7.0 against a published hash \u2014 but nothing on the device attests what is running, since the firmware is a card the user writes', src: 'https://github.com/SeedSigner/seedsigner-os' },
-      board:    { state: 'na',     note: 'no custom board exists \u2014 off-the-shelf parts with open enclosure designs in the repo', src: 'https://github.com/SeedSigner/seedsigner/tree/dev/enclosures' },
-      sdk:      { state: 'na',     note: 'no first-party SDK; integration is standard PSBT over QR' },
-      app:      { state: 'na',     note: 'no first-party app; used with third-party wallets' }
+      seedFw: { state: 'source', note: 'no element, so the application itself holds and uses the seed; MIT and reproducible against a published hash, but the firmware is a card you write and nothing on the device attests it', src: 'https://github.com/SeedSigner/seedsigner-os' },
+      bootFw: { state: 'source', note: 'the OS image builder ships in the same reproducible build, with the same absence of attestation' },
+      board:  { state: 'source', note: 'the project designs no board, so this is scored on the Raspberry Pi it runs on \u2014 Raspberry Pi publishes a document it calls reduced schematics, with no layout files, no bill of materials and no open-hardware licence, over a system-on-chip whose boot ROM is closed', src: 'https://datasheets.raspberrypi.com/rpizero/raspberry-pi-zero-reduced-schematics.pdf' },
+      host:   { state: 'open', note: 'no first-party software is shipped; the device is driven by third-party open wallets over standard QR payloads' }
     },
-    note: 'Open-source, self-assembled, and air-gapped by QR only. Its defining choice is statelessness: the seed is entered per session and nothing is retained when power is removed, so there is no stored secret for an attacker to extract.',
+    note: 'Open-source, self-assembled and air-gapped by QR only. Its defining choice is statelessness: the seed is entered per session and nothing is retained when power is removed, so there is no stored secret to extract. Because it designs no hardware of its own, the board it is scored on is the Raspberry Pi underneath it.',
     watch: 'Unassessed, and it strains the rubric. The secure-element criterion asks how well a stored seed is protected — this device stores none, but runs on a general-purpose SoC while the seed is in memory. Whether that scores near the top or near the bottom is a judgement about your threat model, not a reading of a datasheet.'
   },
   {
@@ -626,11 +605,10 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'every draw is hashed over battery sensor readings, a cycle counter, rolling state and the chip generator, seeded at boot with camera frames \u2014 the most thorough mixing here, but no user contribution', src: 'https://github.com/Blockstream/Jade/blob/master/main/random.c' }
     },
     osLayers: {
-      seFw:     { state: 'na',     note: 'no secure element on the board \u2014 a published, self-hostable PIN oracle stands in for one', src: 'https://github.com/Blockstream/blind_pin_server' },
-      deviceFw: { state: 'open',   note: 'GPL3 with a documented reproducible build whose only diff is the vendor signature block, and Secure Boot v2 enforcing signed images', src: 'https://github.com/Blockstream/Jade/blob/master/REPRODUCIBLE.md' },
-      board:    { state: 'open',   note: 'fabrication-grade publication \u2014 project files, schematics, board layout and BOM; the most complete hardware release on this sheet', src: 'https://github.com/Blockstream/Jade/tree/master/hardware/jade_v2' },
-      sdk:      { state: 'source', note: 'the Python and C libraries ship in the Jade repo, with the cross-platform library under a BSD-MIT licence', src: 'https://github.com/Blockstream/gdk' },
-      app:      { state: 'source', note: 'the first-party desktop and mobile apps are GPL-3.0, but no reproducible-build procedure was established', src: 'https://github.com/Blockstream/green_qt' }
+      seedFw: { state: 'open', note: 'no element, so the firmware holds and uses the seed; GPL3 with a documented reproducible build whose only difference is the signature block, and secure boot enforcing signed images', src: 'https://github.com/Blockstream/Jade/blob/master/REPRODUCIBLE.md' },
+      bootFw: { state: 'open', note: 'the bootloader path ships in the same tree with secure boot and anti-rollback enabled' },
+      board:  { state: 'open', note: 'fabrication-grade publication — project files, schematics, board layout and bill of materials; the most complete hardware release on this sheet', src: 'https://github.com/Blockstream/Jade/tree/master/hardware/jade_v2' },
+      host:   { state: 'source', note: 'the libraries are BSD-MIT and the apps GPL-3.0, but no reproducible build was established for them', src: 'https://github.com/Blockstream/green_qt' }
     },
     note: 'Blockstream\'s open-source signer, with an on-device colour display, a camera for air-gapped QR flows, and physical input on the device rather than the phone.',
     watch: 'Unassessed, and the interesting question is what stands in for a secure element. The Jade line has used a PIN scheme that involves a remote server in unlocking an encrypted seed rather than certified silicon — that is a third architecture this rubric does not yet describe, and it needs establishing for this model before any score is meaningful.'
@@ -662,23 +640,26 @@ const COLUMNS = [
 // ---------------------------------------------------------------------------
 
 const OS_LAYERS = [
-  { key: 'seFw',     weight: 4, label: 'SECURE ELEMENT FIRMWARE' },
-  { key: 'deviceFw', weight: 2, label: 'DEVICE FIRMWARE + BOOTLOADER' },
-  { key: 'board',    weight: 2, label: 'BOARD DESIGN / SCHEMATICS' },
-  { key: 'sdk',      weight: 1, label: 'SDK' },
-  { key: 'app',      weight: 1, label: 'COMPANION APP' }
+  { key: 'seedFw', weight: 4, label: 'SEED-TOUCHING FIRMWARE' },
+  { key: 'bootFw', weight: 2, label: 'BOOTLOADER + SUPPORTING FIRMWARE' },
+  // "Reproducible" is firmware vocabulary: a board has no build to repeat and no
+  // binary to compare. The top level here means the published files are enough to
+  // have the board made.
+  { key: 'board',  weight: 2, label: 'BOARD DESIGN',
+    labels: { open: 'FABRICABLE', source: 'PARTIAL' } },
+  { key: 'host',   weight: 2, label: 'HOST SOFTWARE' }
 ];
 
 // closed, nda and unknown all score zero — the site's rule is that a claim which
 // cannot be verified is scored as absent — but they mean different things and
-// are labelled differently. level: null marks a layer the product does not have.
+// are labelled differently. Every layer applies to every device: naming the role
+// rather than the component means there is nothing to mark not-applicable.
 const OS_STATES = {
-  open:    { level: 1.0,  label: 'REPRODUCIBLE',   cls: 'is-open' },
-  source:  { level: 0.5,  label: 'SOURCE ONLY',    cls: 'is-partial' },
-  closed:  { level: 0.0,  label: 'CLOSED',         cls: 'is-closed' },
-  nda:     { level: 0.0,  label: 'NDA-BOUND',      cls: 'is-closed' },
-  unknown: { level: 0.0,  label: 'UNVERIFIED',     cls: 'is-unknown' },
-  na:      { level: null, label: 'NOT APPLICABLE', cls: 'is-na' }
+  open:    { level: 1.0, label: 'REPRODUCIBLE', cls: 'is-open' },
+  source:  { level: 0.5, label: 'SOURCE ONLY',  cls: 'is-partial' },
+  closed:  { level: 0.0, label: 'CLOSED',       cls: 'is-closed' },
+  nda:     { level: 0.0, label: 'NDA-BOUND',    cls: 'is-closed' },
+  unknown: { level: 0.0, label: 'UNVERIFIED',   cls: 'is-unknown' }
 };
 
 const osState = (entry) => OS_STATES[entry && entry.state] || OS_STATES.unknown;
@@ -763,6 +744,9 @@ const IO_PARTS = [
       host:    { pts: 0, label: 'IN THE APP',    cls: 'is-closed' },
       unknown: { pts: 0, label: 'UNVERIFIED',    cls: 'is-unknown' } } },
   { key: 'comms', label: 'HOST LINK — USB / BLE / NFC', max: 2, states: {
+      // A device with no data link has no hub to compromise, which is the same
+      // outcome the element-driven case earns its points for.
+      none:    { pts: 2, label: 'NO HOST LINK',  cls: 'is-open' },
       element: { pts: 2, label: 'IN ELEMENT',    cls: 'is-open' },
       device:  { pts: 0, label: 'ON DEVICE MCU', cls: 'is-closed' },
       unknown: { pts: 0, label: 'UNVERIFIED',    cls: 'is-unknown' } } }
@@ -801,19 +785,8 @@ function safeUrl(u) {
 function osScore(w) {
   if (!isRated(w)) return null;
   if (!w.osLayers) return w.os;
-
-  let earned = 0;
-  let possible = 0;
-  for (const layer of OS_LAYERS) {
-    const { level } = osState(w.osLayers[layer.key]);
-    if (level === null) continue;          // layer absent from the product
-    earned += level * layer.weight;
-    possible += layer.weight;
-  }
-  if (!possible) return 0;
-  // Rescale over applicable weight only, so a device is not penalised twice for
-  // lacking a component the SECURE ELEMENT column already marks it down for.
-  return Math.round((10 * earned / possible) * 10) / 10;
+  return OS_LAYERS.reduce(
+    (n, l) => n + osState(w.osLayers[l.key]).level * l.weight, 0);
 }
 
 function seScore(w) {
@@ -902,14 +875,12 @@ function osSourceLink(entry) {
 function osLayerRow(w, layer) {
   const entry = w.osLayers[layer.key];
   const st = osState(entry);
-  const pts = st.level === null
-    ? '\u2014'
-    : `${(st.level * layer.weight).toFixed(1)} / ${layer.weight.toFixed(1)}`;
+  const stateLabel = (layer.labels && layer.labels[entry && entry.state]) || st.label;
   return `
         <div class="os-layer ${st.cls}">
           <div class="os-layer-name">${layer.label}</div>
-          <div class="os-layer-pts">${pts}</div>
-          <div class="os-layer-state">${st.label}</div>
+          <div class="os-layer-pts">${(st.level * layer.weight).toFixed(1)} / ${layer.weight.toFixed(1)}</div>
+          <div class="os-layer-state">${stateLabel}</div>
           <div class="os-layer-note">${esc((entry && entry.note) || 'not established')}${osSourceLink(entry)}</div>
         </div>`;
 }
@@ -917,11 +888,6 @@ function osLayerRow(w, layer) {
 function osBreakdown(w) {
   if (!isRated(w) || !w.osLayers) return '';
 
-  const applicable = OS_LAYERS.filter((l) => osState(w.osLayers[l.key]).level !== null);
-  const possible = applicable.reduce((n, l) => n + l.weight, 0);
-  const earned = applicable.reduce(
-    (n, l) => n + osState(w.osLayers[l.key]).level * l.weight, 0);
-  const absent = 10 - possible;
   const total = osScore(w);
 
   return `
@@ -931,8 +897,7 @@ function osBreakdown(w) {
         </div>
         <div class="os-total">
           <span class="os-total-value">${total.toFixed(1)}</span>
-          <span class="os-total-sum">${earned.toFixed(1)} of ${possible.toFixed(1)} applicable points${
-            absent > 0 ? ` \u00b7 ${absent.toFixed(1)} not applicable` : ''}</span>
+          <span class="os-total-sum">${total.toFixed(1)} of 10.0 points</span>
           <div class="bar"><span style="width: ${total * 10}%"></span></div>
         </div>
       </div>`;
