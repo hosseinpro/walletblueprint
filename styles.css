@@ -799,7 +799,6 @@ a:hover { color: var(--ice); }
   color: var(--body-alt);
 }
 .doc p { margin: 0 0 16px; text-wrap: pretty; }
-.doc > p:first-child { margin-bottom: 28px; }
 .doc h2 {
   font-size: 13px;
   font-family: var(--mono);
@@ -886,6 +885,7 @@ a:hover { color: var(--ice); }
   gap: 8px;
   margin: 30px 0 0;
 }
+.doc > .metric-tabs:first-child .metric-tablist { margin-top: 0; }
 
 .metric-tab {
   font-family: var(--mono);
