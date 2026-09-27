@@ -2,7 +2,7 @@
 
 const WALLETS = [
   {
-    id: 'lnsp', photo: 'images/devices/ledger-nano-s-plus.webp', name: 'Ledger Nano S Plus', meta: 'USB-C · ST33 element · buttons in SE',
+    id: 'lnsp', photo: 'images/devices/ledger-nano-s-plus.webp', url: 'https://shop.ledger.com/products/ledger-nano-s-plus', name: 'Ledger Nano S Plus', meta: 'USB-C · ST33 element · buttons in SE',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and buttons in the element; USB on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
       auth:    { state: 'element', note: 'PIN verified inside the element' },
@@ -29,7 +29,7 @@ const WALLETS = [
     watch: 'An MCU still handles USB. Kraken Security Labs showed it could be overwritten before delivery — patched, but the MCU remains the softest part of the device.'
   },
   {
-    id: 'lnx', photo: 'images/devices/ledger-nano-x.webp', name: 'Ledger Nano X', meta: 'USB-C · Bluetooth · ST33 element',
+    id: 'lnx', photo: 'images/devices/ledger-nano-x.webp', url: 'https://shop.ledger.com/products/ledger-nano-x', name: 'Ledger Nano X', meta: 'USB-C · Bluetooth · ST33 element',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and buttons in the element; USB and BLE on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
       auth:    { state: 'element', note: 'PIN verified inside the element' },
@@ -56,7 +56,7 @@ const WALLETS = [
     watch: 'Bluetooth widens what the remaining MCU is exposed to. NFC would remove the need for a battery and is already supported by the ST33.'
   },
   {
-    id: 'lstax', photo: 'images/devices/ledger-stax.webp', name: 'Ledger Stax', meta: 'USB-C · Bluetooth · e-ink',
+    id: 'lstax', photo: 'images/devices/ledger-stax.webp', url: 'https://shop.ledger.com/products/ledger-stax', name: 'Ledger Stax', meta: 'USB-C · Bluetooth · e-ink',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and touch in the element; USB and BLE on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
       auth:    { state: 'element', note: 'PIN verified inside the element' },
@@ -83,7 +83,7 @@ const WALLETS = [
     watch: 'Scored below the Nano X only because the architecture is inferred rather than documented.'
   },
   {
-    id: 'lflex', photo: 'images/devices/ledger-flex.webp', name: 'Ledger Flex', meta: 'USB-C · Bluetooth · e-ink touch',
+    id: 'lflex', photo: 'images/devices/ledger-flex.webp', url: 'https://shop.ledger.com/products/ledger-flex', name: 'Ledger Flex', meta: 'USB-C · Bluetooth · e-ink touch',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and touch in the element; USB and BLE on an MCU', entNote: 'certified chip, no device-level evaluation', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
       auth:    { state: 'element', note: 'PIN verified inside the element' },
@@ -110,7 +110,7 @@ const WALLETS = [
     watch: 'Released after the 2024 analysis and not covered by it. Scored by extrapolation from the Stax and Nano X architecture, not from independent verification.'
   },
   {
-    id: 'lgen5', photo: 'images/devices/ledger-nano-gen5.webp', name: 'Ledger Nano Gen5', meta: 'e-ink touch · fingerprint sensor',
+    id: 'lgen5', photo: 'images/devices/ledger-nano-gen5.webp', url: 'https://shop.ledger.com/products/ledger-nano-gen5', name: 'Ledger Nano Gen5', meta: 'e-ink touch · fingerprint sensor',
     seNote: 'the whole wallet runs inside the element', ioNote: 'display and touch in the element; radio on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
       auth:    { state: 'element', note: 'PIN verification is an OS syscall executing on the element, with the retry counter enforced there and a wipe on exhaustion', src: 'https://donjon.ledger.com/threat-model/os-pin-security-mechanism/' },
@@ -138,7 +138,7 @@ const WALLETS = [
   },
 
   {
-    id: 'tsafe3', photo: 'images/devices/trezor-safe-3.webp', name: 'Trezor Safe 3', meta: 'USB-C · EAL6+ element · open firmware',
+    id: 'tsafe3', photo: 'images/devices/trezor-safe-3.webp', url: 'https://trezor.io/trezor-safe-3', name: 'Trezor Safe 3', meta: 'USB-C · EAL6+ element · open firmware',
     seNote: 'element gates the PIN, but the seed lives and signs on the MCU', ioNote: 'screen, buttons and host link all on the MCU', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
     seParts: {
       auth:    { state: 'element', note: 'the Optiga enforces the retry limit in hardware and withholds its share of the unlock key, though the final comparison runs on the MCU', src: 'https://github.com/trezor/trezor-firmware/blob/main/docs/storage/index.md' },
@@ -165,7 +165,7 @@ const WALLETS = [
     watch: 'The plaintext seed is then loaded into a general-purpose STM32, where all signing happens. Malware on that chip can read it straight out of memory.'
   },
   {
-    id: 'tsafe5', photo: 'images/devices/trezor-safe-5.avif', name: 'Trezor Safe 5', meta: 'USB-C · colour touchscreen · EAL6+ element',
+    id: 'tsafe5', photo: 'images/devices/trezor-safe-5.avif', url: 'https://trezor.io/trezor-safe-5', name: 'Trezor Safe 5', meta: 'USB-C · colour touchscreen · EAL6+ element',
     seNote: 'element gates the PIN, but the seed lives and signs on the MCU', ioNote: 'touchscreen and host link all on the MCU', entNote: 'three sources, mixing readable in public source', osNote: 'firmware reproducible; element closed, Suite not OSI-open',
     seParts: {
       auth:    { state: 'element', note: 'the Optiga enforces the retry limit in hardware and withholds its share of the unlock key, though the final comparison runs on the MCU', src: 'https://github.com/trezor/trezor-firmware/blob/main/docs/storage/index.md' },
@@ -192,7 +192,7 @@ const WALLETS = [
     watch: 'Architecturally the Safe 3. The secure element holds only a key that decrypts the seed; the plaintext seed is then loaded into a general-purpose STM32 where all signing happens. No significant security gain over its predecessor.'
   },
   {
-    id: 'tsafe7', photo: 'images/devices/trezor-safe-7.png', name: 'Trezor Safe 7', meta: 'touchscreen · TROPIC01 element',
+    id: 'tsafe7', photo: 'images/devices/trezor-safe-7.png', url: 'https://trezor.io/trezor-safe-7', name: 'Trezor Safe 7', meta: 'touchscreen · TROPIC01 element',
     seNote: 'an open element that stores and rate-limits but never signs', ioNote: 'screen, touch and radio all outside the elements', entNote: 'three sources mixed, one of them certified', osNote: 'the only element firmware published on this sheet',
     warning: {
       tag: 'UNPATCHED SILICON FLAW',
@@ -226,7 +226,7 @@ const WALLETS = [
   },
 
   {
-    id: 'keepkey', photo: 'images/devices/keepkey.webp', name: 'KeepKey', meta: 'USB · no element · legacy',
+    id: 'keepkey', photo: 'images/devices/keepkey.webp', url: 'https://www.keepkey.com/', name: 'KeepKey', meta: 'USB · no element · legacy',
     seNote: 'no element anywhere in the design', ioNote: 'screen, button and host link all on the MCU', entNote: 'uncertified generator, host entropy optional', osNote: 'no element; firmware open, board claim unsupported',
     seParts: {
       auth:    { state: 'outside', note: 'no secure element; the PIN is checked by the MCU against encrypted flash' },
@@ -254,7 +254,7 @@ const WALLETS = [
   },
 
   {
-    id: 'ccmk4', photo: 'images/devices/coldcard-mk4.png', name: 'ColdCard Mk4', meta: 'air-gapped · microSD · dual element',
+    id: 'ccmk4', photo: 'images/devices/coldcard-mk4.png', url: 'https://coldcard.com/mk4', name: 'ColdCard Mk4', meta: 'air-gapped · microSD · dual element',
     seNote: 'two elements gate the seed, but signing happens outside them', ioNote: 'screen, keypad and host link all on the MCU', entNote: 'dedicated generator, none of it independently certified', osNote: 'firmware reproducible; elements and app closed',
     warning: {
       tag: 'SEED COMPROMISED — JULY 2026',
@@ -288,7 +288,7 @@ const WALLETS = [
   },
 
   {
-    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', name: 'Keystone 3 Pro', meta: 'QR or USB · touchscreen · three elements',
+    id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', url: 'https://keyst.one/shop/products/keystone-3-pro', name: 'Keystone 3 Pro', meta: 'QR or USB · touchscreen · three elements',
     seNote: 'elements gate access, but signing happens outside them', ioNote: 'touchscreen and camera driven by the MCU', entNote: 'three generators, none independently certified', osNote: 'published widely, but nothing verifiable end to end',
     seParts: {
       auth:    { state: 'element', note: 'PIN and fingerprint verified against the elements' },
@@ -316,7 +316,7 @@ const WALLETS = [
   },
 
   {
-    id: 'onekeypro', photo: 'images/devices/onekey-pro.png', name: 'OneKey Pro', meta: 'touchscreen · camera · USB-C',
+    id: 'onekeypro', photo: 'images/devices/onekey-pro.png', url: 'https://onekey.so/products/onekey-pro/', name: 'OneKey Pro', meta: 'touchscreen · camera · USB-C',
     seNote: 'signs on the element, but the seed is born and the transaction built outside it', ioNote: 'screen, touch and every radio on general-purpose chips', entNote: 'certified generator, single source by default', osNote: 'firmware published, element applet absent',
     seParts: {
       auth:    { state: 'element', note: 'the PIN goes to the element over an authenticated channel and the retry counter lives there \u2014 but the fingerprint is matched on the MCU inside a closed binary, which then simply asserts success to the element', src: 'https://github.com/OneKeyHQ/firmware-pro/blob/master/core/embed/trezorhal/se_thd89.c' },
@@ -343,7 +343,7 @@ const WALLETS = [
     watch: 'Unassessed. OneKey Touch scores 1.5 on secure element because it has none — whether the Pro changes that, and where signing runs, is the first thing to establish.'
   },
   {
-    id: 'onekey1s', photo: 'images/devices/onekey-1s.webp', name: 'OneKey Classic 1S', meta: 'transparent shell · buttons · OLED',
+    id: 'onekey1s', photo: 'images/devices/onekey-1s.webp', url: 'https://onekey.so/products/onekey-classic-1s-series/', name: 'OneKey Classic 1S', meta: 'transparent shell · buttons · OLED',
     seNote: 'signs on the element, but the seed is born and the transaction built outside it', ioNote: 'screen, buttons and radios on general-purpose chips', entNote: 'certified generator, single source on device', osNote: 'firmware published, element applet absent',
     seParts: {
       auth:    { state: 'element', note: 'the PIN is verified in the element with the counter held there, and this model has no fingerprint sensor to weaken it', src: 'https://github.com/OneKeyHQ/firmware-classic1s/blob/master/legacy/firmware/se_chip.h' },
@@ -371,7 +371,7 @@ const WALLETS = [
   },
 
   {
-    id: 'coolwalletgo', photo: 'images/devices/coolwallet-go.webp', name: 'CoolWallet Go', meta: 'card · Bluetooth',
+    id: 'coolwalletgo', photo: 'images/devices/coolwallet-go.webp', url: 'https://www.coolwallet.io/products/coolwallet-go', name: 'CoolWallet Go', meta: 'card · Bluetooth',
     seNote: 'signs on the element, but nothing authorises the signature', ioNote: 'no screen and no button; the phone is the only interface', entNote: 'no source published and the chip is unnamed', osNote: 'SDK open, everything touching the seed closed',
     seParts: {
       auth:    { state: 'outside', note: 'there is no per-transaction authorisation step at all — the confirm-then-release sequence the Pro uses is explicitly unsupported', src: 'https://github.com/CoolBitX-Technology/coolwallet-sdk' },
@@ -398,7 +398,7 @@ const WALLETS = [
     watch: 'Unassessed. The CoolWallet S loses its trusted I/O score because the PIN is entered on the phone — whether the Go moves that on-device, and whether it has any display at all, decides most of its score.'
   },
   {
-    id: 'coolwalletpro', photo: 'images/devices/coolwallet-pro.png', name: 'CoolWallet Pro', meta: 'card · e-ink · fingerprint',
+    id: 'coolwalletpro', photo: 'images/devices/coolwallet-pro.png', url: 'https://www.coolwallet.io/products/coolwallet-pro', name: 'CoolWallet Pro', meta: 'card · e-ink · fingerprint',
     seNote: 'keys and signing in the element, approval outside it', ioNote: 'a screen and button, both driven by the card MCU', entNote: 'hardware generator, single source, no certificate', osNote: 'applet published but unbuildable; firmware closed',
     seParts: {
       auth:    { state: 'outside', note: 'the pairing password is checked in the element, but per-transaction approval is not — the MCU issues the authorisation on the user\u2019s behalf', src: 'https://github.com/CoolBitX-Technology/coolwallet-pro-se' },
@@ -425,7 +425,7 @@ const WALLETS = [
     watch: 'Unassessed. If the display and fingerprint reader are driven from the secure element, this answers the two failings the CoolWallet S is marked down for. If they are not, it does not.'
   },
   {
-    id: 'bitkey', photo: 'images/devices/bitkey.png', name: 'Bitkey', meta: 'NFC · fingerprint · no display',
+    id: 'bitkey', photo: 'images/devices/bitkey.png', url: 'https://bitkey.world/product', name: 'Bitkey', meta: 'NFC · fingerprint · no display',
     seNote: 'keys, signing and fingerprint on the device', ioNote: 'fingerprint on device, but nothing to see what you sign', entNote: 'uncertified for this part, single source', osNote: 'broadly published, not reproducibly buildable',
     seParts: {
       auth:    { state: 'element', note: 'fingerprint matched on the device before signing is released' },
@@ -452,7 +452,7 @@ const WALLETS = [
     watch: 'The hardware half has no display, so there is nothing on which to visually confirm what you are approving.'
   },
   {
-    id: 'dcent', photo: 'images/devices/dcent-bio.webp', name: "D'CENT Biometric", meta: 'Bluetooth · fingerprint · OLED',
+    id: 'dcent', photo: 'images/devices/dcent-bio.webp', url: 'https://store.dcentwallet.com/products/biometric-wallet', name: "D'CENT Biometric", meta: 'Bluetooth · fingerprint · OLED',
     seNote: 'keys and signing in the element, parsing on the MCU', ioNote: 'screen and buttons on the device, driven by its MCU', entNote: 'nothing established about the generator', osNote: 'firmware repo holds binaries only',
     seParts: {
       auth:    { state: 'unknown', note: 'the vendor\u2019s own sources disagree — one names an ST33 holding the fingerprint, another names an NXP part, and the newer model badges in-element fingerprints as exclusive to itself', src: 'https://store.dcentwallet.com/products/dcent-x' },
@@ -479,7 +479,7 @@ const WALLETS = [
     watch: 'Needs verifying: secure-element grade, whether signing runs inside it or on a general-purpose MCU, entropy handling, and how much of the stack is published.'
   },
   {
-    id: 'dcentx', photo: 'images/devices/dcent-x.webp', name: "D'CENT X", meta: 'USB-C · side button',
+    id: 'dcentx', photo: 'images/devices/dcent-x.webp', url: 'https://store.dcentwallet.com/products/dcent-x', name: "D'CENT X", meta: 'USB-C · side button',
     seNote: 'everything but transaction parsing claimed in the element', ioNote: 'touchscreen and fingerprint on the device', entNote: 'nothing established about the generator', osNote: 'nothing published for this model',
     seParts: {
       auth:    { state: 'element', note: 'fingerprint stored and matched in the same chip as the keys, with the retry lockout enforced there — vendor claim, weeks old and unaudited', src: 'https://store.dcentwallet.com/products/dcent-x' },
@@ -506,7 +506,7 @@ const WALLETS = [
     watch: 'Unassessed. With no visible display on the front face, trusted I/O is the score that will decide this device — as it did for Arculus and Bitkey.'
   },
   {
-    id: 'dcents', photo: 'images/devices/dcent-s.webp', name: "D'CENT S", meta: 'form factor to confirm',
+    id: 'dcents', photo: 'images/devices/dcent-s.webp', url: 'https://store.dcentwallet.com/products/dcent-s-r3covery-card-kit', name: "D'CENT S", meta: 'form factor to confirm',
     seNote: 'keys, signing and the PIN counter in the element', ioNote: 'no screen and no input; the phone shows everything', entNote: 'nothing established about the generator', osNote: 'nothing published for this model',
     seParts: {
       auth:    { state: 'element', note: 'the card wipes itself after repeated wrong PINs, so the counter is in the element — but with no keypad the PIN is typed into the phone, where a compromised app can capture it', src: 'https://store.dcentwallet.com/pages/dcent-s-card-wallet' },
@@ -533,7 +533,7 @@ const WALLETS = [
     watch: 'Unassessed. Nothing about this device has been verified against the four properties.'
   },
   {
-    id: 'arculus', photo: 'images/devices/arculus-card.webp', name: 'Arculus', meta: 'card · NFC · no display',
+    id: 'arculus', photo: 'images/devices/arculus-card.webp', url: 'https://www.getarculus.com/products/arculus-cold-storage-wallet.html', name: 'Arculus', meta: 'card · NFC · no display',
     seNote: 'keys and signing on the card, but the PIN is checked on the phone', ioNote: 'no display and no on-card input', entNote: 'generator claimed but unnamed and uncheckable', osNote: 'closed at every layer',
     seParts: {
       auth:    { state: 'outside',  note: 'the PIN is entered and checked on the phone, not the card' },
@@ -560,7 +560,7 @@ const WALLETS = [
     watch: 'Nothing on the card shows you what you are signing, and nothing on it records your consent. Every confirmation is delegated to the phone, so users inherit every vulnerability in the mobile app.'
   },
   {
-    id: 'seedsigner', photo: 'images/devices/seedsigner.png', name: 'SeedSigner', meta: 'QR air-gap · DIY · stateless',
+    id: 'seedsigner', photo: 'images/devices/seedsigner.png', url: 'https://seedsigner.com/', name: 'SeedSigner', meta: 'QR air-gap · DIY · stateless',
     seNote: 'no element, and no authentication of any kind', ioNote: 'one chip parses, displays and signs; no host in the path', entNote: 'camera sensor as the noise source; dice become the seed', osNote: 'fully open, but hardware is whatever you assembled',
     seParts: {
       auth:    { state: 'outside', note: 'no authentication of any kind \u2014 no PIN, no counter; the device boots straight to its menu and the only secret is an optional passphrase' },
@@ -587,7 +587,7 @@ const WALLETS = [
     watch: 'Unassessed, and it strains the rubric. The secure-element criterion asks how well a stored seed is protected — this device stores none, but runs on a general-purpose SoC while the seed is in memory. Whether that scores near the top or near the bottom is a judgement about your threat model, not a reading of a datasheet.'
   },
   {
-    id: 'jadeplus', photo: 'images/devices/jade-plus.png', name: 'Blockstream Jade Plus', meta: 'colour display · camera · open source',
+    id: 'jadeplus', photo: 'images/devices/jade-plus.png', url: 'https://store.blockstream.com/products/jade-plus', name: 'Blockstream Jade Plus', meta: 'colour display · camera · open source',
     seNote: 'no element \u2014 a remote blind oracle does its anti-bruteforce job', ioNote: 'one chip parses, displays and signs; no bridge chip', entNote: 'thorough mixing, uncertified source', osNote: 'reproducible firmware and fabrication-grade board files',
     seParts: {
       auth:    { state: 'outside', note: 'a remote blind oracle stands in for an element: it holds half the decryption key, never learns the PIN, and enforces the strike counter out of a physical attacker\u2019s reach' },
@@ -872,6 +872,22 @@ function osSourceLink(entry) {
   return ` <a class="os-src" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} \u2197</a>`;
 }
 
+function vendorLink(w) {
+  const url = safeUrl(w.url);
+  if (!url) return '';
+  let label;
+  try {
+    label = new URL(url).hostname.replace(/^www\./, '').toUpperCase();
+  } catch {
+    return '';
+  }
+  return `
+        <div class="vendor-link">
+          <div class="kicker">MANUFACTURER</div>
+          <a class="os-src" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} \u2197</a>
+        </div>`;
+}
+
 function osLayerRow(w, layer) {
   const entry = w.osLayers[layer.key];
   const st = osState(entry);
@@ -971,7 +987,7 @@ function rowMarkup(w) {
         <div>
           <div class="kicker">WATCH ITEM</div>
           <p>${esc(w.watch)}</p>
-        </div>${rulesBreakdown(w, 'SECURE ELEMENT \u2014 COMPONENT BREAKDOWN', SE_PARTS, w.seParts, seScore(w))}${rulesBreakdown(w, 'TRUSTED I/O \u2014 COMPONENT BREAKDOWN', IO_PARTS, w.ioParts, ioScore(w))}${rulesBreakdown(w, 'ENTROPY \u2014 RULE BREAKDOWN', ENT_RULES, w.entRules, entScore(w))}${osBreakdown(w)}
+        </div>${vendorLink(w)}${rulesBreakdown(w, 'SECURE ELEMENT \u2014 COMPONENT BREAKDOWN', SE_PARTS, w.seParts, seScore(w))}${rulesBreakdown(w, 'TRUSTED I/O \u2014 COMPONENT BREAKDOWN', IO_PARTS, w.ioParts, ioScore(w))}${rulesBreakdown(w, 'ENTROPY \u2014 RULE BREAKDOWN', ENT_RULES, w.entRules, entScore(w))}${osBreakdown(w)}
       </div>
     </div>`;
 }

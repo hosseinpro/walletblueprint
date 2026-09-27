@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Methodology — walletblueprint.com</title>
   <meta name="description"
-    content="How walletblueprint.com scores hardware wallets: secure element, trusted screen, trusted input, entropy and open source, on a published 0–10 rubric.">
+    content="How walletblueprint.com scores hardware wallets: secure element, trusted I/O, entropy and open source, each on a published 0–10 rubric.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -48,215 +48,445 @@
     </div>
 
     <article class="doc">
-      <p>The scores in the comparison table are not a review average. Each is a reading of one part of the device's
-        architecture, taken from public datasheets, published firmware, certification reports and security-lab
-        disclosures. Where a vendor claim cannot be verified, it is scored as if the property were absent.</p>
+      <p>Four properties, ten points each, published in full. Each is measured on its own and none double-counts
+        another. Start with the introduction, or go straight to the one you care about.</p>
 
-      <p>Vulnerabilities are found every few months and vendors ship updates to close them. That cycle is normal and it
-        is not what this site tracks. What it tracks is the smaller set of flaws that no firmware update can repair,
-        because they are decisions made in silicon and board layout.</p>
+      <div class="metric-tabs" id="metric-tabs">
 
-      <h2>WHY A HARDWARE WALLET IS NEVER ALONE</h2>
-      <h3>The companion device is part of the threat model.</h3>
-      <p>A hardware wallet is not a general-purpose computer, which is exactly what makes it resistant to malware — and
-        also what stops it reaching the network by itself. It cannot fetch a balance, read transaction history, or
-        broadcast a signed transaction. Every one of those operations is delegated to a companion: a phone or a laptop
-        running a wallet app.</p>
-
-      <figure class="diagram">
-        <div class="diagram-frame">
-          <picture>
-            <source media="(max-width: 700px)" srcset="images/diagram-trust-chain-stacked.svg">
-            <img src="images/diagram-trust-chain.svg"
-              alt="A hardware wallet connects to a blockchain node only through the internet and a phone running a hardware wallet app.">
-          </picture>
+        <div class="metric-tablist" role="tablist" aria-label="Scored properties">
+          <button class="metric-tab" type="button" role="tab" id="tab-intro" aria-controls="panel-intro"
+            aria-selected="true" tabindex="0" data-key="intro">00 — INTRO</button>
+          <button class="metric-tab" type="button" role="tab" id="tab-secure-element"
+            aria-controls="panel-secure-element" aria-selected="false" tabindex="-1"
+            data-key="secure-element">01 — SECURE ELEMENT</button>
+          <button class="metric-tab" type="button" role="tab" id="tab-trusted-io" aria-controls="panel-trusted-io"
+            aria-selected="false" tabindex="-1" data-key="trusted-io">02 — TRUSTED I/O</button>
+          <button class="metric-tab" type="button" role="tab" id="tab-entropy" aria-controls="panel-entropy"
+            aria-selected="false" tabindex="-1" data-key="entropy">03 — ENTROPY</button>
+          <button class="metric-tab" type="button" role="tab" id="tab-open-source" aria-controls="panel-open-source"
+            aria-selected="false" tabindex="-1" data-key="open-source">04 — OPEN SOURCE</button>
         </div>
-        <figcaption>The signing device never touches the network directly. Everything it learns about the world arrives
-          through an intermediary you should assume is hostile.</figcaption>
-      </figure>
 
-      <p>This is the whole reason the following properties matter. If the companion app is compromised, it can lie
-        about the recipient address, lie about the amount, and suppress what you are shown. The device's only defence is
-        what it can prove on its own hardware, without trusting anything the phone says. Many products sold as hardware
-        wallets fail here: they lean on the security of the middle device rather than replacing the need to trust it.
-      </p>
+        <!-- 00 ------------------------------------------------------------- -->
+        <div class="metric-panel is-active" id="panel-intro" role="tabpanel" aria-labelledby="tab-intro">
+          <h2>WHY THESE FOUR</h2>
+        <p>The scores in the comparison table are not a review average. Each is a reading of one part of the device's
+          architecture, taken from public datasheets, published firmware, certification reports and security-lab
+          disclosures. Where a vendor claim cannot be verified, it is scored as if the property were absent.</p>
 
-      <h2>THE TARGET ARCHITECTURE</h2>
-      <h3>One chip should own the secret, the screen and the buttons.</h3>
-      <p>The ideal model is a secure element that drives all input and output itself, with no non-secure intermediate
-        chip anywhere in the signing path and no reliance on the phone or computer. Everything below is a measurement of
-        how far a given device sits from this diagram.</p>
+        <p>Vulnerabilities are found every few months and vendors ship updates to close them. That cycle is normal and it
+          is not what this site tracks. What it tracks is the smaller set of flaws that no firmware update can repair,
+          because they are decisions made in silicon and board layout.</p>
 
-      <figure class="diagram">
-        <div class="diagram-frame">
-          <picture>
-            <source media="(max-width: 700px)" srcset="images/diagram-target-architecture-stacked.svg">
-            <img src="images/diagram-target-architecture.svg"
-              alt="Target architecture: a phone app connects over NFC, USB or BLE to an enclosure whose secure element drives a trusted display and a trusted button directly.">
-          </picture>
+        <h2>WHY A HARDWARE WALLET IS NEVER ALONE</h2>
+        <h3>The companion device is part of the threat model.</h3>
+        <p>A hardware wallet is not a general-purpose computer, which is exactly what makes it resistant to malware — and
+          also what stops it reaching the network by itself. It cannot fetch a balance, read transaction history, or
+          broadcast a signed transaction. Every one of those operations is delegated to a companion: a phone or a laptop
+          running a wallet app.</p>
+
+        <figure class="diagram">
+          <div class="diagram-frame">
+            <picture>
+              <source media="(max-width: 700px)" srcset="images/diagram-trust-chain-stacked.svg">
+              <img src="images/diagram-trust-chain.svg"
+                alt="A hardware wallet connects to a blockchain node only through the internet and a phone running a hardware wallet app.">
+            </picture>
+          </div>
+          <figcaption>The signing device never touches the network directly. Everything it learns about the world arrives
+            through an intermediary you should assume is hostile.</figcaption>
+        </figure>
+
+        <p>This is the whole reason the following properties matter. If the companion app is compromised, it can lie
+          about the recipient address, lie about the amount, and suppress what you are shown. The device's only defence is
+          what it can prove on its own hardware, without trusting anything the phone says. Many products sold as hardware
+          wallets fail here: they lean on the security of the middle device rather than replacing the need to trust it.
+        </p>
+
+        <h2>THE TARGET ARCHITECTURE</h2>
+        <h3>One chip should own the secret, the screen and the buttons.</h3>
+        <p>The ideal model is a secure element that drives all input and output itself, with no non-secure intermediate
+          chip anywhere in the signing path and no reliance on the phone or computer. Everything below is a measurement of
+          how far a given device sits from this diagram.</p>
+
+        <figure class="diagram">
+          <div class="diagram-frame">
+            <picture>
+              <source media="(max-width: 700px)" srcset="images/diagram-target-architecture-stacked.svg">
+              <img src="images/diagram-target-architecture.svg"
+                alt="Target architecture: a phone app connects over NFC, USB or BLE to an enclosure whose secure element drives a trusted display and a trusted button directly.">
+            </picture>
+          </div>
+          <figcaption>The secure element is the only chip in the enclosure. It holds the seed, renders what you see, and
+            reads what you press — so no other component can sit between you and the transaction.</figcaption>
+        </figure>
+
+          <h2>SCORING</h2>
+          <p>Every property is scored out of ten. Each score is a sum of the components listed in that
+            property&rsquo;s tab, not an overall impression. A four on trusted I/O is not a judgement that the device is mediocre;
+            it means the screen and the buttons are driven by the device&rsquo;s own microcontroller and the host link runs
+            through a general-purpose chip. Each device&rsquo;s expanded row on the comparison sheet shows that arithmetic,
+            component by component, with a source against each one. The composite is an unweighted mean of the four, rounded
+            to one decimal — published because people want one number, and left unweighted because the right weighting
+            <em>across</em> properties is your threat model and not ours. Weighting <em>within</em> a property is a
+            different question: how much of the open-source score each layer earns is a fact about the architecture rather
+            than a preference, since code running closer to the seed is code more worth being able to read, whatever you are
+            defending against.</p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>0 – 10</div>
+              <div><strong>Secure element</strong> — how much of the wallet actually runs inside it. Ten means the PIN,
+                the key, the transaction and the signature all stay in certified silicon</div>
+            </div>
+            <div class="rubric-row">
+              <div>0 – 10</div>
+              <div><strong>Trusted I/O</strong> — which chip drives what you see, what you press and what reaches the host.
+                Nothing on this sheet scores above eight, because no shipping device has removed the microcontroller
+                from the host link</div>
+            </div>
+            <div class="rubric-row">
+              <div>2 – 10</div>
+              <div><strong>Entropy</strong> — the quality of the randomness and how many sources are combined. The floor
+                is two rather than zero: a device that generates a number badly has still generated one</div>
+            </div>
+            <div class="rubric-row">
+              <div>0 – 10</div>
+              <div><strong>Open source</strong> — how much of the stack you can read, weighted by how close each layer
+                sits to the seed</div>
+            </div>
+          </div>
         </div>
-        <figcaption>The secure element is the only chip in the enclosure. It holds the seed, renders what you see, and
-          reads what you press — so no other component can sit between you and the transaction.</figcaption>
-      </figure>
 
-      <h2>01 — SECURE ELEMENT</h2>
-    <h3>The question is not whether there is one. It is how much of the wallet runs inside it.</h3>
-    <p>A general-purpose microcontroller stores your seed in flash that a skilled attacker with physical access can often extract — through voltage glitching, decapping, or a debug interface someone forgot to fuse off. A secure element is purpose-built against exactly that: hardened memory, active shielding, glitch and fault detection, and no path that returns key material to the outside world.</p>
-    <p>Almost every device on this sheet now has one. That is why the question has moved. Vendors fit an element, put the PIN behind it, and then carry the seed out to an ordinary chip to do the actual work — so the marketing is true and the protection is thin. What matters is how much of the wallet runs inside the element and how much runs beside it, so the score is built from the four things a wallet does with your key.</p>
+        <!-- 01 ------------------------------------------------------------- -->
+        <div class="metric-panel" id="panel-secure-element" role="tabpanel"
+          aria-labelledby="tab-secure-element">
+          <h2>01 — SECURE ELEMENT</h2>
+          <h3>The question is not whether there is one. It is how much of the wallet runs inside it.</h3>
+          <p>A general-purpose microcontroller stores your seed in flash that a skilled attacker with physical access
+            can often extract — through voltage glitching, decapping, or a debug interface someone forgot to fuse off. A
+            secure element is purpose-built against exactly that: hardened memory, active shielding, glitch and fault
+            detection, and no path that returns key material to the outside world.</p>
+          <p>Almost every device on this sheet now has one. That is why the question has moved. Vendors fit an element,
+            put the PIN behind it, and then carry the seed out to an ordinary chip to do the actual work — so the
+            marketing is true and the protection is thin. What matters is how much of the wallet runs inside the element
+            and how much runs beside it, so the ten points are split across the four things a wallet does with your key.
+            A device with no element at all scores zero, because every one of the four fails on its own terms.</p>
 
-    <div class="rubric">
-      <div class="rubric-row"><div>2</div><div><strong>User authentication inside the element</strong> — the PIN or fingerprint is checked by the element itself. Without this, the key can be used to sign by anyone who reaches it</div></div>
-      <div class="rubric-row"><div>3</div><div><strong>Signing key generated inside the element</strong> — without this, the key has existed in plaintext outside the element at some point</div></div>
-      <div class="rubric-row"><div>3</div><div><strong>Signing performed inside the element</strong> — without this, the key must leave in plaintext every time you spend</div></div>
-      <div class="rubric-row"><div>2</div><div><strong>Transaction built and hashed inside the element</strong> — without this, the element signs whatever hash it is handed, and something else decided what that is</div></div>
-    </div>
-    <p class="doc-note">No element at all scores zero, and nothing special is needed to arrive there: with no element, every component fails on its own terms.</p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>2</div>
+              <div><strong>User authentication inside the element</strong> — the PIN or fingerprint is checked by the
+                element itself. Without this, the key can be used to sign by anyone who reaches it</div>
+            </div>
+            <div class="rubric-row">
+              <div>3</div>
+              <div><strong>Signing key generated inside the element</strong> — without this, the key has existed in
+                plaintext outside the element at some point</div>
+            </div>
+            <div class="rubric-row">
+              <div>3</div>
+              <div><strong>Signing performed inside the element</strong> — without this, the key must leave in plaintext
+                every time you spend</div>
+            </div>
+            <div class="rubric-row">
+              <div>2</div>
+              <div><strong>Transaction built and hashed inside the element</strong> — without this, the element signs
+                whatever hash it is handed, and something else decided what that is</div>
+            </div>
+          </div>
+          <p>The middle two are the heart of it. A device that generates the seed on a general-purpose chip has exposed
+            it before the element ever sees it; a device that carries the seed back out to sign exposes it on every
+            spend. Trezor&rsquo;s Safe line and ColdCard both sit here — the element gates the PIN and holds a
+            decryption key, and an ordinary STM32 does the signing. Malware on that chip, planted through a supply chain
+            or a firmware flaw, reads the seed straight out of memory.</p>
+          <p>The last component is the one most often overlooked. An element that signs whatever hash arrives at its
+            door is only as trustworthy as whatever computed that hash. If the transaction is parsed and hashed outside,
+            the element is a signing oracle rather than a wallet, and the thing deciding what you sign is the chip you
+            were trying not to trust.</p>
+          <p>Having an element is also not the same as using it honestly. CoolWallet S held an element with a top-tier
+            certification and still stored its password and seed in plaintext in the mobile app, which Kraken Security
+            Labs found and reported. A system is only as strong as its weakest component, and the element does not make
+            the rest of the device disappear.</p>
 
-    <p>The middle two are the heart of it. A device that generates the seed on a general-purpose chip has exposed it before the element ever sees it; a device that carries the seed back out to sign exposes it on every spend. Trezor&rsquo;s Safe line and ColdCard both sit here — the element gates the PIN and holds a decryption key, and an ordinary STM32 does the signing. Malware on that chip, planted through a supply chain or a firmware flaw, reads the seed straight out of memory.</p>
-    <p>The last component is the one most often overlooked. An element that signs whatever hash arrives at its door is only as trustworthy as whatever computed that hash. If the transaction is parsed and hashed outside, the element is a signing oracle rather than a wallet, and the thing deciding what you sign is the chip you were trying not to trust.</p>
-    <p>Having an element is also not the same as using it honestly. CoolWallet S held an element with a top-tier certification and still stored its password and seed in plaintext in the mobile app, which Kraken Security Labs found and reported. A system is only as strong as its weakest component, and the element does not make the rest of the device disappear.</p>
-
-    <div class="pull">Full marks require: the PIN checked inside the element, the key born there, the transaction built and hashed there, and the signature produced there — so that the key never exists in plaintext anywhere else.</div>
-
-    <h2>02 — TRUSTED I/O</h2>
-    <h3>What you see must be what you sign, and consent must be physical.</h3>
-    <p>Assume the computer is hostile. The only defence left is a display the host cannot influence, driven by the domain that holds the key, rendering the address and amount the device is actually about to authorise. If a companion app can put pixels on that screen, the screen proves nothing. A screen that truncates a destination address to a handful of characters invites address-substitution malware to brute-force a convincing lookalike; one that cannot render a full contract call is, for smart-contract use, a step from blind signing.</p>
-    <p>Consent is the same problem in the other direction. A confirmation is only meaningful if software cannot produce it: buttons or a touch controller wired to the secure domain, a signing step that cannot be batched away by an earlier approval, and a PIN entered on the device rather than typed into a host that may be logging it.</p>
-    <p>Screen and buttons were scored separately here until now, which was a distinction without a difference — they fail together and for the same reason. What decides both is which chip is driving them.</p>
-
-    <p><strong>Display and user output</strong></p>
-    <div class="rubric">
-      <div class="rubric-row"><div>4</div><div>Driven by the element — what you read comes from the domain that holds the key</div></div>
-      <div class="rubric-row"><div>2</div><div>Driven by the device&rsquo;s own microcontroller — a real screen, but one the element does not control</div></div>
-      <div class="rubric-row"><div>0</div><div>No display on the device; what you see is whatever the phone app decides to show</div></div>
-    </div>
-
-    <p><strong>Buttons and user input</strong></p>
-    <div class="rubric">
-      <div class="rubric-row"><div>4</div><div>Read by the element — your consent is recorded by the domain that holds the key</div></div>
-      <div class="rubric-row"><div>2</div><div>Read by the device&rsquo;s own microcontroller — physical, but not wired to the element</div></div>
-      <div class="rubric-row"><div>0</div><div>Nothing on the device records consent; approval is collected in the app</div></div>
-    </div>
-
-    <p><strong>Host link — USB, Bluetooth or NFC</strong></p>
-    <div class="rubric">
-      <div class="rubric-row"><div>2</div><div>There is no data link at all — the device is air-gapped, and anything reaching it arrives as a QR code or on removable media</div></div>
-      <div class="rubric-row"><div>2</div><div>Handled by the element, with no general-purpose chip anywhere in the path</div></div>
-      <div class="rubric-row"><div>0</div><div>Handled by a microcontroller beside the element</div></div>
-    </div>
-    <p class="doc-note">The first two score the same because they achieve the same thing: no general-purpose chip sits between the host and the domain holding your key. One removes the hub by absorbing it into the element; the other removes it by having no link to hub. A charging port that carries no data does not count as a link — but a port the vendor calls optional, or uses for firmware updates, does.</p>
-    <p class="doc-note">The middle level matters. A screen driven by the device&rsquo;s own microcontroller can still be lied to by malware on that chip — but it is not the same failure as having no screen at all, where the only thing you can read is a phone that may already be compromised. The host link has no middle level: either a general-purpose chip sits in that path or nothing does.</p>
-
-    <h3>Why the hub is the problem.</h3>
-    <p>Terminating screen, buttons and host connection at the element is a genuinely hard engineering problem: elements are resource-constrained and often lack the pins to drive connectors. The common workaround is a microcontroller acting as a hub — driving the display, reading the buttons, then talking to the element. That hub is a new place to hide. A manipulated MCU can show you one address while handing a different transaction to the element to sign, which is precisely the shape of a supply-chain attack and why every vendor in this category tells you to buy direct. Ledger Nano S is the worked example: a ST31 element paired with an STM32, and Thomas Roth demonstrated at CCC that the MCU could be overwritten — he loaded a game onto it.</p>
-    <p>The strongest designs remove the hub rather than harden it. Ledger&rsquo;s later devices move to an element with enough I/O to take the display driver and button handling inside, which makes manipulating what is shown, or faking a press, substantially harder. An MCU remains for USB and Bluetooth, and that remnant has already been costly once: Kraken Security Labs found the MCU code could be overwritten before the device reached the buyer, after which first connection would run code that could blank the display and steer the user into pressing buttons while their assets were taken.</p>
-    <p>Removing it entirely is not hypothetical. ICCD is a USB stack written for secure elements and already shipping on smart cards, running the USB code on the element with no intermediary. NFC is supported by many elements, needs no battery, is more secure than Bluetooth, and already carries card payments on both iPhone and Android. The pieces exist; the last two points are there for whoever assembles them.</p>
-
-    <div class="pull">Full marks require: no general-purpose microcontroller anywhere between the user, the host and the element.</div>
-
-    <h2>03 — ENTROPY</h2>
-    <h3>A predictable seed is no seed at all.</h3>
-    <p>Every key in the device descends from one number generated once, usually in the first minute of the device&rsquo;s life. If that number is weak, every other control on this sheet is decoration — the screen, the buttons and the element are all guarding a secret an attacker can simply recompute.</p>
-    <p>Two questions decide it, and they are scored separately because a device can do well at one and badly at the other. Where the seed is generated belongs to the secure element section above, and whether the mixing code can be read belongs to the open-source score below; neither is re-scored here.</p>
-
-    <h3>Rule one — what the randomness comes from.</h3>
-    <div class="rubric">
-      <div class="rubric-row"><div>5</div><div>A dedicated true-random generator in silicon, <strong>independently certified</strong> — AIS-31, NIST SP 800-90B, or a Common Criteria scope that covers the generator itself</div></div>
-      <div class="rubric-row"><div>3</div><div>Hardware randomness with no independent evaluation — whether a dedicated generator nobody has certified, or general hardware pressed into service such as CPU jitter or sensor noise</div></div>
-      <div class="rubric-row"><div>1</div><div>A software pseudo-random generator, or no hardware source documented at all</div></div>
-    </div>
-    <p class="doc-note">The certification has to cover the generator, not merely the chip it sits in. Several wallets cite a Common Criteria level whose evaluated scope leaves the random generator out entirely, and a datasheet asserting conformance is not a certificate — the difference between the two is most of what separates five points from three here.</p>
-
-    <h3>Rule two — how many sources are combined.</h3>
-    <div class="rubric">
-      <div class="rubric-row"><div>5</div><div>Several sources mixed, <em>and</em> the user can contribute their own entropy at generation time</div></div>
-      <div class="rubric-row"><div>3</div><div>Two or more hardware or software sources mixed together</div></div>
-      <div class="rubric-row"><div>1</div><div>A single source, or the mixing is undocumented</div></div>
-    </div>
-    <p>User-contributed entropy is the only item on this page that protects you when the vendor is the problem. A certified generator is worth having, but you cannot inspect it, cannot test it, and cannot tell a healthy one from a backdoored one by looking at the output. Roll your own dice into the mix and a compromised generator no longer decides your seed on its own.</p>
-    <p>We are strict about what counts. The entropy must be contributed <em>at generation time</em> and mixed into the seed. A passphrase applied afterwards is a different mechanism with different properties, and it does not earn this point.</p>
-
-    <div class="pull">Full marks require: an independently evaluated hardware generator, several sources mixed, and a documented way for the user to add their own.</div>
-    <p class="doc-note">The floor is one point per rule rather than zero: a device that generates a number badly has still generated one. The worst score available here is two, and no device that leaves the user out of the process can exceed eight — which is the difference between sound entropy and entropy you can check.</p>
-
-    <h2>A NOTE ON OPEN SOURCE</h2>
-      <h3>Openness is not a security property. It is what lets you check the other three.</h3>
-      <p>Open firmware is not automatically reviewed firmware, and a closed secure-element applet can be excellent. What
-        openness buys is verification: if the signing firmware is published and the build is reproducible, the binary on
-        your device can be shown to match the code people have actually read.</p>
-      <p>The trade-off is real in both directions. Trezor chose open source over a secure element and paid for it in
-        extractable seeds. Ledger runs certified silicon but keeps the secure-element firmware closed under an NDA with
-        its supplier — and while BOLOS is a genuine contribution, the critical component sits behind that wall. Reverse
-        engineering is slow and unrewarding, so researchers mostly do not do it; a sufficiently motivated attacker will.
-        A reasonable middle path is to separate the low-level modules that talk directly to the element from the
-        high-level ones and open the latter, shrinking the closed surface to the part that genuinely cannot be
-        published.</p>
-
-      <h2>04 — OPEN SOURCE</h2>
-    <h3>Not all published code is worth the same.</h3>
-    <p>Treating openness as one bit is useless, because it lets a vendor publish a phone app and a marketing schematic while the code that touches your seed stays closed — and then describe the product as open source. So the score is split into four layers, each weighted by how close it sits to the secret.</p>
-    <p>The heaviest layer names a <em>role</em> rather than a component, and that matters. Asking &ldquo;is the secure element firmware published?&rdquo; has no answer for a wallet with no element, and flatters one whose element is closed but never touches the seed anyway. Asking &ldquo;can you read the code that holds and uses your key?&rdquo; always has an answer — for some devices that code runs on the element, for others on an ordinary microcontroller, and the question is the same either way.</p>
-
-    <div class="rubric">
-      <div class="rubric-row"><div>4.0</div><div><strong>Seed-touching firmware</strong> — the code that generates, holds and uses your key, wherever it runs: element firmware where the element does that work, device firmware where it does not</div></div>
-      <div class="rubric-row"><div>2.0</div><div><strong>Bootloader and supporting firmware</strong> — everything else running on the device</div></div>
-      <div class="rubric-row"><div>2.0</div><div><strong>Board design</strong> — schematics, layout and bill of materials; the only way to check which chip drives what</div></div>
-      <div class="rubric-row"><div>2.0</div><div><strong>Host software</strong> — the SDK and companion app the vendor ships, or where none is shipped, the third-party software you must use instead</div></div>
-    </div>
-    <p class="doc-note">The weights total ten, so each layer&rsquo;s weight is the number of points it can earn. A vendor whose only open component is its host software cannot score above 2.0, however loudly the box says open source — while the code that holds your key is worth four points on its own. Because every layer exists for every device, no score is ever rescaled and every total lands on the same grid.</p>
-
-    <h3>Three levels, and no credit for good intentions.</h3>
-    <p>Each layer earns a share of its own weight, so the same level is worth more where it matters more.</p>
-    <div class="rubric">
-      <div class="rubric-row"><div>100%</div><div>Published, reproducibly buildable, and attestable against the binary on the device</div></div>
-      <div class="rubric-row"><div>50%</div><div>Source published, but the build is not reproducible — you can read it, not verify it</div></div>
-      <div class="rubric-row"><div>0%</div><div>Closed, bound by a supplier NDA, or simply not established</div></div>
-    </div>
-    <p class="doc-note">So the seed-touching layer, carrying four points, earns 4.0 when that code is published and reproducible, 2.0 when it is merely published, and nothing when it is closed. The same three levels applied to host software move the total by at most two.</p>
-
-    <h3>What the levels mean for a board.</h3>
-    <p>Reproducibility is a property of software: you rebuild from source and compare the result against the binary you were shipped. A circuit board has no build to repeat and no binary to compare — short of destroying the device, you cannot verify that the board in your hand matches the design you were shown. So the same three levels are read differently for hardware, and the top one is labelled <em>fabricable</em> rather than reproducible.</p>
-    <div class="rubric">
-      <div class="rubric-row"><div>100%</div><div>Schematics, layout and bill of materials published under terms that would let you have the board made</div></div>
-      <div class="rubric-row"><div>50%</div><div>Schematics or a parts list published, but not enough to fabricate — typically a PDF or an image rather than design files</div></div>
-      <div class="rubric-row"><div>0%</div><div>Nothing published, or a published claim the linked files do not support</div></div>
-    </div>
-    <p class="doc-note">Where a device is assembled from commodity hardware rather than a board the vendor designed, this layer is scored on that hardware instead — a project that publishes a complete parts list is still limited by how open the parts themselves are.</p>
-    <p>Those last three all score zero, because an unverifiable claim is scored as absent everywhere else on this sheet. They are labelled differently in each device&rsquo;s expanded row all the same. <em>Closed</em> is a decision. <em>NDA-bound</em> is a constraint the vendor may not control — the case Ledger makes about its element supplier. <em>Unverified</em> is a gap in our sourcing rather than a finding about the product, and it is an invitation to send us a link.</p>
-
-    <h3>Nothing is exempt.</h3>
-    <p>Every device on this sheet has code that touches its key, a bootloader, a board and host software of some kind — so every layer is scored for every device and no total is ever rescaled to compensate for a missing one. Where a vendor ships no companion app, the layer is scored on the third-party software you are obliged to use instead. Where a device is assembled from commodity parts rather than a designed board, the layer is scored on how completely that assembly is documented and on whether the parts themselves are open.</p>
-    <p>One consequence is worth stating plainly: a wallet whose element is closed can still score full marks here if the element never touches the seed, because then the code you need to read is the device firmware. That is not a loophole. If the key lives on an ordinary microcontroller, the firmware on that microcontroller is exactly what you should be able to audit — and the wallet will already have been marked down for it in the secure element score above.</p>
-
-    <div class="pull">Full marks require: every layer the product actually has, published, reproducibly buildable, and attestable against the binary on the device.</div>
-    <p class="doc-note">Each layer&rsquo;s source is linked in the device&rsquo;s expanded row on the comparison sheet.</p>
-
-    <h2>SCORING</h2>
-      <div class="rubric">
-        <div class="rubric-row">
-          <div>9 – 10</div>
-          <div>Property implemented and independently verifiable</div>
+          <div class="pull">Full marks require: the PIN checked inside the element, the key born there, the transaction
+            built and hashed there, and the signature produced there — so that the key never exists in plaintext
+            anywhere else.</div>
         </div>
-        <div class="rubric-row">
-          <div>7 – 8</div>
-          <div>Sound design, one documented gap or unverifiable claim</div>
+
+        <!-- 02 ------------------------------------------------------------- -->
+        <div class="metric-panel" id="panel-trusted-io" role="tabpanel" aria-labelledby="tab-trusted-io">
+          <h2>02 — TRUSTED I/O</h2>
+          <h3>What you see must be what you sign, and consent must be physical.</h3>
+          <p>This property asks one question about three components: which chip drives the screen, which chip reads the
+            buttons, and which chip talks to the host. Four points ride on the display, four on the input, and two on
+            the host link.</p>
+          <p>Assume the computer is hostile. The only defence left is a display the host cannot influence, driven by the
+            domain that holds the key, rendering the address and amount the device is actually about to authorise. If a
+            companion app can put pixels on that screen, the screen proves nothing. A screen that truncates a
+            destination address to a handful of characters invites address-substitution malware to brute-force a
+            convincing lookalike; one that cannot render a full contract call is, for smart-contract use, a step from
+            blind signing.</p>
+          <p>Consent is the same problem in the other direction. A confirmation is only meaningful if software cannot
+            produce it: buttons or a touch controller wired to the secure domain, a signing step that cannot be batched
+            away by an earlier approval, and a PIN entered on the device rather than typed into a host that may be
+            logging it.</p>
+          <p>Screen and buttons were scored separately here until now, which was a distinction without a difference —
+            they fail together and for the same reason. What decides both is which chip is driving them, and the middle
+            level is a real one: a screen driven by the device&rsquo;s own microcontroller can still be lied to by
+            malware on that chip, but that is not the same failure as having no screen at all, where the only thing you
+            can read is a phone that may already be compromised.</p>
+
+          <p><strong>Display and user output</strong></p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>4</div>
+              <div>Driven by the element — what you read comes from the domain that holds the key</div>
+            </div>
+            <div class="rubric-row">
+              <div>2</div>
+              <div>Driven by the device&rsquo;s own microcontroller — a real screen, but one the element does not control
+              </div>
+            </div>
+            <div class="rubric-row">
+              <div>0</div>
+              <div>No display on the device; what you see is whatever the phone app decides to show</div>
+            </div>
+          </div>
+
+          <p><strong>Buttons and user input</strong></p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>4</div>
+              <div>Read by the element — your consent is recorded by the domain that holds the key</div>
+            </div>
+            <div class="rubric-row">
+              <div>2</div>
+              <div>Read by the device&rsquo;s own microcontroller — physical, but not wired to the element</div>
+            </div>
+            <div class="rubric-row">
+              <div>0</div>
+              <div>Nothing on the device records consent; approval is collected in the app</div>
+            </div>
+          </div>
+
+          <p><strong>Host link — USB, Bluetooth or NFC</strong> — the one component with no middle level: either a
+            general-purpose chip sits in that path or nothing does. The top two score the same because they achieve the
+            same thing, no general-purpose chip between the host and the domain holding your key — one removes the hub
+            by absorbing it into the element, the other by having no link at all.</p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>2</div>
+              <div>There is no data link at all — the device is air-gapped, and anything reaching it arrives as a QR
+                code or on removable media. A charging port that carries no data does not count as a link, but a port
+                the vendor calls optional, or uses for firmware updates, does</div>
+            </div>
+            <div class="rubric-row">
+              <div>2</div>
+              <div>Handled by the element, with no general-purpose chip anywhere in the path</div>
+            </div>
+            <div class="rubric-row">
+              <div>0</div>
+              <div>Handled by a microcontroller beside the element</div>
+            </div>
+          </div>
+          <h3>Why the hub is the problem.</h3>
+          <p>Terminating screen, buttons and host connection at the element is a genuinely hard engineering problem:
+            elements are resource-constrained and often lack the pins to drive connectors. The common workaround is a
+            microcontroller acting as a hub — driving the display, reading the buttons, then talking to the element. That
+            hub is a new place to hide. A manipulated MCU can show you one address while handing a different transaction
+            to the element to sign, which is precisely the shape of a supply-chain attack and why every vendor in this
+            category tells you to buy direct. Ledger Nano S is the worked example: a ST31 element paired with an STM32,
+            and Thomas Roth demonstrated at CCC that the MCU could be overwritten — he loaded a game onto it.</p>
+          <p>The strongest designs remove the hub rather than harden it. Ledger&rsquo;s later devices move to an element
+            with enough I/O to take the display driver and button handling inside, which makes manipulating what is
+            shown, or faking a press, substantially harder. An MCU remains for USB and Bluetooth, and that remnant has
+            already been costly once: Kraken Security Labs found the MCU code could be overwritten before the device
+            reached the buyer, after which first connection would run code that could blank the display and steer the
+            user into pressing buttons while their assets were taken.</p>
+          <p>Removing it entirely is not hypothetical. ICCD is a USB stack written for secure elements and already
+            shipping on smart cards, running the USB code on the element with no intermediary. NFC is supported by many
+            elements, needs no battery, is more secure than Bluetooth, and already carries card payments on both iPhone
+            and Android. The pieces exist; the last two points are there for whoever assembles them.</p>
+
+          <div class="pull">Full marks require: no general-purpose microcontroller anywhere between the user, the host
+            and the element.</div>
         </div>
-        <div class="rubric-row">
-          <div>4 – 6</div>
-          <div>Partial coverage, or mitigations that depend on the host</div>
+
+        <!-- 03 ------------------------------------------------------------- -->
+        <div class="metric-panel" id="panel-entropy" role="tabpanel" aria-labelledby="tab-entropy">
+          <h2>03 — ENTROPY</h2>
+          <h3>A predictable seed is no seed at all.</h3>
+          <p>Every key in the device descends from one number generated once, usually in the first minute of the
+            device&rsquo;s life. If that number is weak, every other control on this sheet is decoration — the screen,
+            the buttons and the element are all guarding a secret an attacker can simply recompute.</p>
+          <p>Two questions decide it: what the randomness comes from, and how many sources are combined. They are worth
+            five points each and scored separately, because a device can do well at one and badly at the other. Where
+            the seed is generated is scored under secure element, and whether the mixing code can be read is scored
+            under open source; neither is re-scored here. The floor is one point per rule rather than zero, because a
+            device that generates a number badly has still generated one — so the worst score available is two, and no
+            device that leaves the user out of the process can exceed eight.</p>
+
+          <h3>Rule one — what the randomness comes from.</h3>
+          <p>The certification has to cover the generator, not merely the chip it sits in. Several wallets cite a Common
+            Criteria level whose evaluated scope leaves the random generator out entirely, and a datasheet asserting
+            conformance is not a certificate — the difference between the two is most of what separates five points
+            from three.</p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>5</div>
+              <div>A dedicated true-random generator in silicon, <strong>independently certified</strong> — AIS-31, NIST
+                SP 800-90B, or a Common Criteria scope that covers the generator itself</div>
+            </div>
+            <div class="rubric-row">
+              <div>3</div>
+              <div>Hardware randomness with no independent evaluation — whether a dedicated generator nobody has
+                certified, or general hardware pressed into service such as CPU jitter or sensor noise</div>
+            </div>
+            <div class="rubric-row">
+              <div>1</div>
+              <div>A software pseudo-random generator, or no hardware source documented at all</div>
+            </div>
+          </div>
+          <h3>Rule two — how many sources are combined.</h3>
+          <p>User-contributed entropy is the only item on this page that protects you when the vendor is the problem. A
+            certified generator is worth having, but you cannot inspect it, cannot test it, and cannot tell a healthy
+            one from a backdoored one by looking at the output. Roll your own dice into the mix and a compromised
+            generator no longer decides your seed on its own. We are strict about what counts: the entropy must be
+            contributed <em>at generation time</em> and mixed into the seed — a passphrase applied afterwards is a
+            different mechanism with different properties, and it does not earn this point.</p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>5</div>
+              <div>Several sources mixed, <em>and</em> the user can contribute their own entropy at generation time</div>
+            </div>
+            <div class="rubric-row">
+              <div>3</div>
+              <div>Two or more hardware or software sources mixed together</div>
+            </div>
+            <div class="rubric-row">
+              <div>1</div>
+              <div>A single source, or the mixing is undocumented</div>
+            </div>
+          </div>
+          <div class="pull">Full marks require: an independently evaluated hardware generator, several sources mixed, and
+            a documented way for the user to add their own.</div>
         </div>
-        <div class="rubric-row">
-          <div>0 – 3</div>
-          <div>Property absent, or claimed with no way to check</div>
+
+        <!-- 04 ------------------------------------------------------------- -->
+        <div class="metric-panel" id="panel-open-source" role="tabpanel" aria-labelledby="tab-open-source">
+          <h2>04 — OPEN SOURCE</h2>
+          <h3>Openness is not a security property. It is what lets you check the other three.</h3>
+          <p>Open firmware is not automatically reviewed firmware, and a closed secure-element applet can be excellent.
+            What openness buys is verification: if the signing firmware is published and the build is reproducible, the
+            binary on your device can be shown to match the code people have actually read.</p>
+          <p>The trade-off is real in both directions. Trezor chose open source over a secure element and paid for it in
+            extractable seeds. Ledger runs certified silicon but keeps the secure-element firmware closed under an NDA
+            with its supplier — and while BOLOS is a genuine contribution, the critical component sits behind that wall.
+            Reverse engineering is slow and unrewarding, so researchers mostly do not do it; a sufficiently motivated
+            attacker will. A reasonable middle path is to separate the low-level modules that talk directly to the
+            element from the high-level ones and open the latter, shrinking the closed surface to the part that genuinely
+            cannot be published.</p>
+
+          <h3>Not all published code is worth the same.</h3>
+          <p>Treating openness as one bit is useless, because it lets a vendor publish a phone app and a marketing
+            schematic while the code that touches your seed stays closed — and then describe the product as open source.
+            So the score is split into four layers, each weighted by how close it sits to the secret. The weights total
+            ten, so a layer&rsquo;s weight is the number of points it can earn: a vendor whose only open component is
+            its host software cannot score above 2.0, however loudly the box says open source, while the code that holds
+            your key is worth four points on its own. Because every layer exists for every device, no score is ever
+            rescaled and every total lands on the same grid.</p>
+          <p>The heaviest layer names a <em>role</em> rather than a component, and that matters. Asking &ldquo;is the
+            secure element firmware published?&rdquo; has no answer for a wallet with no element, and flatters one whose
+            element is closed but never touches the seed anyway. Asking &ldquo;can you read the code that holds and uses
+            your key?&rdquo; always has an answer — for some devices that code runs on the element, for others on an
+            ordinary microcontroller, and the question is the same either way.</p>
+
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>4.0</div>
+              <div><strong>Seed-touching firmware</strong> — the code that generates, holds and uses your key, wherever
+                it runs: element firmware where the element does that work, device firmware where it does not</div>
+            </div>
+            <div class="rubric-row">
+              <div>2.0</div>
+              <div><strong>Bootloader and supporting firmware</strong> — everything else running on the device</div>
+            </div>
+            <div class="rubric-row">
+              <div>2.0</div>
+              <div><strong>Board design</strong> — schematics, layout and bill of materials; the only way to check which
+                chip drives what</div>
+            </div>
+            <div class="rubric-row">
+              <div>2.0</div>
+              <div><strong>Host software</strong> — the SDK and companion app the vendor ships, or where none is shipped,
+                the third-party software you must use instead</div>
+            </div>
+          </div>
+          <h3>Three levels, and no credit for good intentions.</h3>
+          <p>Each layer earns a share of its own weight, so the same level is worth more where it matters more. The
+            seed-touching layer, carrying four points, earns 4.0 when that code is published and reproducible, 2.0 when
+            it is merely published, and nothing when it is closed; the same three levels applied to host software move
+            the total by at most two.</p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>100%</div>
+              <div>Published, reproducibly buildable, and attestable against the binary on the device</div>
+            </div>
+            <div class="rubric-row">
+              <div>50%</div>
+              <div>Source published, but the build is not reproducible — you can read it, not verify it</div>
+            </div>
+            <div class="rubric-row">
+              <div>0%</div>
+              <div>Closed, bound by a supplier NDA, or simply not established</div>
+            </div>
+          </div>
+          <p><em>Closed</em>, <em>NDA-bound</em> and <em>unverified</em> all land on that bottom level, because a claim
+            that cannot be verified is scored as absent everywhere else on this sheet. They are labelled differently in
+            each device&rsquo;s expanded row all the same. <em>Closed</em> is a decision. <em>NDA-bound</em> is a
+            constraint the vendor may not control — the case Ledger makes about its element supplier. <em>Unverified</em>
+            is a gap in our sourcing rather than a finding about the product, and it is an invitation to send us a link.
+          </p>
+
+          <h3>What the levels mean for a board.</h3>
+          <p>Reproducibility is a property of software: you rebuild from source and compare the result against the
+            binary you were shipped. A circuit board has no build to repeat and no binary to compare — short of
+            destroying the device, you cannot verify that the board in your hand matches the design you were shown. So
+            the three levels are read differently for hardware, and the top one is labelled <em>fabricable</em> rather
+            than reproducible.</p>
+          <div class="rubric">
+            <div class="rubric-row">
+              <div>100%</div>
+              <div>Schematics, layout and bill of materials published under terms that would let you have the board made
+              </div>
+            </div>
+            <div class="rubric-row">
+              <div>50%</div>
+              <div>Schematics or a parts list published, but not enough to fabricate — typically a PDF or an image rather
+                than design files</div>
+            </div>
+            <div class="rubric-row">
+              <div>0%</div>
+              <div>Nothing published, or a published claim the linked files do not support</div>
+            </div>
+          </div>
+          <h3>Nothing is exempt.</h3>
+          <p>Every device on this sheet has code that touches its key, a bootloader, a board and host software of some
+            kind — so every layer is scored for every device and no total is ever rescaled to compensate for a missing
+            one. Where a vendor ships no companion app, the layer is scored on the third-party software you are obliged
+            to use instead. Where a device is assembled from commodity parts rather than a designed board, the layer is
+            scored on how completely that assembly is documented and on whether the parts themselves are open.</p>
+          <p>One consequence is worth stating plainly: a wallet whose element is closed can still score full marks here
+            if the element never touches the seed, because then the code you need to read is the device firmware. That is
+            not a loophole. If the key lives on an ordinary microcontroller, the firmware on that microcontroller is
+            exactly what you should be able to audit — and the wallet will already have been marked down for it in the
+            secure element score.</p>
+
+          <div class="pull">Full marks require: every layer the product actually has, published, reproducibly buildable,
+            and attestable against the binary on the device.</div>
         </div>
+
       </div>
-      <p class="doc-note">The composite is an unweighted mean of the four, rounded to one decimal. We publish it because
-        people want one number, and we refuse to weight the four against each other, because the right weighting
-        <em>across</em> properties is your threat model and not ours. Weighting <em>within</em> a property is a different
-        question: how much of the open-source score each layer earns is a fact about the architecture rather than a
-        preference — code running closer to the seed is code more worth being able to read, whatever you are defending
-        against.
-      </p>
 
       <div class="doc-footer">
         <p>Scores are re-read when firmware ships, when a certification lapses, and when a disclosed attack changes what
@@ -274,6 +504,7 @@
   </footer>
 
   <script src="nav.js"></script>
+  <script src="methodology.js"></script>
 </body>
 
 </html>

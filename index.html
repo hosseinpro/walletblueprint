@@ -1,127 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>walletblueprint.com — hardware wallets by security architecture</title>
-<meta name="description" content="Hardware wallets scored on four security properties: secure element, trusted I/O, entropy and open source. No affiliate links.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>walletblueprint.com — hardware wallets by security architecture</title>
+  <meta name="description"
+    content="Hardware wallets scored on four security properties: secure element, trusted I/O, entropy and open source. No affiliate links.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <a class="brand" href="index.html">
-    <div class="brand-mark"><i></i></div>
-    <div class="brand-text">
-      <span class="brand-name">wallet<span class="b">blueprint</span><span class="tld">.com</span></span>
-      <span class="brand-tag">Evaluating hardware wallets based on security architecture</span>
-    </div>
-  </a>
-  <button class="nav-toggle" type="button" id="nav-toggle"
-          aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-    <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
-  </button>
-  <nav class="site-nav" id="site-nav">
-    <a class="btn-nav is-active" href="index.html" aria-current="page">COMPARISON</a>
-    <a class="btn-nav" href="methodology.html">METHODOLOGY</a>
-    <a class="btn-nav" href="about.html">ABOUT</a>
-    <a class="btn-ghost" href="mailto:hossein@walletblueprint.com?subject=walletblueprint.com">CONTACT</a>
-  </nav>
-</header>
-
-<main class="wrap">
-
-  <section class="hero">
-    <div>
-      <div class="eyebrow">REV. 2026.09</div>
-      <h1>Four questions decide<br>whether a wallet holds.</h1>
-      <p>Hardware wallets share one problem no product fixes: a device whose only purpose is holding Bitcoin marks its owner as worth attacking — distributor databases have been breached, and supply-chain tampering is real even where the vendor ships no backdoors. If you need one anyway, four things stand between an attacker and your seed: how much of the wallet actually runs inside the secure element, whether the screen and buttons are driven by it, where the randomness comes from, and how much of the stack you can read. No affiliate links, no aggregate star ratings — just the architecture.</p>
-    </div>
-    <img src="images/hero.png" alt="Blueprint drawing of a wallet holding Bitcoin, Ethereum and Solana coins">
-  </section>
-
-  <section class="controls">
-    <div class="sort-group">
-      <span class="sort-label">SORT&nbsp;/</span>
-      <button class="btn-sort is-active" type="button" data-sort="overall" aria-pressed="true">COMPOSITE</button>
-      <button class="btn-sort" type="button" data-sort="secure" aria-pressed="false">SECURE ELEMENT</button>
-      <button class="btn-sort" type="button" data-sort="io" aria-pressed="false">TRUSTED I/O</button>
-      <button class="btn-sort" type="button" data-sort="entropy" aria-pressed="false">ENTROPY</button>
-      <button class="btn-sort" type="button" data-sort="open" aria-pressed="false">OPEN SOURCE</button>
-      <button class="btn-sort" type="button" data-sort="name" aria-pressed="false">NAME A–Z</button>
-    </div>
-    <div class="controls-hint">CLICK A ROW FOR TEARDOWN NOTES</div>
-  </section>
-
-  <section class="search-row">
-    <div class="search-field">
-      <span class="label">FIND /</span>
-      <input id="search" type="text" placeholder="device name or form factor…" autocomplete="off" aria-label="Search devices by name or form factor">
-      <button class="btn-clear" type="button" id="clear-search" hidden>CLEAR ✕</button>
-    </div>
-    <div class="result-count" id="result-count" aria-live="polite">22 DEVICES</div>
-  </section>
-
-  <section class="no-results" id="no-results" hidden>
-    <div class="headline">NO MATCH ON THIS SHEET</div>
-    <div class="sub">Not evaluated yet? <a class="inline-link" href="mailto:hossein@walletblueprint.com?subject=Wallet%20suggestion">Suggest it</a> and I'll take a look.</div>
-  </section>
-
-  <section class="sheet" id="sheet">
-    <div class="sheet-inner">
-      <div class="grid-row sheet-head">
-        <div>DEVICE</div>
-        <div>SECURE ELEMENT</div>
-        <div>TRUSTED I/O</div>
-        <div>ENTROPY</div>
-        <div>OPEN SOURCE</div>
-        <div>COMPOSITE</div>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <div class="brand-mark"><i></i></div>
+      <div class="brand-text">
+        <span class="brand-name">wallet<span class="b">blueprint</span><span class="tld">.com</span></span>
+        <span class="brand-tag">Evaluating hardware wallets based on security architecture</span>
       </div>
-      <div id="rows"></div>
-    </div>
-  </section>
+    </a>
+    <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="site-nav"
+      aria-label="Menu">
+      <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <nav class="site-nav" id="site-nav">
+      <a class="btn-nav is-active" href="index.html" aria-current="page">COMPARISON</a>
+      <a class="btn-nav" href="methodology.html">METHODOLOGY</a>
+      <a class="btn-nav" href="about.html">ABOUT</a>
+      <a class="btn-ghost" href="mailto:hossein@walletblueprint.com?subject=walletblueprint.com">CONTACT</a>
+    </nav>
+  </header>
 
-  <section class="summary-section">
-    <div class="card">
-      <div class="kicker">SCALE — 0 TO 10</div>
-      <div class="scale-list">
-        <div><span class="k">9–10</span>verified silicon</div>
-        <div><span class="k">7–8</span>sound, minor gaps</div>
-        <div><span class="k">4–6</span>partial coverage</div>
-        <div><span class="k">0–3</span>absent / unverifiable</div>
+  <main class="wrap">
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">REV. 2026.09</div>
+        <h1>Four questions decide<br>whether a wallet holds.</h1>
+        <p>Hardware wallets share one problem no product fixes: a device whose only purpose is holding Bitcoin marks its
+          owner as worth attacking — distributor databases have been breached, and supply-chain tampering is real even
+          where the vendor ships no backdoors. If you need one anyway, four things stand between an attacker and your
+          seed: how much of the wallet actually runs inside the secure element, whether the screen and buttons are
+          driven by it, where the randomness comes from, and how much of the stack you can read. No affiliate links, no
+          aggregate star ratings — just the architecture.</p>
       </div>
-    </div>
-    <div>
-      <h2>Scores are architecture, not verdicts.</h2>
-      <p>A high composite means fewer places for a compromise to hide. It does not mean a device is right for you — threat model, custody plan and firmware discipline still decide that. Read the rubric before you read the table.</p>
-      <a class="btn-primary" href="methodology.html">READ THE METHODOLOGY →</a>
-    </div>
-  </section>
+      <img src="images/hero.png" alt="Blueprint drawing of a wallet holding Bitcoin, Ethereum and Solana coins">
+    </section>
 
-  <section id="contact" class="contact-section">
-    <div>
-      <div class="kicker">SUBMISSIONS &amp; CORRESPONDENCE</div>
-      <h2>Know a wallet that belongs on this sheet?</h2>
-      <p>Send it over — along with any question about a score, a correction, a datasheet we missed, or just what you think of the rubric. Every message is read by a person, and submissions are never paid placements.</p>
-    </div>
-    <div class="contact-actions">
-      <a class="btn-primary" href="mailto:hossein@walletblueprint.com?subject=Wallet%20suggestion%20for%20walletblueprint.com">SUGGEST A WALLET →</a>
-      <a class="btn-ghost" href="mailto:hossein@walletblueprint.com?subject=Question%20about%20a%20score">ASK A QUESTION →</a>
-      <div class="contact-email">hossein@walletblueprint.com</div>
-    </div>
-  </section>
+    <section class="controls">
+      <div class="sort-group">
+        <span class="sort-label">SORT&nbsp;/</span>
+        <button class="btn-sort is-active" type="button" data-sort="overall" aria-pressed="true">COMPOSITE</button>
+        <button class="btn-sort" type="button" data-sort="secure" aria-pressed="false">SECURE ELEMENT</button>
+        <button class="btn-sort" type="button" data-sort="io" aria-pressed="false">TRUSTED I/O</button>
+        <button class="btn-sort" type="button" data-sort="entropy" aria-pressed="false">ENTROPY</button>
+        <button class="btn-sort" type="button" data-sort="open" aria-pressed="false">OPEN SOURCE</button>
+        <button class="btn-sort" type="button" data-sort="name" aria-pressed="false">NAME A–Z</button>
+      </div>
+      <div class="controls-hint">CLICK A ROW FOR TEARDOWN NOTES</div>
+    </section>
 
-</main>
+    <section class="search-row">
+      <div class="search-field">
+        <span class="label">FIND /</span>
+        <input id="search" type="text" placeholder="device name or form factor…" autocomplete="off"
+          aria-label="Search devices by name or form factor">
+        <button class="btn-clear" type="button" id="clear-search" hidden>CLEAR ✕</button>
+      </div>
+      <div class="result-count" id="result-count" aria-live="polite">22 DEVICES</div>
+    </section>
 
-<footer class="site-footer">
-  <span>WALLETBLUEPRINT.COM — INDEPENDENT, NO AFFILIATE LINKS</span>
-  <span>© 2026 WALLETBLUEPRINT.COM — ALL RIGHTS RESERVED</span>
-</footer>
+    <section class="no-results" id="no-results" hidden>
+      <div class="headline">NO MATCH ON THIS SHEET</div>
+      <div class="sub">Not evaluated yet? <a class="inline-link"
+          href="mailto:hossein@walletblueprint.com?subject=Wallet%20suggestion">Suggest it</a> and I'll take a look.
+      </div>
+    </section>
 
-<script src="nav.js"></script>
-<script src="app.js"></script>
+    <section class="sheet" id="sheet">
+      <div class="sheet-inner">
+        <div class="grid-row sheet-head">
+          <div>DEVICE</div>
+          <div>SECURE ELEMENT</div>
+          <div>TRUSTED I/O</div>
+          <div>ENTROPY</div>
+          <div>OPEN SOURCE</div>
+          <div>COMPOSITE</div>
+        </div>
+        <div id="rows"></div>
+      </div>
+    </section>
+
+    <section class="summary-section">
+      <div class="card">
+        <div class="kicker">WHAT EACH COLUMN ASKS</div>
+        <div class="scale-list">
+          <div><span class="k">Secure element</span>how much of the wallet runs inside it</div>
+          <div><span class="k">Trusted I/O</span>who drives the user input and output</div>
+          <div><span class="k">Entropy</span>how good the randomness is</div>
+          <div><span class="k">Open source</span>how much of the stack you can read</div>
+        </div>
+      </div>
+      <div>
+        <h2>Scores are architecture, not verdicts.</h2>
+        <p>A high composite means fewer places for a compromise to hide. It does not mean a device is right for you —
+          threat model, custody plan and firmware discipline still decide that. Read the rubric before you read the
+          table.</p>
+        <a class="btn-primary" href="methodology.html">READ THE METHODOLOGY →</a>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div>
+        <div class="kicker">SUBMISSIONS &amp; CORRESPONDENCE</div>
+        <h2>Know a wallet that belongs on this sheet?</h2>
+        <p>Send it over — along with any question about a score, a correction, a datasheet we missed, or just what you
+          think of the rubric. Every message is read by a person, and submissions are never paid placements.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn-primary"
+          href="mailto:hossein@walletblueprint.com?subject=Wallet%20suggestion%20for%20walletblueprint.com">SUGGEST A
+          WALLET →</a>
+        <a class="btn-ghost" href="mailto:hossein@walletblueprint.com?subject=Question%20about%20a%20score">ASK A
+          QUESTION →</a>
+        <div class="contact-email">hossein@walletblueprint.com</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>WALLETBLUEPRINT.COM — INDEPENDENT, NO AFFILIATE LINKS</span>
+    <span>© 2026 WALLETBLUEPRINT.COM — ALL RIGHTS RESERVED</span>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script src="app.js"></script>
 </body>
+
 </html>
