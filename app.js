@@ -156,7 +156,7 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes \u2014 readable end to end in public source. No human entropy: on-device user entropy remains an open feature request', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
     },
     osLayers: {
-      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU, and that firmware is GPL-3.0, reproducible to a byte-identical image and hash-checked on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
+      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU; that firmware is GPL-3.0, hash-checked on every connect, and WalletScrutiny independently rebuilt release 2.6.4 to a matching fingerprint (April 2024)', src: 'https://github.com/trezor/trezor-firmware/issues/3663' },
       bootFw: { state: 'open', note: 'boardloader and bootloader ship in the same repository and the same reproducible build' },
       board:  { state: 'source', note: 'CERN-OHL-S schematics as images with a text BOM \u2014 no editable CAD and no gerbers', src: 'https://github.com/trezor/trezor-hardware/tree/master/electronics/trezor_safe_3' },
       host:   { state: 'source', note: 'Suite and the connect library are source-available under a reference-only licence, not an open-source one, and are not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
@@ -183,7 +183,7 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'MCU generator XORed with the element, then hashed with host-supplied bytes \u2014 readable end to end in public source. No human entropy: on-device user entropy remains an open feature request', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
     },
     osLayers: {
-      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU, and that firmware is GPL-3.0, reproducible to a byte-identical image and hash-checked on every connect', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
+      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU; that firmware is GPL-3.0, hash-checked on every connect, and WalletScrutiny independently rebuilt release 2.8.3 to a matching fingerprint (October 2024)', src: 'https://github.com/trezor/trezor-firmware/issues/4254' },
       bootFw: { state: 'open', note: 'boardloader and bootloader ship in the same repository and the same reproducible build' },
       board:  { state: 'source', note: 'CERN-OHL-S schematics as PDFs only \u2014 no BOM, no editable CAD and no gerbers', src: 'https://github.com/trezor/trezor-hardware/tree/master/electronics/trezor_safe_5' },
       host:   { state: 'source', note: 'Suite and the connect library are source-available under a reference-only licence, not an open-source one, and are not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
@@ -216,8 +216,8 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'three hardware sources XORed with a fatal error if any fails to contribute, then hashed with host entropy \u2014 but the extra input is the host app, not the owner', src: 'https://github.com/trezor/trezor-firmware/blob/main/core/embed/sec/rng/rng_strong.c' }
     },
     osLayers: {
-      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU under GPL-3.0 with a reproducible build; the published TROPIC01 firmware is notable but never touches the seed', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
-      bootFw: { state: 'open', note: 'boardloader and bootloader ship in the same reproducible build' },
+      seedFw: { state: 'open', note: 'the seed lives and signs on the MCU under GPL-3.0, with the same reproducible build as the other Safe models; the published TROPIC01 firmware is notable but never touches the seed', src: 'https://docs.trezor.io/trezor-firmware/common/reproducible-build.html' },
+      bootFw: { state: 'source', note: 'boardloader, bootloader and secure monitor ship in the same reproducible build, but the Bluetooth chip\u2019s firmware links Nordic\u2019s closed SoftDevice controller library', src: 'https://github.com/trezor/trezor-firmware/blob/main/nordic/trezor/trezor-ble/prj.conf' },
       board:  { state: 'source', note: 'CERN-OHL-S PDF schematics for main board, UI and antenna; no BOM, no CAD, display and battery boards excluded', src: 'https://github.com/trezor/trezor-hardware/tree/master/electronics/trezor_safe_7' },
       host:   { state: 'source', note: 'Suite and the connect library under the reference-only licence, not reproducible', src: 'https://github.com/trezor/trezor-suite/blob/develop/LICENSE.md' }
     },
@@ -227,7 +227,7 @@ const WALLETS = [
 
   {
     id: 'keepkey', photo: 'images/devices/keepkey.webp', url: 'https://www.keepkey.com/', name: 'KeepKey', meta: 'USB · no element · legacy',
-    seNote: 'no element anywhere in the design', ioNote: 'screen, button and host link all on the MCU', entNote: 'uncertified generator, host entropy optional', osNote: 'no element; firmware open, board claim unsupported',
+    seNote: 'no element anywhere in the design', ioNote: 'screen, button and host link all on the MCU', entNote: 'uncertified generator, host entropy optional', osNote: 'no element; firmware reproducible, board claim unsupported',
     seParts: {
       auth:    { state: 'outside', note: 'no secure element; the PIN is checked by the MCU against encrypted flash' },
       keygen:  { state: 'outside', note: 'no element to generate in' },
@@ -244,7 +244,7 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'device entropy hashed together with host-supplied bytes — but the host contribution is optional and silently skipped when absent, leaving one source. Defaults to 12 words', src: 'https://github.com/keepkey/keepkey-firmware/blob/master/lib/firmware/reset.c' }
     },
     osLayers: {
-      seedFw: { state: 'source', note: 'no element, so the seed lives and signs on the MCU; that firmware is LGPLv3 with a pinned-Docker build and the device reports its firmware hash, but no recent independent reproduction is published', src: 'https://github.com/keepkey/keepkey-firmware' },
+      seedFw: { state: 'open', note: 'no element, so the seed lives and signs on the MCU; that firmware is LGPLv3 with a pinned-Docker build that reproduces the release, and the device reports its firmware hash to compare against', src: 'https://keepkey.com/blog/verifying_keepkey_firmware' },
       bootFw: { state: 'source', note: 'the bootloader ships in the same repository and the same build' },
       board:  { state: 'closed', note: 'the vendor advertises schematics, PCB and BOM, but the repository it links is a community guide to building a lookalike from dev boards', src: 'https://github.com/keepkey/keepkey-diy' },
       host:   { state: 'source', note: 'the Python library and desktop app are published, but the current vault app carries no licence file and nothing is reproducible', src: 'https://github.com/keepkey/keepkey-vault' }
@@ -278,7 +278,7 @@ const WALLETS = [
       count:  { state: 'user', note: 'three device sources combined by SHA256d, then user entropy \u2014 mandatory since 5.6.1 (August 2026): 50 dice rolls, 128 coin flips or 65 key presses \u2014 with the result recomputable off-device', src: 'https://github.com/Coldcard/firmware/blob/master/docs/verify_seed_mix.py' }
     },
     osLayers: {
-      seedFw: { state: 'open', note: 'the seed enters the general-purpose chip to sign, and that firmware is published under MIT with the Commons Clause, with a Docker reproducible build, and checksummed by the elements to drive the GENUINE light', src: 'https://github.com/Coldcard/firmware' },
+      seedFw: { state: 'open', note: 'the seed enters the general-purpose chip to sign; that firmware is MIT with the Commons Clause, checksummed by the elements to drive the GENUINE light, and PortlandHODL independently rebuilt release 5.6.0 to every code and data byte (August 2026)', src: 'https://github.com/portlandhodl/coldcard_fw_dicerolls_trace/blob/9c04064ca1f84925017dcc5bd019a860f662f03d/dice-roll-5-6-0.pdf' },
       bootFw: { state: 'source', note: 'the bootloader is published and factory-set read-only, but the reproducible build links a prebuilt bootloader binary rather than rebuilding it', src: 'https://github.com/Coldcard/firmware/blob/master/stm32/shared.mk' },
       board:  { state: 'source', note: 'schematics and BOM published, but commercial use is unlicensed and the files carry no currency guarantee', src: 'https://github.com/Coldcard/firmware/tree/master/hardware' },
       host:   { state: 'source', note: 'no first-party app is shipped and the device is driven by third-party open wallets; the protocol library is source-available under the same non-OSI terms', src: 'https://github.com/Coldcard/ckcc-protocol' }
@@ -581,14 +581,14 @@ const WALLETS = [
       seedFw: { state: 'source', note: 'no element, so the application itself holds and uses the seed; MIT and reproducible against a published hash, but the firmware is a card you write and nothing on the device attests it', src: 'https://github.com/SeedSigner/seedsigner-os' },
       bootFw: { state: 'closed', note: 'the OS image builder is reproducible, but the Pi boots through closed Broadcom firmware shipped in the same image' },
       board:  { state: 'source', note: 'the project designs no board, so this is scored on the Raspberry Pi it runs on \u2014 Raspberry Pi publishes a document it calls reduced schematics, with no layout files, no bill of materials and no open-hardware licence, over a system-on-chip whose boot ROM is closed', src: 'https://datasheets.raspberrypi.com/rpizero/raspberry-pi-zero-reduced-schematics.pdf' },
-      host:   { state: 'open', note: 'no first-party software is shipped; the device is driven by third-party open wallets over standard QR payloads' }
+      host:   { state: 'open', note: 'no first-party software is shipped; the device is driven by third-party open wallets such as Sparrow, over standard QR payloads' }
     },
     note: 'Open-source, self-assembled and air-gapped by QR only. Its defining choice is statelessness: the seed is entered per session and nothing is retained when power is removed, so there is no stored secret to extract. Because it designs no hardware of its own, the board it is scored on is the Raspberry Pi underneath it.',
     watch: 'It strains the rubric. The secure-element criterion asks how well a stored seed is protected \u2014 this device stores none, but runs on a general-purpose SoC while the seed is in memory, so it scores zero on a property its design sidesteps. Read that zero as nothing to protect at rest, not as badly protected.'
   },
   {
     id: 'jadeplus', photo: 'images/devices/jade-plus.png', url: 'https://store.blockstream.com/products/jade-plus', name: 'Blockstream Jade Plus', meta: 'colour display · camera · open source',
-    seNote: 'no element \u2014 a remote blind oracle does its anti-bruteforce job', ioNote: 'one chip parses, displays and signs; no bridge chip', entNote: 'thorough mixing, uncertified source', osNote: 'reproducible firmware and fabrication-grade board files',
+    seNote: 'no element \u2014 a remote blind oracle does its anti-bruteforce job', ioNote: 'one chip parses, displays and signs; no bridge chip', entNote: 'thorough mixing, uncertified source', osNote: 'firmware links closed radio libraries; fabrication-grade board files',
     seParts: {
       auth:    { state: 'outside', note: 'a remote blind oracle stands in for an element: it holds half the decryption key, never learns the PIN, and enforces the strike counter out of a physical attacker\u2019s reach' },
       keygen:  { state: 'outside', note: 'the mnemonic is generated by firmware on the application processor' },
@@ -605,8 +605,8 @@ const WALLETS = [
       count:  { state: 'multiple', note: 'every draw is hashed over the battery voltage, a cycle counter, rolling state and the chip generator, seeded at boot with camera frames \u2014 the most thorough mixing here, but no user contribution', src: 'https://github.com/Blockstream/Jade/blob/master/main/random.c' }
     },
     osLayers: {
-      seedFw: { state: 'open', note: 'no element, so the firmware holds and uses the seed; GPL3 with a documented reproducible build whose only difference is the signature block, and secure boot enforcing signed images', src: 'https://github.com/Blockstream/Jade/blob/master/REPRODUCIBLE.md' },
-      bootFw: { state: 'open', note: 'the bootloader path ships in the same tree with secure boot and anti-rollback enabled' },
+      seedFw: { state: 'source', note: 'no element, so the firmware holds and uses the seed; it is GPL3 with a documented reproducible build and secure boot, but the Bluetooth build links Espressif\u2019s closed controller libraries into the same chip, so it cannot be rebuilt entirely from source', src: 'https://github.com/Blockstream/Jade/blob/master/REPRODUCIBLE.md' },
+      bootFw: { state: 'open', note: 'the bootloader path ships in the same tree and the same reproducible build, with secure boot and anti-rollback enabled' },
       board:  { state: 'open', note: 'fabrication-grade publication — project files, schematics, board layout and bill of materials; the most complete hardware release on this sheet', src: 'https://github.com/Blockstream/Jade/tree/master/hardware/jade_v2' },
       host:   { state: 'source', note: 'the libraries are BSD-MIT and the apps GPL-3.0, but no reproducible build was established for them', src: 'https://github.com/Blockstream/green_qt' }
     },

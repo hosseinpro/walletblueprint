@@ -429,17 +429,25 @@
           <div class="rubric">
             <div class="rubric-row">
               <div>100%</div>
-              <div>Published, reproducibly buildable, and attestable against the binary on the device</div>
+              <div>Published, reproducibly buildable by anyone from public source and tools, and attestable against
+                the binary on the device</div>
             </div>
             <div class="rubric-row">
               <div>50%</div>
-              <div>Source published, but the build is not reproducible — you can read it, not verify it</div>
+              <div>Source published, but an outsider cannot rebuild it to match the release — you can read it, not
+                verify it</div>
             </div>
             <div class="rubric-row">
               <div>0%</div>
               <div>Closed, bound by a supplier NDA, or simply not established</div>
             </div>
           </div>
+          <p>What is scored is whether an independent rebuild is possible, not whether someone has already done one:
+            the complete procedure and every input it needs must be public. A build that depends on a withheld library,
+            links a closed prebuilt library nobody outside the supplier can rebuild — a chip maker&rsquo;s radio stack,
+            say — or has no documented way to match the release, stays at the middle level however the vendor
+            describes it.
+            Where an outside party has published a matching rebuild, the device&rsquo;s expanded row cites it.</p>
           <p><em>Closed</em>, <em>NDA-bound</em> and <em>unverified</em> all land on that bottom level, because a claim
             that cannot be verified is scored as absent everywhere else on this sheet. They are labelled differently in
             each device&rsquo;s expanded row all the same. <em>Closed</em> is a decision. <em>NDA-bound</em> is a
