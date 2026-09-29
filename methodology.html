@@ -298,9 +298,10 @@
           <p>The strongest designs remove the hub rather than harden it. Ledger&rsquo;s later devices move to an element
             with enough I/O to take the display driver and button handling inside, which makes manipulating what is
             shown, or faking a press, substantially harder. An MCU remains for USB and Bluetooth, and that remnant has
-            already been costly once: Kraken Security Labs found the MCU code could be overwritten before the device
-            reached the buyer, after which first connection would run code that could blank the display and steer the
-            user into pressing buttons while their assets were taken.</p>
+            already been shown to matter: on the Nano X, Kraken Security Labs found a debug interface left enabled that
+            let the MCU code be overwritten before the device reached the buyer, after which it could blank the display
+            and try to talk the user into approving a transaction. Ledger patched it in firmware 1.2.4-2; the element
+            itself was never reached.</p>
           <p>Removing it entirely is not hypothetical. ICCD is a USB stack written for secure elements and already
             shipping on smart cards, running the USB code on the element with no intermediary. NFC is supported by many
             elements, needs no battery, is more secure than Bluetooth, and already carries card payments on both iPhone
