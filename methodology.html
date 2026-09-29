@@ -173,8 +173,10 @@
           <div class="rubric">
             <div class="rubric-row">
               <div>2</div>
-              <div><strong>User authentication inside the element</strong> — the PIN or fingerprint is checked by the
-                element itself. Without this, the key can be used to sign by anyone who reaches it</div>
+              <div><strong>User authentication inside the element</strong> — the element itself enforces the retry
+                limit on the PIN or fingerprint that unlocks the key, and ideally makes the match decision too. A check
+                the element performs without limiting guesses does not count: malware on the chip beside it can simply
+                try every PIN. Without this, the key can be used to sign by anyone who reaches it</div>
             </div>
             <div class="rubric-row">
               <div>3</div>

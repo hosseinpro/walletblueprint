@@ -5,7 +5,7 @@ const WALLETS = [
     id: 'lnsp', photo: 'images/devices/ledger-nano-s-plus.webp', url: 'https://shop.ledger.com/products/ledger-nano-s-plus', name: 'Ledger Nano S Plus', meta: 'USB-C · ST33 element · buttons in SE',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and buttons in the element; USB on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
-      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      auth:    { state: 'element', note: 'PIN verified inside the element, which also holds the retry counter and wipes the device after three wrong PINs', src: 'https://donjon.ledger.com/threat-model/os-pin-security-mechanism/' },
       keygen:  { state: 'element', note: 'seed generated inside the element; it leaves only if the owner opts into Ledger Recover, and then as encrypted shares' },
       signing: { state: 'element', note: 'signing runs on the element' },
       txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
@@ -32,7 +32,7 @@ const WALLETS = [
     id: 'lnx', photo: 'images/devices/ledger-nano-x.webp', url: 'https://shop.ledger.com/products/ledger-nano-x', name: 'Ledger Nano X', meta: 'USB-C · Bluetooth · ST33 element',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and buttons in the element; USB and BLE on an MCU', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
-      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      auth:    { state: 'element', note: 'PIN verified inside the element, which also holds the retry counter and wipes the device after three wrong PINs', src: 'https://donjon.ledger.com/threat-model/os-pin-security-mechanism/' },
       keygen:  { state: 'element', note: 'seed generated inside the element; it leaves only if the owner opts into Ledger Recover, and then as encrypted shares' },
       signing: { state: 'element', note: 'signing runs on the element' },
       txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
@@ -59,7 +59,7 @@ const WALLETS = [
     id: 'lstax', photo: 'images/devices/ledger-stax.webp', url: 'https://shop.ledger.com/products/ledger-stax', name: 'Ledger Stax', meta: 'USB-C · Bluetooth · NFC · e-ink touch',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and touch in the element; USB, BLE and NFC outside it', entNote: 'certified generator, but a single source', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
-      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      auth:    { state: 'element', note: 'PIN verified inside the element, which also holds the retry counter and wipes the device after three wrong PINs', src: 'https://donjon.ledger.com/threat-model/os-pin-security-mechanism/' },
       keygen:  { state: 'element', note: 'seed generated inside the element; it leaves only if the owner opts into Ledger Recover, and then as encrypted shares' },
       signing: { state: 'element', note: 'signing runs on the element' },
       txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
@@ -86,7 +86,7 @@ const WALLETS = [
     id: 'lflex', photo: 'images/devices/ledger-flex.webp', url: 'https://shop.ledger.com/products/ledger-flex', name: 'Ledger Flex', meta: 'USB-C · Bluetooth · NFC · e-ink touch',
     seNote: 'signing, keys and PIN all inside the element', ioNote: 'display and touch in the element; USB, BLE and NFC outside it', entNote: 'certified chip, no device-level evaluation', osNote: 'SDK and app open; every seed-touching layer closed',
     seParts: {
-      auth:    { state: 'element', note: 'PIN verified inside the element' },
+      auth:    { state: 'element', note: 'PIN verified inside the element, which also holds the retry counter and wipes the device after three wrong PINs', src: 'https://donjon.ledger.com/threat-model/os-pin-security-mechanism/' },
       keygen:  { state: 'element', note: 'seed generated inside the element; it leaves only if the owner opts into Ledger Recover, and then as encrypted shares' },
       signing: { state: 'element', note: 'signing runs on the element' },
       txbuild: { state: 'element', note: 'transaction parsing and hashing run in the app on the element' }
@@ -263,7 +263,7 @@ const WALLETS = [
       srcLabel: 'COINKITE ADVISORY'
     },
     seParts: {
-      auth:    { state: 'element', note: 'PIN checked across both elements, which gate the seed' },
+      auth:    { state: 'element', note: 'the ATECC608 checks the PIN and enforces the attempt limit with its own hardware counter \u2014 13 tries, then the device bricks \u2014 and the limit can only be rewritten with a key tied to the PIN', src: 'https://github.com/Coldcard/firmware/blob/5e0dbd0e106753e898e607fa4c0f1b05de71df64/stm32/mk4-bootloader/pins.c#L28' },
       keygen:  { state: 'outside',  note: 'entropy comes from the elements but the seed is assembled on the STM32' },
       signing: { state: 'outside',  note: 'the seed enters the general-purpose chip to sign' },
       txbuild: { state: 'outside',  note: 'PSBT parsing and hashing run on the MCU' }
@@ -289,9 +289,9 @@ const WALLETS = [
 
   {
     id: 'keystone3', photo: 'images/devices/keystone-3-pro.png', url: 'https://keyst.one/shop/products/keystone-3-pro', name: 'Keystone 3 Pro', meta: 'QR or USB · touchscreen · three elements',
-    seNote: 'elements gate access, but signing happens outside them', ioNote: 'touchscreen and camera driven by the MCU', entNote: 'three generators, one independently certified', osNote: 'published widely, but nothing verifiable end to end',
+    seNote: 'elements hold key pieces, but the MCU decides the PIN and signs', ioNote: 'touchscreen and camera driven by the MCU', entNote: 'three generators, one independently certified', osNote: 'published widely, but nothing verifiable end to end',
     seParts: {
-      auth:    { state: 'element', note: 'the ATECC608 gates a key share behind the password, but the final PIN comparison and the retry counter run on the MCU, and the fingerprint is matched on a separate MAX32520 that reports back to the MCU' },
+      auth:    { state: 'outside', note: 'no generation meets the rule on its own. Gen 1 units: the ATECC608 rejects a wrong PIN inside the element, but the 10-try limit and wipe exist only in MCU code. Gen 2 units: the element enforces a hardware window of 192 attempts, but derives a key piece for any PIN, and the final HMAC comparison runs on the MCU. The DS28S60 checks nothing, and the fingerprint is matched on a separate MAX32520 that reports to the MCU. Keystone does not say which generation a unit has, so the row is scored on gen 1', src: 'https://github.com/KeystoneHQ/keystone3-firmware/blob/0c0ae4675c436b1dbbb322cd707d80f06f311182/src/managers/se_backend_gen2.c' },
       keygen:  { state: 'outside',  note: 'elements supply entropy, but the seed is assembled on the MH1903' },
       signing: { state: 'outside',  note: 'the seed is transferred to a non-secure chip to sign' },
       txbuild: { state: 'outside',  note: 'transaction handling runs on the MCU' }
@@ -311,7 +311,7 @@ const WALLETS = [
       board:  { state: 'source', note: 'schematics and BOM as PDFs only; no layout or fabrication files', src: 'https://github.com/KeystoneHQ/keystone3-firmware/tree/master/hardware' },
       host:   { state: 'source', note: 'the SDKs are public under ISC, but the companion app has no public source at all', src: 'https://github.com/KeystoneHQ/keystone-sdk-web' }
     },
-    note: 'Three secure elements \u2014 two feeding and guarding the seed, one matching fingerprints \u2014 with a large touchscreen that renders full transaction detail.',
+    note: 'Three secure elements \u2014 two feeding and guarding the seed, one matching fingerprints \u2014 with a large touchscreen that renders full transaction detail. The firmware supports two generations of element setup: on gen 1 the ATECC608 checks the PIN but the retry limit is only in MCU code; on gen 2 it enforces a 192-attempt limit in hardware but no longer checks the PIN itself. Neither the box nor the device says which generation you have.',
     watch: 'Marketed as fully air-gapped, but the shipped firmware sets USB data on by default, with a CDC and WebUSB stack, software-wallet pairing and USB firmware updates all built in. Each connection raises an on-device prompt and pairing needs the password, but air-gap mode is a setting the owner must switch on, not the state the device arrives in.'
   },
 
