@@ -425,12 +425,12 @@ const WALLETS = [
     watch: 'The element builds and signs the transaction itself, which is rare \u2014 but the button is read by the card MCU, and the element accepts that MCU\u2019s approval command without any check of its own. Whoever controls the MCU controls consent.'
   },
   {
-    id: 'bitkey', photo: 'images/devices/bitkey.png', url: 'https://bitkey.world/product/first-gen', name: 'Bitkey (first gen)', meta: 'NFC · fingerprint · no display',
-    seNote: 'no discrete element; the chip\u2019s Secure Engine signs, but with a key firmware holds in plaintext', ioNote: 'fingerprint on device, but nothing to see what you sign', entNote: 'uncertified for this part, single source', osNote: 'broadly published, not reproducibly buildable',
+    id: 'bitkey', photo: 'images/devices/bitkey.png', url: 'https://bitkey.world/product/first-gen', name: 'Bitkey (1st gen)', meta: 'NFC · fingerprint · no element',
+    seNote: 'no discrete element; the key is derived, held and handed over in plaintext by ordinary firmware', ioNote: 'fingerprint on device, but nothing to see what you sign', entNote: 'uncertified for this part, single source', osNote: 'broadly published, not reproducibly buildable',
     seParts: {
       auth:    { state: 'outside', note: 'the fingerprint is matched by a withheld vendor library on the main Cortex-M33 core, not in the chip\u2019s Secure Engine', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/hal/biometrics/src/fpc_biometrics.c' },
       keygen:  { state: 'outside', note: 'the Secure Engine supplies the random bytes, but the seed and master key are derived in ordinary firmware memory', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/lib/wallet/src/seed.c' },
-      signing: { state: 'element', note: 'the Secure Engine performs the ECDSA, but the key is handed to it in plaintext from firmware memory on every signature', src: 'https://github.com/proto-at-block/bitkey/blob/main/firmware/lib/bip32/bip32.c' },
+      signing: { state: 'outside', note: 'the Secure Engine performs the ECDSA, but bip32_sign() first copies the private key into an ordinary firmware buffer and hands it over tagged KEY_STORAGE_EXTERNAL_PLAINTEXT \u2014 defined in key_management.h as \u201ckey is available in plaintext to firmware\u201d \u2014 so the key sits in plaintext outside the Secure Engine on every signature', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/lib/bip32/bip32.c#L376-L396' },
       txbuild: { state: 'outside',  note: 'the phone builds and hashes the transaction' }
     },
     ioParts: {
@@ -448,8 +448,35 @@ const WALLETS = [
       board:  { state: 'source', note: 'a main-logic-board schematic is published as a PDF; no layout files, no BOM, no open-hardware licence', src: 'https://github.com/proto-at-block/bitkey' },
       host:   { state: 'source', note: 'the Android app is MIT and ships a harness that rebuilds and diffs the installed package; the iOS source is published but not verifiable, and there is no third-party SDK', src: 'https://github.com/proto-at-block/bitkey/blob/main/app/verifiable-build/android/README.md' }
     },
-    note: 'Pairs a software wallet for routine transactions with hardware for large ones \u2014 a sound split, and the firmware is public. There is no discrete secure element: the EFR32MG24 microcontroller\u2019s built-in Secure Engine stands in for one. This is the first-generation, screenless model; the 2026 model with a touchscreen is a different design and is not scored here.',
+    note: 'Pairs a software wallet for routine transactions with hardware for large ones \u2014 a sound split, and the firmware is public. There is no secure element: the board carries a single EFR32MG24 microcontroller whose built-in Secure Engine encrypts the seed at rest, while the wallet itself runs on the chip\u2019s ordinary core. Block chose this deliberately, writing in Processing our Processor Choice that \u201cwhile a Secure Element (SE) would meet our security criteria, it would also prevent us from publishing certain layers of firmware\u201d. This is the first-generation, screenless model; the 2026 model with a touchscreen is scored separately below.',
     watch: 'The hardware half has no display, so there is nothing on which to visually confirm what you are approving.'
+  },
+  {
+    id: 'bitkey2', photo: 'images/devices/bitkey-2.png', url: 'https://bitkey.world/product', name: 'Bitkey (2nd gen)', meta: 'NFC · fingerprint · OLED touch · no element',
+    seNote: 'still no element; the key is derived, held and handed over in plaintext by ordinary firmware', ioNote: 'screen and touch on a second MCU, fingerprint on the first', entNote: 'uncertified for this part, single source', osNote: 'published, not buildable; no schematic for this model',
+    seParts: {
+      auth:    { state: 'outside', note: 'the fingerprint is matched by the withheld FPC library on the EFR32MG24’s main Cortex-M33 core, as in the first gen', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/app/w3-core/application/meson.build#L24' },
+      keygen:  { state: 'outside', note: 'unchanged from the first gen: the Secure Engine supplies the random bytes, but the seed and master key are derived in ordinary firmware memory', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/lib/wallet/src/seed.c#L21-L37' },
+      signing: { state: 'outside', note: 'the same bip32_sign() path as the first gen — the private key is copied into a firmware buffer tagged KEY_STORAGE_EXTERNAL_PLAINTEXT before the Secure Engine computes the ECDSA', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/lib/bip32/bip32.c#L376-L396' },
+      txbuild: { state: 'outside', note: 'the device now parses the transaction and computes the BIP143 sighash itself — but on the ordinary core, not in an element', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/lib/psbt/src/psbt.c#L579-L673' }
+    },
+    ioParts: {
+      display: { state: 'device', note: 'an OLED touchscreen shows the amount, fee and address the core parsed itself; it is driven by a separate STM32U585, which receives the screen contents from the core over an encrypted UART', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/app/tasks/key_manager/src/w3-core/key_manager_task_port.c#L1851-L1931' },
+      input:   { state: 'device', note: 'approval is a tap on the touchscreen, read by the STM32U585 and passed to the core as an APPROVE message; the fingerprint is read by the core', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/lib/display_controller/src/flows/money_movement.c#L168-L181' },
+      comms:   { state: 'device', note: 'NFC through an ST25R3916 driven by the EFR32MG24; USB-C only charges, and there is no Bluetooth or USB data stack', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/app/w3-core/application/meson.build' }
+    },
+    entRules: {
+      source: { state: 'hardware', note: 'the same EFR32MG24 Secure Engine generator; the datasheet claims SP 800-90B health tests, but no certificate covering this part’s generator was found', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/lib/crypto/src/efr32/secure_rng.c' },
+      count:  { state: 'single', note: 'one call to one generator; the STM32U585’s generator is not mixed in, and there is no user path', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/lib/wallet/src/seed.c#L25' }
+    },
+    osLayers: {
+      seedFw: { state: 'source', note: 'the core firmware is MIT, but it links the contractually withheld FPC fingerprint library, so no outside party can build it', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/README.md' },
+      bootFw: { state: 'source', note: 'both bootloaders and the STM32U585 display firmware are published, but the shared build needs the withheld library, and the touch controller’s firmware ships as a prebuilt FocalTech blob', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/firmware/hal/touch/src/ft3169_fw.i' },
+      board:  { state: 'closed', note: 'the only published schematic is the first-generation board; nothing is published for this model', src: 'https://github.com/proto-at-block/bitkey/tree/4ba8c4c87dfe16b7514b328f523233bb7501c246/hardware' },
+      host:   { state: 'source', note: 'the same app as the first gen: Android is MIT with a harness that rebuilds and diffs the installed package; the iOS source is published but not verifiable', src: 'https://github.com/proto-at-block/bitkey/blob/4ba8c4c87dfe16b7514b328f523233bb7501c246/app/verifiable-build/android/README.md' }
+    },
+    note: 'Announced 27 April 2026 at $250 (Block’s release notes call it Bitkey with Screen): the first gen’s 2-of-3 multisig design with an OLED touchscreen added. There is still no secure element — the board carries two general-purpose chips. An EFR32MG24 holds the seed, reads the fingerprint, runs NFC, parses the transaction and signs it; an STM32U585 drives the screen and reads the touch panel, talking to the first chip over an encrypted UART. Chip identities come from the published firmware; no schematic, teardown or audit of this model was found.',
+    watch: 'You can now check the address and amount on the device before approving, which the first gen could not do — but the screen and the approval tap both sit on a second general-purpose MCU, and the key still leaves the Secure Engine in plaintext on every signature.'
   },
   {
     id: 'dcent', photo: 'images/devices/dcent-bio.webp', url: 'https://store.dcentwallet.com/products/biometric-wallet', name: 'DCENT Biometric', meta: 'Bluetooth · fingerprint · OLED',
