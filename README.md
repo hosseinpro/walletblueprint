@@ -1,23 +1,28 @@
-# walletblueprint.com
+# walletblueprint
+
+![A tour of walletblueprint.com: the comparison table of 27 hardware wallets scored on four properties, then the methodology page with its trust-chain and target-architecture diagrams](.github/demo.gif)
 
 The source for **[walletblueprint.com](https://walletblueprint.com)** — an independent,
-affiliate-free comparison of hardware wallets scored on security architecture rather than
-features or star ratings.
+affiliate-free comparison of hardware wallets scored on **security architecture** rather than
+features, coin counts or star ratings. 27 devices, four properties, one public rubric.
 
 ## Why it exists
+
+Every system has bugs, and hardware wallets are no exception: a bug gets found, a firmware
+update closes it, and that cycle is normal. An architectural flaw is different. If the seed
+has to leave the secure chip to sign, or the screen is driven by a chip the host can reach,
+no software release will fix that — it was decided in silicon and board layout the day the
+product shipped.
 
 Almost every hardware wallet comparison online is a shopping guide with an affiliate link at
 the end. This one is a blueprint: it looks at how each device is built and says plainly
 where it is strong and where you are being asked to take someone's word for it.
 
-Buying a hardware wallet is one of the few consumer decisions where the marketing and the
-security model have almost nothing to do with each other. Coin counts, screen color and app
-design are easy to advertise. Whether the seed can be read off the chip, whether the screen
-can be lied to, whether entropy was generated properly — those are the things that decide
-whether the device does its job, and they are almost never on the box.
+## The four properties
 
-So the site keeps one table, maintained in public, scoring each device on four architectural
-properties:
+Each device is scored `0–10` on four architectural properties. Every score is the sum of
+fixed components, not an impression, and each device's expanded row on the site shows the
+arithmetic with a source against each part.
 
 | Property | The question it answers | Where the points come from |
 |---|---|---|
@@ -26,17 +31,23 @@ properties:
 | **Entropy** | Is the randomness from a certified generator, and can you contribute your own? | Source 5 — certified generator 5, uncertified hardware 3, software or undocumented 1 · number of sources 5 — several plus user entropy 5, several 3, one 1 |
 | **Open source** | How much of the stack can you read and rebuild yourself, weighted by how close each layer sits to the seed? | Seed-touching firmware 4 · bootloader and other firmware 2 · board design 2 · host software 2 — each earns 100% if anyone could rebuild it to match the shipped binary with no closed libraries, 50% if it is only published, 0% if closed |
 
-Each is scored `0–10` as the sum of those fixed components — no score is an impression, and
-every device's row on the site shows the arithmetic with a source against each part. The
-composite is their unweighted mean. It stays unweighted on purpose: the right weighting
-*across* properties is your threat model, not ours — though the components *within* each
+The composite is the unweighted mean of the four. It stays unweighted on purpose: the right
+weighting *across* properties is your threat model, not ours. The components *within* each
 property are weighted, because proximity to the seed is an architectural fact rather than a
 preference.
 
+The full rubric, with the reasoning behind each component, is on the
+[methodology page](https://walletblueprint.com/methodology.html).
+
+## How scores are sourced
+
 Scores come from datasheets, published firmware, certification reports and disclosed attack
-work. Where a vendor claim cannot be checked, it is scored as unverified rather than taken
-on trust. Scores are re-read when firmware ships, when a certification lapses, and when a
-disclosed attack changes what a property is worth.
+work. Every claim in a device's row links to the commit, datasheet page or disclosure it
+rests on. Where a vendor claim cannot be checked, it is scored as absent rather than taken
+on trust.
+
+Scores are re-read when firmware ships, when a certification lapses, and when a disclosed
+attack changes what a property is worth.
 
 ## Independence
 
@@ -44,8 +55,35 @@ disclosed attack changes what a property is worth.
 - **Public rubric.** Every score maps to a written criterion you can argue with.
 - **Sources named.** Every claim traces to a datasheet, a certification report or a disclosure.
 
-## Contact
+## Repository layout
 
-To suggest a wallet for the table, raise a concern about a score, or send a teardown, email
-me at [hossein@walletblueprint.com](mailto:hossein@walletblueprint.com). Every message is
-read by a person, and submissions are never paid placements.
+Plain HTML, CSS and JavaScript — no framework, no build step, no dependencies. What is in
+the repository is exactly what is served.
+
+| File | What it is |
+|---|---|
+| `index.html`, `app.js` | The comparison table. Every device, every score component and every source lives in the `WALLETS` array at the top of `app.js`; the scoring rules follow it. |
+| `methodology.html`, `methodology.js` | The rubric and the reasoning behind it. |
+| `about.html` | Why the site exists and who maintains it. |
+| `styles.css`, `nav.js` | Shared styling and navigation. |
+| `images/` | Device photos and the methodology diagrams. |
+
+To run it locally, serve the folder with any static server:
+
+```sh
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
+
+## Corrections and suggestions
+
+If a score looks wrong, a source has moved, or a device is missing, open an issue with the
+link that supports the change, or email
+[hossein@walletblueprint.com](mailto:hossein@walletblueprint.com). Every message is read by
+a person, and submissions are never paid placements.
+
+## License
+
+Code is [MIT](LICENSE). The scores, notes, methodology text and diagrams are
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — quote and reuse them freely with a
+credit and a link back to walletblueprint.com. Device photos belong to their manufacturers.
