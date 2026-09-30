@@ -19,24 +19,19 @@ whether the device does its job, and they are almost never on the box.
 So the site keeps one table, maintained in public, scoring each device on four architectural
 properties:
 
-| Property | The question it answers |
-|---|---|
-| **Secure element** | How much of the wallet actually runs inside it — authentication, key generation, signing, transaction building? |
-| **Trusted I/O** | Are the display, the buttons and the host link driven by the element, or by a general-purpose chip beside it? |
-| **Entropy** | Is the randomness from a certified generator, and can you contribute your own? |
-| **Open source** | How much of the stack can you actually read, weighted by how close each layer sits to the seed? |
+| Property | The question it answers | Where the points come from |
+|---|---|---|
+| **Secure element** | How much of the wallet actually runs inside it — authentication, key generation, signing, transaction building? | PIN or fingerprint limited by the element 2 · key generated in it 3 · transaction signed in it 3 · transaction built and hashed in it 2 |
+| **Trusted I/O** | Are the display, the buttons and the host link driven by the element, or by a general-purpose chip beside it? | Display 4 and input 4 — driven by the element 4, by the device's own MCU 2, only in the phone app 0 · host link 2, earned only with no general-purpose chip in the path or no link at all |
+| **Entropy** | Is the randomness from a certified generator, and can you contribute your own? | Source 5 — certified generator 5, uncertified hardware 3, software or undocumented 1 · number of sources 5 — several plus user entropy 5, several 3, one 1 |
+| **Open source** | How much of the stack can you read and rebuild yourself, weighted by how close each layer sits to the seed? | Seed-touching firmware 4 · bootloader and other firmware 2 · board design 2 · host software 2 — each earns 100% if anyone could rebuild it to match the shipped binary with no closed libraries, 50% if it is only published, 0% if closed |
 
-Each is scored `0–10`, and the composite is their unweighted mean. It stays unweighted on
-purpose: the right weighting *across* properties is your threat model, not ours — though the
-components *within* each property are weighted, because proximity to the seed is an
-architectural fact rather than a preference.
-
-| Range | Meaning |
-|---|---|
-| 9 – 10 | Property implemented and independently verifiable |
-| 7 – 8 | Sound design, one documented gap or unverifiable claim |
-| 4 – 6 | Partial coverage, or mitigations that depend on the host |
-| 0 – 3 | Property absent, or claimed with no way to check |
+Each is scored `0–10` as the sum of those fixed components — no score is an impression, and
+every device's row on the site shows the arithmetic with a source against each part. The
+composite is their unweighted mean. It stays unweighted on purpose: the right weighting
+*across* properties is your threat model, not ours — though the components *within* each
+property are weighted, because proximity to the seed is an architectural fact rather than a
+preference.
 
 Scores come from datasheets, published firmware, certification reports and disclosed attack
 work. Where a vendor claim cannot be checked, it is scored as unverified rather than taken
