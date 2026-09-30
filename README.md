@@ -55,26 +55,6 @@ attack changes what a property is worth.
 - **Public rubric.** Every score maps to a written criterion you can argue with.
 - **Sources named.** Every claim traces to a datasheet, a certification report or a disclosure.
 
-## Repository layout
-
-Plain HTML, CSS and JavaScript — no framework, no build step, no dependencies. What is in
-the repository is exactly what is served.
-
-| File | What it is |
-|---|---|
-| `index.html`, `app.js` | The comparison table. Every device, every score component and every source lives in the `WALLETS` array at the top of `app.js`; the scoring rules follow it. |
-| `methodology.html`, `methodology.js` | The rubric and the reasoning behind it. |
-| `about.html` | Why the site exists and who maintains it. |
-| `styles.css`, `nav.js` | Shared styling and navigation. |
-| `images/` | Device photos and the methodology diagrams. |
-
-To run it locally, serve the folder with any static server:
-
-```sh
-python3 -m http.server 8000
-# then open http://localhost:8000
-```
-
 ## Corrections and suggestions
 
 If a score looks wrong, a source has moved, or a device is missing, open an issue with the
